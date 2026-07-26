@@ -1,0 +1,19 @@
+{
+  "name": "hotel-ai-assistant-backend",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Node.js backend — domain, application, infrastructure, chat/admin API",
+  "scripts": {
+    "dev": "tsx watch src/interfaces/chat-api/server.ts",
+    "test": "echo \"wire up your test runner (vitest/jest)\"",
+    "check-architecture": "depcruise src --config .dependency-cruiser.cjs"
+  },
+  "devDependencies": {
+    "dependency-cruiser": "^16.4.0",
+    "tsx": "^4.16.0",
+    "typescript": "^5.5.0"
+  },
+  "dependencies": {
+    "firebase-admin": "^14.2.0"
+  }
+}
