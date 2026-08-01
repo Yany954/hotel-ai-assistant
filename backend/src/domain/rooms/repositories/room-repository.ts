@@ -26,4 +26,9 @@ export interface RoomFilterCriteria {
 
 export interface RoomRepository {
   findMatching(criteria: RoomFilterCriteria): Promise<Room[]>;
+  findAll(): Promise<Room[]>;
+  create(room: Omit<Room, "id">): Promise<Room>;
+  bulkCreate(rooms: Omit<Room, "id">[]): Promise<Room[]>;
+  update(id: string, patch: Partial<Omit<Room, "id">>): Promise<Room>;
+  delete(id: string): Promise<void>;
 }

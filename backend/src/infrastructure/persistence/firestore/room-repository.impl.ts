@@ -18,6 +18,38 @@ export class FirestoreRoomRepository implements RoomRepository {
     const allRooms = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() } as Room));
     return allRooms.filter((room) => matchesAllStatedCriteria(room, criteria));
   }
+  async findAll(): Promise<Room[]> {
+    const snapshot = await this.db.collection("rooms").get();
+    return snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() } as Room));
+  }
+
+  async create(room: Omit<Room, "id">): Promise<Room> {
+    const ref = await this.db.collection("rooms").add(room);
+    return { id: ref.id, ...room };
+  }
+
+  async bulkCreate(rooms: Omit<Room, "id">[]): Promise<Room[]> {
+    const batch = this.db.batch();
+    const refs = rooms.map((room) => {
+      const ref = this.db.collection("rooms").doc();
+      batch.set(ref, room);
+      return ref;
+    });
+    await batch.commit();
+    return refs.map((ref, i) => ({ id: ref.id, ...rooms[i] }));
+  }
+
+  async update(id: string, patch: Partial<Omit<Room, "id">>): Promise<Room> {
+    const roomRef = this.db.collection("rooms").doc(id)
+    await roomRef.update(patch)
+    const snapshot = await roomRef.get()
+    return {id: snapshot.id, ...snapshot.data()} as Room
+
+  }
+  async delete(id: string): Promise<void> {
+    const roomRef = await this.db.collection("rooms").doc(id).delete()
+    console.log("Room deleted")
+  }
 }
 
 // Pure function, independent of Firestore — this is what tests/acceptance/room-matching.spec.ts
