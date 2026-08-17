@@ -2,14 +2,48 @@
 // (src/interfaces/chat-api/), never straight from the browser to Anthropic — the API key must
 // never reach client-side code.
 
+// frontend/src/api/client.ts
+import { Room } from "../types/room";
+import {Contact} from "../types/contact";
+// frontend/src/api/client.ts — agrega
+import { EscalationProcedure } from "../types/escalation";
+
+
 const BASE_URL = import.meta.env.VITE_API_URL ?? "http://localhost:3000";
 
-export async function sendChatMessage(message: string) {
-  const res = await fetch(`${BASE_URL}/chat`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ message }),
+async function request<T>(path: string,options?:RequestInit): Promise<T> {
+  const res=await fetch (`${BASE_URL}${path}`,{
+    headers: {"Content-Type":"application/json"},
+    ...options,
   });
-  if (!res.ok) throw new Error("chat request failed");
-  return res.json();
+    if (!res.ok) throw new Error(`${options?.method ?? "GET"} ${path} failed (${res.status})`);
+    if (res.status == 204) return undefined as T;
+    return res.json()
 }
+
+export const fetchRooms = () => request<Room[]>("/admin/rooms");
+export const createRoom = (room: Omit<Room, "id">) =>
+  request<Room>("/admin/rooms", { method: "POST", body: JSON.stringify(room) });
+export const updateRoom = (id: string, patch: Partial<Omit<Room, "id">>) =>
+  request<Room>(`/admin/rooms/${id}`, { method: "PUT", body: JSON.stringify(patch) });
+export const deleteRoom = (id: string) => request<void>(`/admin/rooms/${id}`, { method: "DELETE" });
+export const importRoomsCsv = (rooms: Omit<Room, "id">[]) =>
+  request<Room[]>("/admin/rooms/import", { method: "POST", body: JSON.stringify({ rooms }) });
+
+// Contacts
+export const fetchContacts = () => request<Contact[]>("/admin/contacts");
+export const createContact = (contact: Omit<Contact, "id">) =>
+  request<Contact>("/admin/contacts", { method: "POST", body: JSON.stringify(contact) });
+export const updateContact = (id: string, patch: Partial<Omit<Contact, "id">>) =>
+  request<Contact>(`/admin/contacts/${id}`, { method: "PUT", body: JSON.stringify(patch) });
+export const deleteContact = (id: string) => request<void>(`/admin/contacts/${id}`, { method: "DELETE" });
+
+//Procedimientos
+export const fetchProcedures = () => request<EscalationProcedure[]>("/admin/procedures");
+export const createProcedure = (procedure: Omit<EscalationProcedure, "id">) =>
+  request<EscalationProcedure>("/admin/procedures", { method: "POST", body: JSON.stringify(procedure) });
+export const updateProcedure = (id: string, patch: Partial<Omit<EscalationProcedure, "id">>) =>
+  request<EscalationProcedure>(`/admin/procedures/${id}`, { method: "PUT", body: JSON.stringify(patch) });
+export const deleteProcedure = (id: string) => request<void>(`/admin/procedures/${id}`, { method: "DELETE" });
+export const askStaffQuery = (message: string) =>
+  request<any>("/chat", { method: "POST", body: JSON.stringify({ message }) });

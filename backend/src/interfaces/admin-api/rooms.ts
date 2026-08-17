@@ -27,3 +27,9 @@ roomsAdminRouter.post("/import", async (req, res) => {
 roomsAdminRouter.post("/", async (req, res) => {
   res.status(201).json(await roomRepository.create(req.body));
 });
+roomsAdminRouter.put("/:id", async (req, res) => res.json(await roomRepository.update(req.params.id, req.body)));
+
+roomsAdminRouter.delete("/:id", async (req, res) => {
+  await roomRepository.delete(req.params.id);
+  res.status(204).send();
+});

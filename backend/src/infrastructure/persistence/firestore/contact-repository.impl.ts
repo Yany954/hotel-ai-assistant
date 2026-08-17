@@ -43,4 +43,24 @@ export class FirestoreContactRepository implements ContactRepository {
     }
 
   }
+
+  async findAll(): Promise<Contact[]> {
+    const snapshot = await this.db.collection("contacts").get();
+    return snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data()} as Contact));
+  }
+
+  async create(contact: Omit<Contact, "id">): Promise<Contact> {
+    const ref = await this.db.collection("contacts").add(contact);
+    return {id: ref.id,...contact};
+  }
+
+  async update(id: string,patch: Partial<Omit<Contact, "id">>): Promise<Contact> {
+    await this.db.collection("contacts").doc(id).update(patch);
+    const doc = await this.db.collection("contacts").doc(id).get();
+    return {id: doc.id, ...doc.data()} as Contact
+  }
+
+  async delete(id: string):Promise<void>{
+    await this.db.collection("contacts").doc(id).delete();
+  }
 }

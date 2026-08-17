@@ -8,8 +8,6 @@ export interface LlmMessage {
 }
 
 export interface LlmClient {
-  // Extracts structured filter criteria from a guest description — this is the ONLY place
-  // free text touches the room-matching flow; everything downstream is deterministic.
   extractRoomCriteria(guestDescription: string): Promise<Record<string, unknown>>;
   complete(messages: LlmMessage[]): Promise<string>;
 }

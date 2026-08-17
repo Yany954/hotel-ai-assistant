@@ -1,0 +1,1 @@
+export type NavKey = "rooms" | "contacts" | "procedures" | "vectordb" | "users";

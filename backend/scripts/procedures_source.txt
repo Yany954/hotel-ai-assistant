@@ -1,0 +1,383 @@
+
+->check in of a diamond member: if the guest is a diamond member it’s allowed to grab a drink and a snack for free
+—------------------------------—-----------------------------—-----------------------------—-----------------------------
+el huesped pregunta si su mascota debe pagar pet fee -> if the pet is a service pet then no, if its not a service pet its charged $25(with taxes included = $25)
+—------------------------------—-----------------------------—-----------------------------—-----------------------------
+clc reservations -> CLC REMINDERS AND REFRESHERS
+CLC RESERVATION
+
+v ALL CLC RESERVATION ARE DR (DIRECT BILLED) AND WILL BE A SUPPRESSED RATE, DO NOT TAKE THE TAXES OFF. THE RATE CODE IS LC1X.
+
+
+v  YOU CAN ALSO RECEIVE A CALL FROM CLC, THEY ARE GOING TO TELL YOU THAT THEY WILL SEND A CREW FAX WITH ALL GUESTS THAT ARE ARRIVING AND HOW MANY DAYS ALONG WITH HOW MANY ROOMS ARE NEEDED
+
+
+
+v ALL CLC RESERVATION NEED TO BE CHECKED IN AND OUT ON THE CLC WEBSITE.
+
+
+v FOR CLC RESERVATION THAT ARE UNDER THE SAME NAME PLEASE PUT A NOTE IN THE COMMENT SECTION OF THE RESERVATION OF WHO IS ACTUALLY IN THE ROOM.  THE CLC WEB SITE WILL NOT LET YOU CHECK PEOPLE IN UNDER THE SAME NAME.
+
+
+
+v THERE ARE 2 TYPES OF CLC RESERVATION THAT WILL SHOW UP: CREWFAX, AND MEMBERSHIP CARD RESERVATION. *** THE CLC SITE WILL TELL YOU WHICH ONE THE RESERVATION IS. ***
+
+
+
+v NOTES ABOUT CREWFAX CLC:
+
+
+1.      THESE RESERVATION ARE THE ONES THAT DIRECTLY COME FROM CLC. THE GUEST WILL NOT HAVE TO INSERT A CARD FOR INCIDENTALS.
+
+
+2.      CREWFAX CLC, YOU NEED TO MAKE SURE THE ARRIVAL DATES AND OTHER INFORMATION  MATCH WHAT IS IN OUR SYSTEM AND WHAT IT SAYS IN CLC. IF THERE IS AN ISSUE, PLEASE REACH OUT TO CLC 1 -800 – 425-3562 YOU WILL NEED THE CLC HOTEL # WHICH IS 946510.
+
+
+3.      CLC WILL SEND THE CREW FAX VIA FAX BUT YOU CAN ALSO PRINT OUT THE CREWFAXES AND FILL THEM OUT, MAKE SURE TO LIST ANY ISSUES IN YOUR SHIFT RECAP AND SLIP THE CREW FAXES UNDER RANDI DOOR.
+
+
+4.      CREWFAX CLC RESERVATION DO NOT NEED A CARD ON FILE FOR INCIDENTALS.
+
+
+ 
+
+
+v NOTES ON CLC MEMBER CARD:
+
+
+1.      THESE CAN COME THROUGH CLC SITE, BUT THIS IS HOW YOU WILL CHECK IN A CLC WALK IN. MAKE SURE ALL INFORMATION MATCHES.
+
+
+2.      YOU HAVE TO GET A PHOTOCOPY OF THE GUEST ID AND CLC MEMBERSHIP CARD, THIS GOES INTO THE BUCKET WITH THE REGISTRATION CARD
+
+
+3.      YOU CAN’T CHECK A CARD RESERVATION IN ON THE CLC WEB SITE WITHOUT THIS MEMBER CARD (MAKE SURE YOU CAN SEE THE MEMBER NUMBER ON THE PHOTOCOPY).
+
+
+4.      MAKE SURE YOU HAVE: DATE OF DEPARTURE, HOW MANY NIGHTS THEY STAYED, ROOM NUMBER AND CONFIRMATION #.
+
+
+
+
+Some final notes:
+
+
+If the CLC person is a single check in not through crewfax (you must get their clc card), when typing their CLC number in the notes, please put spaces or dashes in between the numbers. Unfortunately, Synxis thinks these are CC numbers and will ****** them out and then we cannot see the CLC number. You should still be getting a copy and putting it with their reg card as well.
+—------------------------------—-----------------------------—-----------------------------—-----------------------------
+how to fix a tv thats not working -> theres different cases, if the tv says theres no signal, you should first make sure the direct tv box is plugged in the Power: Plugs into the wall to turn the box on.
+HDMI: Sends high-definition video and sound to your television.
+Satellite (SLED/SAT IN): Connects the coaxial cable from your outdoor dish antenna.
+Network/Data: Uses an ethernet cable for internet features, or left blank depending on the setup.
+if everything is plugged in, then make sure the direct tv box is on, if not then press the power button in the box, and finally make sure the tv input is  not on cable but in hdmi available may be 1 or 2 pressing the input button in the black remote for the tv. the tv should show the direct tv image. if the guest says the image from direct tv is visible BUT the  remote isnt doing anything like volume or channel you need to link the direct tv box to the remote for now there's 2 ways:
+*** PROGRAMING REMOTE TO TV***
+IF THE GUEST CLAIMS THAT THE REMOTE DOES NOT WORK FOR THE TV IN THERE ROOM THEN IT PROBALY NEEDS TO BE PROGRAM TO THE TV.
+
+
+1. HOLD DOWN THE SELECT & THE MUTE BUTTONS AT THE SAME TIME UNTIL THE LIGHT AT THE TOP FLASHES GREEN.
+
+
+2. ENTER 961 PRESS THE CHANNEL BUTTON UP.
+
+
+3. PRESS THE ENTER BUTTON. AND THEN IT'S DONE.
+IF THIS DOENST WORK, TRY pushing the red button on the DIRECT TV receiver box (it's on the side of the box) it will take you to step one, then hold the RED BUTTON on the remote for 5 seconds. This will automatically pair the remote.
+—------------------------------—-----------------------------—-----------------------------—-----------------------------
+a guest found a bb-> SO THE GUEST FOUND A BB...
+If the guest finds a bedbug in their room, there is a form that needs to be filled out and signed. This form is on the front desk computer, the main one by the market. The letter is titled BB Refund Letter and is on the desktop. Make sure to fill in guest details that are at the top AND the box inserts in the letter as well, such as res #, refund amount, etc.
+
+
+It states the following:
+
+
+"Dear [Guest Name]:
+
+
+La Quinta Inn & Suites, Rock Hill has refunded all charges for your stay, a complementary and voluntary gesture for the inconvenience of finding insects in your room.
+
+
+We pride ourselves on regular preventative measures that mitigate the introduction of insects into our hotel.  As soon as incidents are brought to our attention, timely and effective measures are taken to remedy the encroachment.
+
+
+By receiving this letter and the subsequent refund you agree that we have compensated you by refunding your room charges for your stay on [insert day, date, CONFIRMATION #].  You also agree to release any/all claims of additional compensation from La Quinta Inn & Suites, Rock Hill, its parent company, or affiliates."
+
+
+They will be refunded and need to sign this letter. Treat these situations with care and understanding, try to keep the guest calm and offer them free market items as well. We always offer to move them to another room but there are a lot of instances where they will go somewhere else entirely, and that is okay too. Once you have the signed letter, please leave it on my desk and always put what happened in your recap. 
+
+
+Put the room OOO and let Abraham and Luna know as well.
+—------------------------------—-----------------------------—-----------------------------—-----------------------------
+late check out (late ℅) -> in this hotel is not allowed to grant 12 or any late c/o on a sunday due to this day we have too many rooms checking out, we dont do any service day either, unless is an extreme case do not grant any late check out. in canary is offered a free 1pm ℅ to wyndham members you hold always make sure the c/o date is not sunday to aprove it. if you approved a late c/o on canary you should put a note in your shift recap. If a guest is asking for a late ℅ try not to offer 1pm ℅, instead offer 12pm late ℅ and add it to your shift recap, if they need more time try to add 30 minutes so 12:30pm if tey are been really pushy suggest a 1pm late ℅ but charging 50 dollars for that
+—------------------------------—-----------------------------—-----------------------------—-----------------------------
+how to use square->
+SQUARE:
+1. EVERYONE SHOULD HAVE THEIR OWN LOG IN.
+
+
+2. ONCE YOU ARE LOGGED IN, THE DASHBOARD WILL APPEAR
+
+
+3. AT THE BOTTOM LEFT CORNER CLICK TAKE PAYMENT, CHARGE CARD.
+
+
+4. THIS WILL TAKE YOU TO WHERE YOU WILL ENTER WHAT YOU ARE SELLING AND TAKE PAYMENT.
+ 
+5. AT THE TOP CLICK ON ITEMIZED SALE DO NOT CLICK QUICK CHARGE.
+
+
+6. CLICK ON THE + IN THE BOX THAT SAYS ADD AN ITEM OR AMOUNT. THIS WILL BRING UP DIFFERENT TYPES OF BEER / WINE. CLICK ON THE ONE THAT YOU ARE SELLING, OR IF YOU ARE IN A HURRY CLICK ON THE OPTION UNSPECIFIED.
+
+
+7. FROM THERE YOU CAN PUT IN THE QTY, ADD DISCOUNT FOR HAPPY HOUR, AND IF THEY WANT TO ADD A TIP. SCROLL DOWN  ENTER TYPE OF PAYMENT. AT THE TOP RIGHT CORNER OF THE SCREEN YOU CLICK WHERE IT SAYS CHARGE.  *** TIPS FROM CREDIT CARD TRANSACTION WILL GO ON YOUR PAY CHECK. ***
+
+
+Second shift should bring the tablet and the tab device from randis office and turn it on and log in at 5pm when the bar is supposed to open. at 10pm when the bar closes it should logg out, turn off and left charging in randis office, also it should log in the computer to square and go to reports> reports summary in the dashboard view and download a pdf of the dates report. It should also print this report and add it to the envelope song with the cash taken from the bar and the gift shop money, it should go on synxis syste and go to house accounts, to add in square section and add the category restaurant with the cash total adding the taxes and leaving a noter of the cash taken in the description and post it. also with the credit card total taken add the restaurant category adds the total taken and leave sthe taxe box selected by default as well as add description of amount and specifiyng hi is cc money taken, and charges it as check (thhis was asked by the owner of the hotel so they can keep track) and post the pyment. finally in the shift recap it should add the cash taken in the bar, the cash taken in the gift shop separately and the total of cash thats going to be in the envelope with the report.
+—------------------------------—-----------------------------—-----------------------------—-----------------------------
+do we have laundry?
+yes, we have 2 washing machines and 2 dryers in the second floor near the elevator, they need quarters to run and we have quarters, if we dont have carters theres atms ear the hotel or even food lion  supermarket can give them change.
+—------------------------------—-----------------------------—-----------------------------—-----------------------------
+desk duties (first second third shift)
+All shifts should, count the cash drawer at the beginning and end of their shift  and add the total that they counted in their shift recap. We also have to make sure there’s coffee in the lobby 24/7. All shapes should provide towels or even chair for disabled people or even rollaway beds. They all should have the keys from the kitchen and the cash drawer. Every shift has to login to Kipsu or Lodgistics (is the same thing) to Wyndham website and SynXis and log out of all the tree when finishing their shift
+First Shift ->do this consist on making sure every departure in the SYNXIS  system it’s been checked out by 11. It should know also which late checkout you have on that day. it will call the declining cars left in the night shift recap that were unsuccessfully authorized. It should make sure arriving reservations are pre authorized and if they are suppressed reservation, they all have been charged the vcc. If that day there is too many reservations more than 25. It should make sure everything is ready by 4 PM so the second shift is able to check in that amount of people without having to do things that could’ve been done in first shift such as online check-in have been processed meaning put in house printed registration card and keys made. If there is a group pays all reservations, all rooms could be assigned in already keys made for that specific group
+If a guest reports a maintenance problem, they should make sure if they maintenance guy is there they get it fixed
+They also should notify if there is a over sale the room (-1) or a sold out night in the availability chart on the SYNXIS  system
+They also need to mark the dirty rooms in  SYNXIS system  as clean as soon as the housekeeper manager updates the room has been clean in the kipsu webpage, so those bacon, clean rooms can be assigned to the arrivals
+At the end of their shift, they should post in Kipsu their shift up
+
+
+
+
+Second shift duties -> are mostly making sure they check in people correctly
+They are responsible to open and close the bar, as well as serve it, and nobody can go behind the dispenser of the beer. They are not allowed to take any beer or wine directly from the refrigerators. Second shift. Person is responsible to serve them the beer or wine.
+If guests have any issue with the TV, second shift should fix it or else create a maintenance sticker if they can’t. please also put it in the shift recap.same thing with any other issue doable during second shift like fixing AC or changing door battery. the second shift is also responsible for the square new app and tablet, and also send email with the sales summary report today. A list of emails saved on Gmail keep notes.
+Second shift should also make sure they cancel declining cards after 6 PM and should make sure all reservations have a payment method guaranteed for third shift
+
+
+Third shift duties-> third shift duties are basically generating the reports, sending the  text messages with information about hotel revenues and performance  as well as creating the housekeeping boards in kipsu platform.
+
+
+They should wait until 3 AM to close the systems date. We still check in guests arriving until 3 AM. In SynXis Before closing the day they need to make sure there is no declining cards on the arrivals if there is one, it should be canceled and waive the fee. If we are not sold out night weekend cancel in charge the cancellation fee to the direct bill or normal reservations which parts or forms or pavement are able to charge something
+If we are in a sold out night meaning there’s three or less rooms available then we should put them in house and leave a note saying that they are not actually in house but we’re putting in house for the sold out
+
+
+You can also click advanced search arrivals in pre-arrivals for tomorrow. Enter every suppressed reservation you see and take out the tax and fee. You don’t need to charge. It will charge automatically when the day is closing.
+You can also go to reports tab  SynXis property hub and choose the corrections and adjustments option make sure that the date range says today and generator report you can copy the account name account ID, which is the reservation number and the description of the adjustment or correction if there’s any
+So you can know which adjustments you’re gonna have to add later on
+
+
+After we make sure everything looks fine then we close the day in the navigation bar accounting tab we select night audit and click” close the day” black button
+After about five minutes we should click the check payment processor batch total-> printer icon, print it and download it as “BATCH month-say-year” and copy the total amount of payment processor and hotel
+And we pay both in our Night Shift recap in our text messages report
+After this, the steps doesn’t matter as long as you do them all
+You can start if you want to by generating the reports going to the reports tab still on SynXis and generate all reports should say yesterday in the date we generate the report for cashier closing, hotel ledger, hotel ledger compare, revenue recap in this one would generate all five types of revenue meaning rate plan, room type, Market segment, room, and source. After this, we generate tax exempt  report as well as transaction total details, transaction  total summary, forecast we selecting date range date to month end. After that, we generate out out of order/out of inventory report, making sure the date range says yesterday, and then statistics, when you generate statistics, you’re gonna copy the rims occupied of the day current year, and the ADR with comps price in the same column and you’re gonna paste it in the first line of the text message report replacing the number of rooms and the price. Finally, you can download the receivable payment and charges PDF. All reports should be saved as PDF. After this, you go to the Gmail la Quinta  tab select on the right side bar the lightbulb icon and copy the emails you need to send for audit to the recipient of a new email as subject you’re gonna add night audit and the date you’re doing the reports for example if today is August 6 2026 and you’re doing the report of yesterday you’re gonna put August 5, 2026
+And then you attached all 16 make sure it’s 16 PDFs we just download it from the reports as well as the BATCH  PDF
+
+
+OK now we are going to make sure all the departing reservations have a pending balance of zero by clicking the arrow on the right next to the check-in button of each reservation and make sure the balance two is zero if not, make the adjustments necessary like charging balances or refunding over charges make sure you don’t refund a virtual credit card
+After you finish, checking all balances, there are zero you can select the departing tab to only show the departing reservations and click the room column so so it gets organized by room And print it
+Then go back to the guest board and Filter again in an ascending way the column room and then the check-in date so if today was the sixth 2026, the reservations check in three days before meaning August 3, 2026 are the ones who have to have a room service unless the day that I’m making, the report is Sunday, we never do room service on Sunday. And your print guest list until check-in date is the last reservation that shows August 3th checking date and you print it as well
+Now you go to kipsu website login on the left menu click manage housekeeper and select the space coast rooms and assigned them to the out of order column , then select all the rooms checking out that day from the first list you printed and assigned to the due out column, you may also select all vacant dirty rooms we may have assigned them to the vacant dirty column, then for the third day service you assigned the rooms to the occupied dirty column the rest of rooms that are not a third day Service are not vacant dirty, or not checking out that day you should assign them to no service column
+
+
+You should click the blue button that says  finish assignment in the right up corner and then click again so you’re in the third step there, you select the housekeeper names and assigned equal rooms
+Now in the text message report and night audit report, you should change the total of rooms to clean, which is basically the sum of all rooms. All housekeepers have to do no matter if their checkout or service. And also assigne the amount of rooms you set up in kipsu  website.
+
+
+You may finish now the text message report by completing the amount of rooms out of order we had that night, the amount of no-shows with their respective reservation confirmation number and name
+
+
+You can modify the amount of departures, stay overs and bacon, dirty rooms according to the kept website and making sure it goes accordingly to the SynXis system
+
+
+Make sure to update the names of people who gonna work in the ships on the day
+
+
+Words says today we have ## room sold. It’s the sum of the amount of arrivals and stay overs they are displayed in the reservations chart in the dashboard 
+The projected ADR with under the projections charts in the dashboard as ADR
+Where it says the bar is ### nk2 
+You should update by clicking the expand icon in availability chart in the dashboard and type the same rate you see for today, August 6 in this case under the same room type
+
+
+After that, you can go to regular booking website and update the rates you see of the mentioned hotels
+
+
+For the NPS total you need to go to Wyndham website and go to Medallia that’s going to redirect you to one another tap and then you choose the satisfaction tab you navigate into the month year in August 2026 you see how many reviews do we have the color red and the NPS score and you replace it in that line
+
+
+YOU DO ALMOST THE SAME THINGS IN THE NIGHT AUDIT, BUT IN THE NIGHT AUDIT, YOU SHOULD ADD THE CREDIT CARD OF DECLINING OF THE ARRIVALS
+You do this by going to the arrivals tab in the guest board in SynXis and  select only the reservations that have a valid credit card do not authorize if it’s  suppressed rate or direct bill like free night or LCX1 (clc reservation) or cash reservation 
+Wait until it finishes then click actions in the right up actions history and if it says completed with errors, you click expand and then view reservations that failed to approve And at the confirmation number first and last name to the night report
+
+
+Also at this day over and full services that are scheduled and already assigned and kipsu
+Don’t forget to count the drawer and update the amount
+
+
+No, we’re gonna finish by going to the hello GM login page, go to the side bar on the right that says hotel and you can notice green yellow blue and red type of corrections an adjustments the Green are done by low rates usually LKMR ( manager special) , free night, CLC reservations and so on
+You can respond, adding a comment with the rate plan applied to the reservation number in the correction 
+ for example it says card refund you should compare to the confirmation number You have already from the correction and adjustment report and see if you already know the reason if not, you should go to SynXis and check out why was that refund made
+And you do that for all the corrections
+After you finish, you need to copy the line that says card refund … conf number…. Until the user you don’t has the user into the text message or Night Shift recap.
+After these, you need to go to the kitchen and make fresh coffee for people that wakes up early and like drinking coffee
+You can also make sure all the data is correct in both text message and night audit report you wait until 7 AM or 8 PM in the text message report to the list of emails in the lighting bulb (keep notes) of the Gmail  tab
+
+
+—------------------------------—-----------------------------—-----------------------------—-----------------------------
+rates and categories for VIP guests
+KELLY VESTON, RATE:$85,  RATE PLAN:LBCR , PAYMENT METHOD: THEY USUALLY SPLIT THE PAYMENT AND HAVE THE NDD29
+
+
+NEDZA GLEN, RATE:$85,  RATE PLAN:LBCR , PAYMENT METHOD: USUALLY CHARGES VISA
+
+
+NANCY CHEEK, RATE:$95,  RATE PLAN:LKMR, PAYMENT METHOD: USUALLY A VISA
+
+
+SUSAN GURA, RATE $68, RATE PLAN:LKMR, PAYMENT METHOD: DIRECT BILL(*LEE CONSTRUCTION)
+
+
+DON (MATTOX, CHRIS), RATE: $75, RATE PLAN:LKMR, PAYMENT METHOD: MASTER CARD (CANARY AUTHORIZED UNDER GARRETT RITCHIE)
+
+
+MARCO TORRES, Loyalty No.510457343A, RATE: $75, RATE PLAN:LBCR, PAYMENT METHOD: VISA
+
+
+ENERGY COMPANY, RATE: $95, RATE PLAN: LKMR.
+
+
+SAVE PASSAGES, RATE:$92, RATE PLAN: LKMR, PAYMENT METHOD: DIRECT BILL (*SAFE PASSAGES), WE DONT ASK FOR THEIR ID
+
+
+CAROLE, COLEMAN, RATE: $75, RATE PLAN: LKMR, PAYMENT METHOD: CASH
+FLOYD, SHARON, RATE: $75, RATE PLAN: LKMR, PAYMENT METHOD: CASH or CARD, she likes 4th floor. her wyndham membership # is 135982093F
+
+
+
+
+—------------------------------—-----------------------------—-----------------------------—-----------------------------
+a guest can pay with cash? I guess can never pay with cash a room reservation. Unless a Manager approves. If the guest look odd, just say we’re not allowed. 
+—------------------------------—-----------------------------—-----------------------------—-----------------------------
+a guest want a refund or discount? We front desk agents are not allowed to assure a guest a refund discount or points, we should ask the manager and leave notes of the situation in our shift recap. unless the guest check in and they dont like the room and the room is still clean we can refund the stay  and sell the room later. always document everything
+—------------------------------—-----------------------------—-----------------------------—---------------------------
+If you charge a suppressed reservation virtual credit card on the primary folio you can leave it as it is never I repeat never refund a virtual credit card VCC
+ON THE NEXT DAY OR WHENEVER THAT RESERVATION CHECKS OUT, YOU CAN FIX IT BY SELECTING ONLY THE ROOM CHARGES ON THE GUEST FOLIO IN SYNXIS AND CLICK THE MOVE BLACK BUTTON
+SO BOTH CHARGES AND PAVEMENT ARE IN THE SAME FOLIO AND THERE’S NO BALANCE DUE
+—------------------------------—-----------------------------—-----------------------------—-----------------------------
+a guest needs maintenance?
+If it’s something, we can fix like changing the door key reader magnet We can change it without having to create a maintenance ticket.
+If they say, either TV is and working, we must go with them and try to fix it first. If after multiple intense, we’re still not able to. Then we should create a ticket for maintenance to check it out specify in the room, the item, the next, fixing, and the description of the damage.
+If they say the AC or PTAC isn’t working we must reset it. If after resetting it and waiting 30 minutes. It’s still not working. We should create a maintenance ticket,
+If they say a lamp light isn’t working, we can change it
+Eva bathroom is closed. The bathroom mirrors aren’t working in. The ceiling is leaking. The bed is broken or the doors, broken or the deadbolt is working or such difficult things to repair. Then we don’t have to try and fix it but let them know we’re gonna create a maintenance tickets so our maintenance guy will fix it.
+You must create a maintenance sticker through kipsu website
+—------------------------------—-----------------------------—-----------------------------—-----------------------------
+a guest is been too offensive invasive or physic with you? Document everything in shift recap, if needed called police it could be 911 or the local police number
+—------------------------------—-----------------------------—-----------------------------—-----------------------------
+How to fix a PTAC-> to reset a AC. You need to remove the AC Shell and Move the black switch from on  to off. Then press hot (red cutton) and cool (blue button) at the same time, and while still pressing both buttons switch from off to on until a red light in the OFF black button LIGHTS UP and then select cold  or heat button as needed And finally press constant fan to make sure the air coming out is as desired. If this doesn’t work, try first find the plugged in grey cable and see if there’s a Green Light in it and try to turn it off and back on with the really hard to push buttons on the side of the plug. Then try the steps mentioned before. Don’t forget to put it in your shift recap
+—------------------------------—-----------------------------—-----------------------------—-----------------------------
+An elevator is not working properly? -> before calling TK (the company who fixes our elevators) you should reset the elevator First making sure there’s nobody in the elevator when resetting then go into the room near 101 in the first floor and switch in the elevator number, desired one or two or both From onto off and then wait. About 30 minutes. 
+If this doesn’t work, notify your Manager 
+If your Manager allows you to call, TK then call them Call. TK +1 (704) 680-8833
+You should never call TK during the Weekends or After 5 P.M Without asking Manager permission.
+—------------------------------—-----------------------------—-----------------------------—-----------------------------
+I guest is asking you to create a reservation with their Wyndham Reward points.->
+Our system does not allow us to create a reservation with Wyndham reward points, since it’s their member. If she, they are the only ones with the authority to create a reservation in their name using points. So they should be the ones who could call Wyndham rewards Support Number they will ask them some questions to make sure it’s them and according to the amount of points, they will give them discount nights or even free nights. After day create the reservation through that number we can check them in in the property.
+—------------------------------—-----------------------------—-----------------------------—-----------------------------
+Do we have rollaway beds? There all the way that are usually in the second or fourth floor. We have two in total.You should add a note in your shift recap  of the guest room number. Notify that they have one of those roll away beds. You should also provide a pull out. Couch set.
+—------------------------------—-----------------------------—-----------------------------—-----------------------------
+Pullout couch set-> if a guest ask for a pillow or something for the pullout couch they are referring to the pullout couch set and it’s basically you need to go to the laundry room downstairs in the back of the Front Desk area and get one pillow, one brown blanket, and one roll of the sheets located in the Shelf where the bedspreads are rolled up
+—------------------------------—-----------------------------—-----------------------------—-----------------------------
+Chairs for showers-> They are usually in the back of the Front Desk near the laundry room. They are white and really short. We have two You should add a note in your shift recap  of the guest room number. Notify that they have one of those chairs.
+—------------------------------—-----------------------------—-----------------------------—-----------------------------
+
+
+Somebody ask for meeting rooms availability-> you should check the email in the sidebar calender google and open in view tab o just navigate to calendar in the navigator, and check if we have any availability for the dates they need. 
+You should always notity Malinda our sells manager throught the email template “NEW SALES LEAD SHEET” and ask for mainly the phone number, email, dates needed, if they need several rooms as well…. and also give the guest malindas phone number (803 817 7500) so they cn contact her too, if they want to check out the room they may, if they ask how many people it fits is 50 people. 
+
+
+—------------------------------—-----------------------------—-----------------------------—-----------------------------
+Third day service-> the third day service is service done by housekeepers in the Morning whatever Day Can do it so For Get Save, The Day, All That we can’t, Never, Garraty  That
+Normal  service consist on changing old towels, taking out the trash, making the bed and cleaning really well the bathroom
+Housekeepers Can Make, full Service when is requested by the guest or when the guest has been in the same room for a long time and the bed is looking really bad, they basically do everything from a normal service plus they change the bedding clothes
+
+
+
+
+—------------------------------—-----------------------------—-----------------------------—-----------------------------
+Suppress reservations-> We have an account as administrators for booking and Expedia. The way to login is not the same as going to booking an Expedia to reserve a room. They are saved, in favorite websites we can search for a specific reservation. In case there’s an issue with third-party reservations.
+I suppress reservation. It’s indicated in the SynXis system I suppressed and you must take off the taxes so you can charge the virtual card provided by The Party, After Taking of The taxes, you can charge the virtual card click in the button in the folio section that’s charge virtual court. If the virtual card is not able to be charged, you need to make sure you takeoff all the taxes. If all taxes were taken correctly and it’s still didn’t go through. You must report the virtual card as invalid in Booking or Expedia, depending on the reservation or even calling booking or Expedia numbers for declining cards so they can provide you a new virtual card to charge
+If I guest with the virtual card RESERVATION that HASNT BEEN able to charge THE GUEST are not allowed to check in until you charge that virtual card because the hotel needs to get the payment of that room and the guest already paid for it to the third Party. So the third Party needs to provide a new one.
+IT’S IMPORTANT TO MENTION YOU DO NOT CHARGE THE CAR ON A PRIMARY FOLIO
+The Front Desk MUST ask for a credit or debit card as incidentals due to the virtual card provided by the third Party only contains the amount of Money de Arenas For Reservation. If something happened to the room, we wouldn’t be able to charge anything from the virtual card. So we must add a credit or debit card in case something happens to the room
+When a reservation is done through the third party their usually unable to modify checking, or check out dates, as well as the rate so, I guess ask you to add a date because they want to check in earlier what you can offer them a whole new reservation so they can check in earlier. Or they can call their third Party to modify de Desire Checking or check out date. 
+
+
+—------------------------------—-----------------------------—-----------------------------—-----------------------------
+Smoking detectors-> as explain before no one can smoke inside the building We have a smoke in detectors in each room. There’s also a clean air website that notify as if any smoke detector gets activated but there’s two type of notifications. There’s one. That is sure there’s a smoke in the room and there’s another one. That only found a few signs of a smoke. So it’s not sure. What  we have to do is go as soon as possible to the room. Check the room. If it smells like cigarettes. If it does, we must charge $250 to the room for the cleaning smoke other procedure. If it doesn’t smell like it, it’s fine. We should always put it in our shift recap. And don’t forget to update the Clean Air website with What, we found.
+If we get a notification that says there is smoke in the room and it’s sure then we must charge $250 immediately
+
+
+—------------------------------—-----------------------------—-----------------------------—-----------------------------
+Incidentals-> most of the time we must ask guests to insert into the device debit or credit card for incidentals In case something happens to the room. They are not allowed to check in the room. If they don’t have an incidental card on file. 
+—------------------------------—-----------------------------—-----------------------------—-----------------------------
+Preauthorization-> It’s a process done by the Night Shift where it pre authorizes, the First Night To Only The reservations That Are Not suppressed or Not Directed, Bill or Not Cash assuring the guest has enough money to pay for the first night. This is really important for sold out nights, but we still do it to make sure we’re gonna get our payment when the guest check in.
+It will appear as a charged made for the first night, some guess Often come confused it as we already charged for the first Night but it’s only and authorization. Meaning it’s gonna come back to their account depending on their bank. And if it’s a credit card, it’s usually faster than debit card. And also meaning that we are still gonna charge the whole amount of the reservation. Total. Not the remaining total because it wasn’t an actual charge. It’s a procedure. We’ve been doing since the hotel is Open. And most hotels do this procedure.
+—------------------------------—-----------------------------—-----------------------------—-----------------------------
+Third party reservations-> a third-party reservation can be suppressed (That’s an option. Third-party gives to the guest, who wanted to save  some taxes by paying instantly.) or or maybe the guest prefers to pay when they are checking in. Then you will have to follow the procedure of checking in a guest.
+—------------------------------—-----------------------------—-----------------------------—-----------------------------
+How to check in the guest-> first deal. You must ask for the ID or drivers license and to the guest information. Their Phone Number address and  email. After that, you may select the room number if it hasn’t been assigned yet (people with pets or elderly people likes being in the first floor.) if available assigned first floor to them. Go to Guest folio and charge the credit/debit card on file Well asking them if they want you to charge that card. After that’s been paid. Click checking button and select Always Credit no matter if the guest card is debit and select visa or MasterCard, depending on the guest type of card After. It’s been processed. It will show print button You should press it and print the registration card. If they have a pet made them signed pet paperwork along with the registration card. We need the guest to put on the making model of their vehicle. The license plate is not required and then their initial in the part where it says the hotel smoke free and they will be charge the smoke inside and then they need to check gas or no, whether they have a pet and sign in the signature field.
+After that You should let them know. Breakfast is from 6-9am during the week. But they’re in the weekends is from 7 to 10 A.M. Check out times at 11am. The bar opens from 5 to 10 P.M. If it’s summer, then, our pool is open from 9am to 9pm. We don’t have a Wi-Fi Password. They should just join to La Quinta in the Wi-Fi settings. If there are stay is gonna be more than two days we should let them know. We don’t do Service every day. We do it every three days. Not counting the checking day. And they can have as many towels as they want. If they come to the Front Desk ask as well as trash packs and that they should leave their dirty towels in the hallways so the housekeepers can take them in the morning as well as their trash.
+—------------------------------—-----------------------------—-----------------------------—-----------------------------
+
+
+If the refrigerator isn’t working-> We can always try to reset it by unplugged it and plugged back in and make sure the red button inside the refrigerator or even outside. The refrigerator with the refrigerator is not completely on the maximum, but a little bit less the slither do it to manage how cold you wanted to be. I don’t know how you called that.
+
+
+—------------------------------—-----------------------------—-----------------------------—-----------------------------
+Connect to the Wi-Fi-> They should connect to La Quinta in the Wi-Fi settings after a few seconds, it will redirect them to our website and they are gonna see a blue button that says connect they should press it t. They’re gonna be connected.
+
+
+—------------------------------—-----------------------------—-----------------------------—-----------------------------
+If we’re having Wi-Fi issues-> We can call take guru phone number so they can reset. Or maybe let us know if we have any issue and they can fix it.
+—------------------------------—-----------------------------—-----------------------------—-----------------------------
+If Safelock program Froze or isn’t working-> you must close it if you can, and then go to the computer from the back, the main computer and Restart that application that’s in the desktop The name is CRS Safe Lock I will take some Minutes but it will be back on and you must insert the e Password. Then open the app in the Front Desk computer and it should be working fine.
+
+
+
+
+—------------------------------—-----------------------------—-----------------------------—-----------------------------
+
+
+Hotel Engine reservations-> This type of reservation are third-party and they’re usually suppressed in this reservations. You should not ask for a credit or debit card for incidentals due to hotel Engine provides one for them and they fax it to us and Even email it  to us.
+—------------------------------—-----------------------------—-----------------------------—-----------------------------
+Stay overs -> if I guess with a reservation, wants to stay one more night in the same room if the reservation was done through us and it’s able to modified the checkout date First make sure you’re not gonna create oversell  and their type to extend If there’s no issue with that, then you can extend one more night or the nights de One, but always making sure you’re not gonna create an oversell you can check that in the availability chart in SynXis. The best thing to do would be charge immediately the extra night and made the field the paperwork. So we have proof they wanted to extend one more night and also extend their keys for that extra Night. If the reservation is not able to edit the checkout date, you can create a new reservation. Checking in the same day. The reservation is supposed to check out. Made them signed. The paperwork. Extender keys charged for the extra night. Some guest would prefer to create a new reservations with party. Cause it’s usually cheaper. But the ideas, the same New. Check in that new reservation and choose the same room. They’re in. Don’t forget to put it in your shift recap
+—------------------------------—-----------------------------—-----------------------------—-----------------------------
+Cancel reservations-> when counseling a reservation. You should leave a note in your shift cup and the reservation. Internal comments. As well as wave the fee. If the reservation was canceled before 4 P.M. of the checking date. 
+—------------------------------—-----------------------------—-----------------------------—-----------------------------
+Space Coast rooms-> space coast rooms are usually out of order and they are put in house on sold out nights. To create a reservation with them. The rate per night should be $100 and it should be under LKMR rate. When checking them out, you must refund room charges so the balance pending is zero. Check them out and put them back as out of order.
+—------------------------------—-----------------------------—-----------------------------—-----------------------------
+Sold out nights-> on Sold Out Nights at 10 or 11 P.M. All arrivals should’ve been charged at least the first night. All the suppress cards should have been charged. The Space coast rooms need to be putting house when seen rooms. Availability is three or less
+—------------------------------—-----------------------------—-----------------------------—-----------------------------
+Free night reservation-> Free, Night reservation It’s done through Wyndham. You do as usual for a checking reservation, and even though this reservation is paid through Windham. You still need to add a credit card as incidental.
+—------------------------------—-----------------------------—-----------------------------—-----------------------------
+Comp Room or complementary room-> This reservations are under Cash. And the reservation total is zero. You don’t ask for credit or debit card incidentals. 
+
+
+—------------------------------—-----------------------------—-----------------------------—-----------------------------
+
+
+If the Front Desk agent needs to leave the Front Desk area-> when a friend is needs to leave the Front Desk area it needs to put the sign that says we are going to go back in a moment in the Front Desk table, visible for the guests. It also should make sure they have the cash in the kitchen keys in the same luck with damn, and that the cash drawer is closed. They they must close the door between the Front Desk and the employees only back Access and they must take the Remote phone with them in case somebody calls when they’re not in the desk.
+
+
+—------------------------------—-----------------------------—-----------------------------—-----------------------------
+
+
+If a guest is trapped and the Elevator-> if they call you from the inside of the elevator, if it’s 9am to 5pm available working hours the guest can press the alarm or an emergency button and so there’s people who are gonna be talking to them while the TK team is with them 
+If it’s overtime or extra hours never called TK instead call the fireman, they’re usually faster to respond too 
+Remember to never call TK unless Manager approves
+—------------------------------—-----------------------------—-----------------------------—-----------------------------
+If theres fire or fire alarms ringing->  if people ask you if they should evacuate, say always yes, because it might be an actual fire. When the fireman come in the hotel, you should handle them as soon as you see them, your master key, and the key chain with access to the control room. Wait until they tell you what’s going on.
+If you actually need to evacuate you should be the last one out, bring the remote phone and the registration card bucket with you 
+Register everything in your Night Shift recap
+Wait until the fire department says you can enter to the hotel
+—------------------------------—-----------------------------—-----------------------------—-----------------------------
+this are situations one everyday basis dont forget to document everything out of the ordinary or things concerning your colleagues so we have a continue communication and context over the shifts to help our guests

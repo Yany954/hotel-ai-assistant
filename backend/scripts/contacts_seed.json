@@ -1,0 +1,131 @@
+[
+  {
+    "organizationName": "Tech Guru",
+    "category": "tech_support",
+    "phoneLines": [
+      { "purpose": "wifi_internet", "phoneNumber": "(888) 247-5749" }
+    ]
+  },
+  {
+    "organizationName": "Expedia",
+    "category": "third_party_platform",
+    "phoneLines": [
+      { "purpose": "declined_card", "phoneNumber": "1-888-397-1786" }
+    ]
+  },
+  {
+    "organizationName": "Booking.com",
+    "category": "third_party_platform",
+    "phoneLines": [
+      { "purpose": "main", "phoneNumber": "202-448-4801" }
+    ]
+  },
+  {
+    "organizationName": "Wyndham Rewards",
+    "category": "third_party_platform",
+    "phoneLines": [
+      { "purpose": "rewards", "phoneNumber": "1-800-407-9832" }
+    ]
+  },
+  {
+    "organizationName": "CLC",
+    "category": "property_management_company",
+    "phoneLines": [
+      { "purpose": "accounting_quick_pay", "phoneNumber": "844-271-5653" },
+      { "purpose": "checkinn_certified_option_1", "phoneNumber": "888-798-9383" },
+      { "purpose": "contracts", "phoneNumber": "888-798-9383" },
+      { "purpose": "ecommerce", "phoneNumber": "800-425-3562" },
+      { "purpose": "main", "phoneNumber": "316-636-5055" },
+      { "purpose": "fax", "phoneNumber": "316-636-9258" },
+      { "purpose": "after_hours", "phoneNumber": "800-294-7682" }
+    ]
+  },
+  {
+    "organizationName": "Hotel Engine",
+    "category": "reservation_platform",
+    "accountNumber": "3645802",
+    "phoneLines": [
+      { "purpose": "main", "phoneNumber": "1-855-567-4683" }
+    ]
+  },
+  {
+    "organizationName": "Sales",
+    "category": "internal_staff",
+    "phoneLines": [
+      { "purpose": "sales", "phoneNumber": "678-215-8007", "contactPersonName": "Malinda Foster" }
+    ]
+  },
+  {
+    "organizationName": "Hampton Inn",
+    "category": "sister_hotel",
+    "phoneLines": [
+      { "purpose": "main", "phoneNumber": "803-325-1100" }
+    ]
+  },
+  {
+    "organizationName": "Red Roof Inn",
+    "category": "sister_hotel",
+    "phoneLines": [
+      { "purpose": "main", "phoneNumber": "803-329-3150" }
+    ]
+  },
+  {
+    "organizationName": "TRU (Fort Mill)",
+    "category": "sister_hotel",
+    "phoneLines": [
+      { "purpose": "main", "phoneNumber": "803-228-9175" }
+    ]
+  },
+  {
+    "organizationName": "Coke",
+    "category": "vendor_supply",
+    "accountNumber": "1489",
+    "phoneLines": [
+      { "purpose": "main", "phoneNumber": "803-328-2406" }
+    ]
+  },
+  {
+    "organizationName": "Southern Glazer's",
+    "category": "vendor_supply",
+    "phoneLines": [
+      { "purpose": "main", "phoneNumber": "502-297-6016", "contactPersonName": "Cassandra" }
+    ]
+  },
+  {
+    "organizationName": "Golden Malted",
+    "category": "vendor_supply",
+    "accountNumber": "LAQ1235BG26",
+    "phoneLines": [
+      { "purpose": "main", "phoneNumber": "888-596-4040" }
+    ]
+  },
+  {
+    "organizationName": "B&B (Beer)",
+    "category": "vendor_supply",
+    "phoneLines": [
+      { "purpose": "main", "phoneNumber": "803-242-3438", "contactPersonName": "Andrew (cell)" }
+    ]
+  },
+  {
+    "organizationName": "Juice Machine Service",
+    "category": "vendor_supply",
+    "phoneLines": [
+      { "purpose": "main", "phoneNumber": "888-522-7664" }
+    ]
+  },
+  {
+    "organizationName": "Safe Passages",
+    "category": "safety_security",
+    "phoneLines": [
+      { "purpose": "main", "phoneNumber": "803-329-2800" }
+    ]
+  },
+  {
+    "organizationName": "Intech",
+    "category": "phone_system_vendor",
+    "phoneLines": [
+      { "purpose": "main", "phoneNumber": "803-736-9007" },
+      { "purpose": "operations_manager", "phoneNumber": "843-889-7328", "contactPersonName": "Mary" }
+    ]
+  }
+]
