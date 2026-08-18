@@ -7,8 +7,7 @@ function Sidebar({ active, onNavigate }: { active: NavKey; onNavigate: (k: NavKe
     { key: "rooms", label: "Habitaciones", icon: BedDouble, enabled: true },
     { key: "contacts", label: "Contactos", icon: Phone, enabled: true },
     { key: "procedures", label: "Procedimientos", icon: ClipboardList, enabled: true },
-    { key: "vectordb", label: "Base vectorial", icon: Database, enabled: false },
-    { key: "users", label: "Usuarios y permisos", icon: Users, enabled: false },
+    { key: "users", label: "Usuarios y permisos", icon: Users, enabled: true },
   ];
   return (
     <aside className="w-64 shrink-0 bg-white border-r border-slate-200 flex flex-col h-full">

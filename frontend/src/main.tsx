@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom/client'
 import { BrowserRouter, Routes, Route, Navigate, Link, useLocation } from "react-router-dom"
 import { AdminPage } from "./pages/AdminPage"
 import { ChatPage } from "./pages/ChatPage"
+import { RequireAuth } from './components/Login/RequireAuth'
+import { LoginPage } from './pages/LoginPage'
 
 function TopNav() {
   const location = useLocation();
@@ -12,6 +14,7 @@ function TopNav() {
     <div className="flex gap-2 p-3 bg-white border-b border-slate-200">
       <Link to="/admin" className={linkCls("/admin")}>Admin</Link>
       <Link to="/chatpage" className={linkCls("/chatpage")}>Chat</Link>
+     
     </div>
   );
 }
@@ -22,9 +25,10 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
       <TopNav />
       <div className="p-4">
         <Routes>
-          <Route path="/" element={<Navigate to="/admin" replace />} />
-          <Route path="/admin" element={<AdminPage />} />
-          <Route path="/chatpage" element={<ChatPage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/" element={<Navigate to="/chatpage" replace />} />
+          <Route path="/admin" element={<RequireAuth role="admin"><AdminPage /></RequireAuth>} />
+          <Route path="/chatpage" element={<RequireAuth><ChatPage /></RequireAuth>} />
         </Routes>
       </div>
     </BrowserRouter>

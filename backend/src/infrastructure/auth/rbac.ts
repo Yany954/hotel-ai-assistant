@@ -1,16 +1,31 @@
 // No self-registration anywhere in the system. Accounts are created only through the admin API
 // (see interfaces/admin-panel) using the Firebase Admin SDK, which also sets a custom claim for
 // role. This middleware just reads and enforces that claim on every request.
+// backend/src/infrastructure/auth/rbac.ts
+import { Request, Response, NextFunction } from "express";
+import { getAuth } from "firebase-admin/auth";
 
-export type Role = "front_desk" | "admin";
+export type Role = "admin" | "front_desk";
 
-export interface AuthenticatedUser {
-  id: string;
-  role: Role;
+declare global {
+  namespace Express {
+    interface Request { user?: { uid: string; role: Role; email?: string } }
+  }
 }
 
-// TODO: verifyIdToken(req.headers.authorization) via Firebase Admin SDK,
-// then read decodedToken.role (custom claim) into AuthenticatedUser.
-export async function requireRole(_minRole: Role) {
-  throw new Error("not implemented yet");
+export async function requireAuth(req: Request, res: Response, next: NextFunction) {
+  const header = req.headers.authorization;
+  if (!header?.startsWith("Bearer ")) return res.status(401).json({ error: "missing token" });
+  try {
+    const decoded = await getAuth().verifyIdToken(header.slice(7));
+    req.user = { uid: decoded.uid, role: (decoded.role as Role) ?? "front_desk", email: decoded.email };
+    next();
+  } catch {
+    res.status(401).json({ error: "invalid token" });
+  }
+}
+
+export function requireAdmin(req: Request, res: Response, next: NextFunction) {
+  if (req.user?.role !== "admin") return res.status(403).json({ error: "admin only" });
+  next();
 }

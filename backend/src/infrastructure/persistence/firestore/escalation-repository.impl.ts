@@ -43,6 +43,7 @@ export class FirestoreEscalationRepository implements EscalationRepository {
       limit,
       distanceMeasure: "COSINE",
     });
+    console.log(`Executing vector search with embedding: %s`, queryEmbedding);
     const snapshot = await vectorQuery.get();
     return snapshot.docs.map((doc) => this.toDomain(doc));
   }

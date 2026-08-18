@@ -2,25 +2,31 @@
 // (src/interfaces/chat-api/), never straight from the browser to Anthropic — the API key must
 // never reach client-side code.
 
-// frontend/src/api/client.ts
 import { Room } from "../types/room";
 import {Contact} from "../types/contact";
-// frontend/src/api/client.ts — agrega
+import { auth } from "../firebase";
 import { EscalationProcedure } from "../types/escalation";
-
 
 const BASE_URL = import.meta.env.VITE_API_URL ?? "http://localhost:3000";
 
-async function request<T>(path: string,options?:RequestInit): Promise<T> {
-  const res=await fetch (`${BASE_URL}${path}`,{
-    headers: {"Content-Type":"application/json"},
+async function request<T>(path: string, options?: RequestInit): Promise<T> {
+  const token = await auth.currentUser?.getIdToken();
+  const res = await fetch(`${BASE_URL}${path}`, {
+    headers: { "Content-Type": "application/json", ...(token ? { Authorization: `Bearer ${token}` } : {}) },
     ...options,
   });
-    if (!res.ok) throw new Error(`${options?.method ?? "GET"} ${path} failed (${res.status})`);
-    if (res.status == 204) return undefined as T;
-    return res.json()
+  if (!res.ok) throw new Error(`${options?.method ?? "GET"} ${path} failed (${res.status})`);
+  if (res.status === 204) return undefined as T;
+  return res.json();
 }
 
+//Auth
+export const markUserActive = () => request<void>("/me/activate", { method: "POST" });
+export const fetchUsers = () => request<any[]>("/admin/users");
+export const inviteUser = (email: string, role: "admin" | "front_desk") =>
+  request<any>("/admin/users", { method: "POST", body: JSON.stringify({ email, role }) });
+
+//Rooms
 export const fetchRooms = () => request<Room[]>("/admin/rooms");
 export const createRoom = (room: Omit<Room, "id">) =>
   request<Room>("/admin/rooms", { method: "POST", body: JSON.stringify(room) });

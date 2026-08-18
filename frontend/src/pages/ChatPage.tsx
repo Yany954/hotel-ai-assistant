@@ -2,6 +2,9 @@ import { useState } from "react";
 import { Send } from "lucide-react";
 import { askStaffQuery } from "../api/client";
 
+import { signOut } from "firebase/auth";
+import { auth } from "../firebase";
+
 interface ChatMessage {
   role: "staff" | "assistant";
   content: string;
@@ -70,6 +73,12 @@ export function ChatPage() {
         <button onClick={send} className="px-4 py-2 rounded-lg bg-gradient-to-r from-violet-600 to-indigo-600 text-white">
           <Send size={16} />
         </button>
+         <button 
+            onClick={() => signOut(auth)} 
+            className="px-3 py-1.5 rounded-lg text-sm font-medium text-slate-500 hover:bg-slate-100 hover:text-rose-600 transition-colors ml-auto"
+          >
+            Sign Out
+          </button>
       </div>
     </div>
   );

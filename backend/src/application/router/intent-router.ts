@@ -1,4 +1,4 @@
-export type Intent = "room_matching" | "contacts_directory" | "procedure";
+export type Intent = "greeting" | "off_topic" | "room_matching" | "contacts_directory" | "procedure";
 
 export interface RoutedRequest {
   intent: Intent;
