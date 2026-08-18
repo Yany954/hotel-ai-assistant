@@ -16,11 +16,15 @@ declare global {
 export async function requireAuth(req: Request, res: Response, next: NextFunction) {
   const header = req.headers.authorization;
   if (!header?.startsWith("Bearer ")) return res.status(401).json({ error: "missing token" });
+  
   try {
+    console.log("Verificando token...");
     const decoded = await getAuth().verifyIdToken(header.slice(7));
+    console.log("Token verificado con éxito para:", decoded.email);
     req.user = { uid: decoded.uid, role: (decoded.role as Role) ?? "front_desk", email: decoded.email };
     next();
-  } catch {
+  } catch (error) {
+    console.error("Error al verificar token:", error);
     res.status(401).json({ error: "invalid token" });
   }
 }

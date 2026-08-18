@@ -5,6 +5,7 @@ import SideBar from  "../components/Admin/SideBar"
 import ContactsView from "../views/admin/ContactView";
 import RoomsView from "../views/admin/RoomsView"
 import ProceduresView from "../views/admin/ProceduresView"
+import UsersView from "../views/admin/UsersView"
 import { NavKey } from "../types/navigation";
 import { fetchRooms, fetchContacts, fetchProcedures } from "../api/client";
 import { EscalationProcedure } from "../types/escalation";
@@ -30,6 +31,7 @@ export function AdminPage() {
         {active === "contacts" && <ContactsView contacts={contacts} setContacts={setContacts} />}
         {active === "rooms" && <RoomsView rooms={rooms} setRooms={setRooms} />}
         {active === "procedures" && <ProceduresView procedures={procedures} setProcedures={setProcedures} contacts={contacts} />}
+        {active === "users" && <UsersView />}
       </main>
     </div>
   );

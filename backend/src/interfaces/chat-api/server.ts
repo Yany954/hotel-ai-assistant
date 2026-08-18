@@ -32,28 +32,34 @@ const handleStaffQuery = new HandleStaffQuery(
 );
 
 const app = express();
-app.use(cors({ origin: process.env.ALLOWED_ORIGIN }));
+const corsOptions = {
+  origin: process.env.ALLOWED_ORIGIN || "http://localhost:5174", 
+  credentials: true,
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+};
+
+// Aplica CORS y responde a los preflights automáticamente en todas las rutas
+app.use(cors(corsOptions));
+
 app.use(express.json());
-app.use("/admin/rooms", roomsAdminRouter);
-app.use("/admin/contacts", contactsAdminRouter);
-app.use("/admin/procedures", proceduresAdminRouter);
 
 app.use("/admin/rooms", requireAuth, requireAdmin, roomsAdminRouter);
 app.use("/admin/contacts", requireAuth, requireAdmin, contactsAdminRouter);
 app.use("/admin/procedures", requireAuth, requireAdmin, proceduresAdminRouter);
 app.use("/admin/users", requireAuth, requireAdmin, usersAdminRouter); // nuevo, abajo
 app.use("/conversations", requireAuth, conversationsRouter);          // nuevo, abajo
-app.post("/chat", requireAuth, async (req, res) => { /* ...igual, pero ahora req.user existe... */ });
-app.post("/me/activate", requireAuth, async (req, res) => {
-  await db.collection("users").doc(req.user!.uid).update({ status: "active", activatedAt: new Date().toISOString() });
-  res.status(204).send();
-});
-/*app.post("/chat", async (req, res) => {
+app.post("/chat", requireAuth, async (req, res) => {
   try {
     res.json(await handleStaffQuery.execute(req.body.message));
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "failed to process query" });
   }
-});*/
+});
+app.post("/me/activate", requireAuth, async (req, res) => {
+  await db.collection("users").doc(req.user!.uid).update({ status: "active", activatedAt: new Date().toISOString() });
+  res.status(204).send();
+});
+
 app.listen(process.env.PORT || 3000, () => console.log("backend listo"));
