@@ -5,6 +5,8 @@
   "description": "Node.js backend — domain, application, infrastructure, chat/admin API",
   "scripts": {
     "dev": "tsx watch --env-file=.env src/interfaces/chat-api/server.ts",
+    "build": "tsc",
+    "start": "node dist/interfaces/chat-api/server.js",
     "test": "echo \"wire up your test runner (vitest/jest)\"",
     "check-architecture": "depcruise src --config .dependency-cruiser.cjs"
   },
