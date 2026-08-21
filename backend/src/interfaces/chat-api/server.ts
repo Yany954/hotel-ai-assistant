@@ -19,6 +19,7 @@ import { db } from "../../infrastructure/persistence/firestore/init";
 import { requireAuth, requireAdmin } from "../../infrastructure/auth/rbac";
 import { usersAdminRouter } from "../admin-api/users";
 import { conversationsRouter } from "../conversations-api/conversations";
+import { profileRouter } from "../profile-api/profile";
 
 const intentRouter = new OpenAiIntentRouter();
 const llmClient = new OpenAiLlmClient();
@@ -57,6 +58,7 @@ app.post("/chat", requireAuth, async (req, res) => {
     res.status(500).json({ error: "failed to process query" });
   }
 });
+app.use("/me", requireAuth, profileRouter);
 app.post("/me/activate", requireAuth, async (req, res) => {
   await db.collection("users").doc(req.user!.uid).update({ status: "active", activatedAt: new Date().toISOString() });
   res.status(204).send();

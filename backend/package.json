@@ -26,5 +26,8 @@
     "express": "^5.2.1",
     "firebase-admin": "^14.2.0",
     "openai": "^7.3.0"
-  }
+  },
+  "overrides": {
+  "jose": "5.10.0"
+}
 }

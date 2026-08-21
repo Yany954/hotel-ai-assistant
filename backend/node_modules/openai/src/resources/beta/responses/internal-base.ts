@@ -1,4 +1,4 @@
-// File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
+// File generated from our OpenAPI spec by Castiron. See CONTRIBUTING.md for details.
 
 import * as ResponsesAPI from './responses';
 import { OpenAI } from '../../../client';
@@ -21,13 +21,15 @@ export type ResponsesStreamMessage =
   | { type: 'raw'; data: RawWebSocketData }
   | { type: 'error'; error: WebSocketError };
 
+type WebSocketErrorEvent = Extract<ResponsesAPI.BetaResponsesServerEvent, { type: 'error' }>;
+
 export class WebSocketError extends OpenAIError {
   /**
    * The error data that the API sent back in an error event.
    */
-  error?: ResponsesAPI.BetaResponseErrorEvent | undefined;
+  error?: WebSocketErrorEvent | undefined;
 
-  constructor(message: string, event: ResponsesAPI.BetaResponseErrorEvent | null) {
+  constructor(message: string, event: WebSocketErrorEvent | null) {
     super(message);
 
     this.error = event ?? undefined;
@@ -72,13 +74,10 @@ export abstract class ResponsesEmitter extends EventEmitter<WebSocketEvents> {
   abstract close(props?: { code: number; reason: string }): void;
 
   protected _onError(event: null, message: string, cause: any): void;
-  protected _onError(event: ResponsesAPI.BetaResponseErrorEvent, message?: string | undefined): void;
-  protected _onError(
-    event: ResponsesAPI.BetaResponseErrorEvent | null,
-    message?: string | undefined,
-    cause?: any,
-  ): void {
-    message = message ?? safeJSONStringify(event) ?? 'unknown error';
+  protected _onError(event: WebSocketErrorEvent, message?: string | undefined): void;
+  protected _onError(event: WebSocketErrorEvent | null, message?: string | undefined, cause?: any): void {
+    const eventMessage = event && ('error' in event ? event.error?.message : event.message);
+    message = message ?? eventMessage ?? safeJSONStringify(event) ?? 'unknown error';
 
     if (!this._hasListener('error')) {
       const error = new WebSocketError(
