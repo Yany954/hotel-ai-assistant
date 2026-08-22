@@ -20,6 +20,7 @@ import { requireAuth, requireAdmin } from "../../infrastructure/auth/rbac";
 import { usersAdminRouter } from "../admin-api/users";
 import { conversationsRouter } from "../conversations-api/conversations";
 import { profileRouter } from "../profile-api/profile";
+import { enforceDailyChatLimit } from "../../infrastructure/auth/limit-rate";
 
 const intentRouter = new OpenAiIntentRouter();
 const llmClient = new OpenAiLlmClient();
@@ -34,13 +35,12 @@ const handleStaffQuery = new HandleStaffQuery(
 
 const app = express();
 const corsOptions = {
-  origin: process.env.ALLOWED_ORIGIN || "http://localhost:5174", 
+  origin: process.env.ALLOWED_ORIGIN || "http://localhost:5173", 
   credentials: true,
-  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"],
 };
 
-// Aplica CORS y responde a los preflights automáticamente en todas las rutas
 app.use(cors(corsOptions));
 
 app.use(express.json());
@@ -48,11 +48,13 @@ app.use(express.json());
 app.use("/admin/rooms", requireAuth, requireAdmin, roomsAdminRouter);
 app.use("/admin/contacts", requireAuth, requireAdmin, contactsAdminRouter);
 app.use("/admin/procedures", requireAuth, requireAdmin, proceduresAdminRouter);
-app.use("/admin/users", requireAuth, requireAdmin, usersAdminRouter); // nuevo, abajo
-app.use("/conversations", requireAuth, conversationsRouter);          // nuevo, abajo
-app.post("/chat", requireAuth, async (req, res) => {
+app.use("/admin/users", requireAuth, requireAdmin, usersAdminRouter); 
+app.use("/conversations", requireAuth, conversationsRouter);          
+app.post("/chat", requireAuth, enforceDailyChatLimit, async (req, res) => {
+  const message = String(req.body.message ?? "").trim().slice(0, 1000);
+  if (!message) return res.status(400).json({ error: "message is required" });
   try {
-    res.json(await handleStaffQuery.execute(req.body.message));
+    res.json(await handleStaffQuery.execute(message));
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "failed to process query" });

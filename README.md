@@ -1,78 +1,63 @@
-# Hotel Front Desk AI Assistant — pilot
+Aqui tienes la traducción en texto plano:
 
-Piloto: **room matching** + **contacts directory**. Ver `docs/system-boundary.md` para alcance
-completo y `docs/adr/0001-bounded-contexts.md` para el razonamiento de arquitectura.
+# Hotel Front Desk AI Assistant — Pilot
 
-## Estructura
+Pilot: room matching + contacts directory. See docs/system-boundary.md for full scope and docs/adr/0001-bounded-contexts.md for architectural rationale.
 
-```
-docs/                       Requisitos y decisiones — se escriben ANTES de programar (Wiegers)
+## Structure
+
+docs/                       Requirements and decisions — written BEFORE coding (Wiegers)
 backend/                    Node.js + TypeScript
-  src/
-    domain/<context>/       Reglas de negocio puras, sin dependencias externas (Clean Architecture)
-    application/            Casos de uso + router de intención (única pieza que conoce >1 contexto)
-    infrastructure/         Adaptadores concretos: Postgres, vector store, LLM (Anthropic), auth
-    interfaces/              Puntos de entrada: chat API, admin panel API
-  tests/
-  package.json
+src/
+domain//       Pure business rules, no external dependencies (Clean Architecture)
+application/            Use cases + intent router (only layer aware of >1 context)
+infrastructure/         Concrete adapters: Firebase, vector store, LLM (Anthropic), auth
+interfaces/             Entry points: chat API, admin panel API
+tests/
+package.json
 frontend/                   React
-  src/
-    pages/                  ChatPage (staff), AdminPage (admin)
-    api/                    Llama SOLO al backend propio — nunca directo a Anthropic
-  package.json
-```
+src/
+pages/                  ChatPage (staff), AdminPage (admin)
+api/                    Calls ONLY the backend — never directly to Anthropic
+package.json
 
-## Cómo correr cada carpeta
+## How to Run Each Folder
 
-**Backend (Node.js)** — expone la API y es el único que tiene la API key de Anthropic:
-```
+Backend (Node.js) — exposes the API and holds the Anthropic API key:
+
 cd backend
 npm install
 npm run dev
-```
-Esto levanta el servidor en modo watch (recarga automática al guardar). El endpoint de chat vive
-en `src/interfaces/chat-api/server.ts` — hoy es un TODO, se implementa ahí.
 
-**Frontend (React)** — la interfaz que usa el personal de front desk y el admin:
-```
+Starts the server in watch mode (auto-reload on save). The chat endpoint lives in src/interfaces/chat-api/server.ts.
+
+Frontend (React) — the interface used by front desk staff and admins:
+
 cd frontend
 npm install
 npm run dev
-```
-Levanta el servidor de desarrollo de Vite (por defecto en `http://localhost:5173`). Necesita que
-el backend esté corriendo para poder mandarle mensajes (ver `frontend/src/api/client.ts`).
 
-## Regla de dependencia (Clean Architecture)
-Dentro de `backend/src/`, `domain` no importa nada de `infrastructure` ni `interfaces`. Todo
-apunta hacia adentro. Así, cambiar de Postgres a otra base, o de proveedor de LLM, no toca las
-reglas de negocio.
+Starts Vite's development server (default: http://localhost:5173). Requires the backend to be running to handle messages (see frontend/src/api/client.ts).
 
-## Persistencia y auth (decisión del piloto)
-Firestore para `rooms` y `contacts` (ver `backend/src/infrastructure/persistence/firestore/README.md`
-para los trade-offs), Firebase Auth para autenticación con custom claims (`admin` / `front_desk`).
-Ambas están detrás de `RoomRepository`/`ContactRepository`/`rbac.ts`, así que cambiarlas después no
-rompe el dominio ni los casos de uso.
+## Dependency Rule (Clean Architecture)
 
-## Cómo se cargan los datos
-El admin NUNCA escribe directo a Firestore desde React. `frontend/src/pages/AdminPage.tsx` llama a
-`backend/src/interfaces/admin-api/` (rooms.ts, contacts.ts, users.ts), que valida el rol con
-`requireRole("admin")` y recién ahí escribe. Un solo camino de escritura, todo auditable.
+Inside backend/src/, domain imports nothing from infrastructure or interfaces. All dependencies point inward. This guarantees that switching from Postgres to another database, or changing LLM providers, leaves business rules untouched.
 
-## Cómo verificar que la arquitectura no se está rompiendo
-```
+## Persistence and Auth (Pilot Decision)
+
+Firestore for rooms and contacts (see backend/src/infrastructure/persistence/firestore/README.md for trade-offs), Firebase Auth for authentication with custom claims (admin / front_desk). Both sit behind RoomRepository/ContactRepository/rbac.ts, ensuring future changes won't break the domain or use cases.
+
+## Data Ingestion
+
+Admins NEVER write directly to Firestore from React. frontend/src/pages/AdminPage.tsx calls backend/src/interfaces/admin-api/ (rooms.ts, contacts.ts, users.ts), which enforces roles via requireRole("admin") before writing. A single, fully auditable write path.
+
+## Architectural Health Check
+
 cd backend
 npm install
 npm run check-architecture
-```
-Esto corre `dependency-cruiser` con las reglas en `.dependency-cruiser.cjs`: falla si `domain/`
-llega a importar algo de `infrastructure/` o `interfaces/`, o si `application/` importa un adaptador
-concreto en vez de un puerto. Corre esto seguido mientras implementas — es más confiable que
-revisarlo a ojo.
 
-También corre los tests de aceptación (`backend/tests/acceptance/`) contra el repositorio real,
-sin el LLM de por medio, para confirmar que el filtrado cumple `docs/requirements/room-matching.md`
-antes de sumar la capa de IA encima.
+Runs dependency-cruiser against rules in .dependency-cruiser.cjs. Fails if domain/ imports from infrastructure/ or interfaces/, or if application/ imports a concrete adapter instead of a port. Run this frequently during development.
 
-## Próximo bounded context a agregar
-Cuando el piloto esté validado con uso real: `third-party-escalation`, siguiendo el mismo patrón
-que `rooms/` y `contacts/`. Ver `backend/src/domain/_future-contexts/README.md`.
+Acceptance tests (backend/tests/acceptance/) also run against the actual repository (omitting the LLM) to confirm filtering complies with docs/requirements/room-matching.md before layering AI on top.
+

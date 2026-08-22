@@ -4,10 +4,10 @@ import { NavKey } from "../../types/navigation";
 
 function Sidebar({ active, onNavigate }: { active: NavKey; onNavigate: (k: NavKey) => void }) {
   const items: { key: NavKey; label: string; icon: typeof BedDouble; enabled: boolean }[] = [
-    { key: "rooms", label: "Habitaciones", icon: BedDouble, enabled: true },
-    { key: "contacts", label: "Contactos", icon: Phone, enabled: true },
-    { key: "procedures", label: "Procedimientos", icon: ClipboardList, enabled: true },
-    { key: "users", label: "Usuarios y permisos", icon: Users, enabled: true },
+    { key: "rooms", label: "Rooms", icon: BedDouble, enabled: true },
+    { key: "contacts", label: "Contacts", icon: Phone, enabled: true },
+    { key: "procedures", label: "Procedures", icon: ClipboardList, enabled: true },
+    { key: "users", label: "Users and Permissions", icon: Users, enabled: true },
   ];
   return (
     <aside className="w-64 shrink-0 bg-white border-r border-slate-200 flex flex-col h-full">
@@ -17,7 +17,7 @@ function Sidebar({ active, onNavigate }: { active: NavKey; onNavigate: (k: NavKe
         </div>
         <div>
           <div className="font-semibold text-slate-900 text-sm leading-tight">Front Desk AI</div>
-          <div className="text-[11px] text-slate-400 leading-tight">Panel administrativo</div>
+          <div className="text-[11px] text-slate-400 leading-tight">Administration panel</div>
         </div>
       </div>
       <nav className="flex-1 px-3 py-2 space-y-1">
@@ -44,8 +44,8 @@ function Sidebar({ active, onNavigate }: { active: NavKey; onNavigate: (k: NavKe
         })}
       </nav>
       <div className="px-5 py-4 border-t border-slate-100">
-        <div className="text-[11px] text-slate-400">Piloto activo</div>
-        <div className="text-xs text-slate-600 mt-0.5">Habitaciones + Contactos</div>
+        <div className="text-[11px] text-slate-400">Active pilot</div>
+        <div className="text-xs text-slate-600 mt-0.5">Rooms + Contacts</div>
       </div>
     </aside>
   );

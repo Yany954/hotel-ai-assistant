@@ -17,7 +17,7 @@ export function LoginPage() {
       navigate(role === "admin" ? "/admin" : "/chatpage");
     } catch (error) {
       console.error(error);
-      alert("No se pudo iniciar sesión. ¿Tu cuenta fue invitada por un admin?");
+      alert("There was an error logging in. Was your account invited by an admin?");
     }
   }
 
@@ -28,9 +28,9 @@ export function LoginPage() {
           <Sparkles className="text-white" size={22} />
         </div>
         <h1 className="text-lg font-semibold text-slate-900 mb-1">Front Desk AI</h1>
-        <p className="text-sm text-slate-500 mb-6">Inicia sesión con tu cuenta invitada.</p>
+        <p className="text-sm text-slate-500 mb-6">Log in with your guest account.</p>
         <button onClick={handleGoogleLogin} className="w-full px-4 py-2.5 rounded-lg bg-gradient-to-r from-violet-600 to-indigo-600 text-white text-sm font-medium hover:opacity-90">
-          Iniciar sesión con Google
+          Log in with Google
         </button>
       </div>
     </div>

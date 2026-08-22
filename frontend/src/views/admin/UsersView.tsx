@@ -13,7 +13,7 @@ const STATUS_STYLES: Record<string, string> = {
   pending: "bg-amber-50 text-amber-700",
   inactive: "bg-slate-100 text-slate-500",
 };
-const STATUS_LABEL: Record<string, string> = { active: "Activo", pending: "Invitación pendiente", inactive: "Inactivo" };
+const STATUS_LABEL: Record<string, string> = { active: "Active", pending: "Pending Invitation", inactive: "Inactive" };
 
 export default function UsersView() {
   const [users, setUsers] = useState<AppUser[]>([]);
@@ -29,25 +29,25 @@ export default function UsersView() {
       setUsers([...users, { id: created.uid, email, role, status: "pending", invitedAt: new Date().toISOString() }]);
       setShowInvite(false);
       setEmail("");
-      alert(`Invitación creada. Link de configuración (cópialo y envíaselo):\n${created.setupLink}`);
+      alert(`Invitation created. Setup link (copy and send):\n${created.setupLink}`);
     } catch (error) {
       console.error(error);
-      alert("Error enviando la invitación.");
+      alert("Error sending the invitation.");
     }
   }
 
   return (
     <>
-      <PageHeader title="Usuarios y permisos" subtitle={`${users.length} usuarios`}
-        action={<button onClick={() => setShowInvite(true)} className="flex items-center gap-2 px-4 py-2.5 rounded-lg bg-gradient-to-r from-violet-600 to-indigo-600 text-white text-sm font-medium"><Plus size={16} /> Invitar usuario</button>} />
+      <PageHeader title="Users and Permissions" subtitle={`${users.length} users`}
+        action={<button onClick={() => setShowInvite(true)} className="flex items-center gap-2 px-4 py-2.5 rounded-lg bg-gradient-to-r from-violet-600 to-indigo-600 text-white text-sm font-medium"><Plus size={16} /> Invite User</button>} />
 
       <div className="bg-white rounded-xl border border-slate-200 overflow-hidden">
         <table className="w-full text-sm">
           <thead>
             <tr className="bg-slate-50 text-slate-500 text-xs uppercase tracking-wide">
-              <th className="text-left px-5 py-3 font-medium">Usuario</th>
-              <th className="text-left px-5 py-3 font-medium">Rol</th>
-              <th className="text-left px-5 py-3 font-medium">Estado</th>
+              <th className="text-left px-5 py-3 font-medium">User</th>
+              <th className="text-left px-5 py-3 font-medium">Role</th>
+              <th className="text-left px-5 py-3 font-medium">Status</th>
             </tr>
           </thead>
           <tbody>
@@ -66,12 +66,12 @@ export default function UsersView() {
       </div>
 
       {showInvite && (
-        <Modal title="Invitar usuario" onClose={() => setShowInvite(false)}>
-          <Field label="Email (Gmail)"><input className={inputCls} value={email} onChange={(e) => setEmail(e.target.value)} placeholder="nombre@gmail.com" /></Field>
-          <Field label="Acceso">
+        <Modal title="Invite User" onClose={() => setShowInvite(false)}>
+          <Field label="Email (Gmail)"><input className={inputCls} value={email} onChange={(e) => setEmail(e.target.value)} placeholder="name@gmail.com" /></Field>
+          <Field label="Access">
             <select className={inputCls} value={role} onChange={(e) => setRole(e.target.value as any)}>
-              <option value="front_desk">Solo chat (front desk)</option>
-              <option value="admin">Admin (chat + panel completo)</option>
+              <option value="front_desk">Chat (front desk)</option>
+              <option value="admin">Admin (chat + control panel)</option>
             </select>
           </Field>
           <button onClick={sendInvite} className="w-full px-4 py-2.5 rounded-lg bg-gradient-to-r from-violet-600 to-indigo-600 text-white text-sm font-medium">Enviar invitación</button>

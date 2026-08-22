@@ -1,6 +1,9 @@
-// NOTE: Firestore has no native fuzzy/full-text search. This does exact category match and a
-// simple "starts with" name match. If you need real fuzzy search later, that's an Algolia/
-// Typesense integration living behind this same ContactRepository interface — not a rewrite.
+// NOTE: Firestore has no native fuzzy/full-text search, so — same pattern as the room repository
+// at this hotel's scale — this fetches the full `contacts` collection and matches in application
+// code. This used to query a Firestore field called "name" for a prefix match, but the entity
+// field is actually `organizationName`, so that query could never match any document; it also
+// only matched if the ENTIRE staff message was an exact prefix of the org name, which is backwards
+// from what we actually want (does the org name appear somewhere IN the staff's message).
 
 import { Firestore } from "firebase-admin/firestore";
 import { ContactRepository } from "../../../domain/contacts/repositories/contact-repository";
@@ -10,19 +13,16 @@ export class FirestoreContactRepository implements ContactRepository {
   constructor(private readonly db: Firestore) {}
 
   async search(query: string): Promise<Contact[]> {
-    const normalized = query.trim();
-    const byCategory = await this.db.collection("contacts").where("category", "==", normalized).get();
-    const byNamePrefix = await this.db
-      .collection("contacts")
-      .where("name", ">=", normalized)
-      .where("name", "<=", normalized + "\uf8ff")
-      .get();
+    const normalizedQuery = query.trim().toLowerCase();
+    const snapshot = await this.db.collection("contacts").get();
+    const allContacts = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() } as Contact));
 
-    const results = new Map<string, Contact>();
-    [...byCategory.docs, ...byNamePrefix.docs].forEach((doc) => {
-      results.set(doc.id, { id: doc.id, ...doc.data() } as Contact);
+    return allContacts.filter((c) => {
+      const name = (c.organizationName ?? "").toLowerCase();
+      if (!name) return false;
+      const category = (c.category ?? "").replace(/_/g, " ").toLowerCase();
+      return normalizedQuery.includes(name) || name.includes(normalizedQuery) || normalizedQuery.includes(category);
     });
-    return Array.from(results.values());
   }
   async findByCategory(category: ContactCategory): Promise<Contact[]>{
     const byCategory = await this.db.collection("contacts").where("category", "==", category).get();
@@ -31,7 +31,6 @@ export class FirestoreContactRepository implements ContactRepository {
       results.set(doc.id, { id: doc.id, ...doc.data() } as Contact);
     });
     return Array.from(results.values());
-
   }
   async findById(id: string): Promise<Contact | null>{
     const normalized = id.trim();
@@ -41,7 +40,6 @@ export class FirestoreContactRepository implements ContactRepository {
     } else{
       return null
     }
-
   }
 
   async findAll(): Promise<Contact[]> {

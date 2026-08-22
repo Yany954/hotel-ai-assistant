@@ -51,8 +51,8 @@ function RoomsView({ rooms, setRooms }: { rooms: Room[]; setRooms: (r: Room[]) =
       
     }
     catch (error) {
-      console.error("Error al guardar la habitación:", error);
-      alert("Hubo un error guardando la habitación en el servidor.");
+      console.error("Error saving the room:", error);
+      alert("There was an error saving the room to the server.");
     }
   }
   async function remove(id: string) { 
@@ -60,8 +60,8 @@ function RoomsView({ rooms, setRooms }: { rooms: Room[]; setRooms: (r: Room[]) =
       await deleteRoom(id);
       setRooms(rooms.filter((r) => r.id !== id));
     } catch (error) {
-      console.error("Error al eliminar la habitación:", error);
-      alert("Hubo un error eliminando la habitación en el servidor.");
+      console.error("Error deleting the room:", error);
+      alert("There was an error deleting the room from the server.");
     }
    }
 
@@ -94,8 +94,8 @@ function RoomsView({ rooms, setRooms }: { rooms: Room[]; setRooms: (r: Room[]) =
           setRooms([...rooms, ...created]);
           setShowImport(false);
         } catch (error) {
-          console.error("Error al importar habitaciones:", error);
-          alert("Hubo un error guardando las habitaciones en el servidor.");
+          console.error("Error importing rooms:", error);
+          alert("There was an error saving the rooms to the server.");
         }
         
       },
@@ -106,13 +106,13 @@ function RoomsView({ rooms, setRooms }: { rooms: Room[]; setRooms: (r: Room[]) =
     <>
       <PageHeader
         title="Habitaciones"
-        subtitle={`${rooms.length} de 89 habitaciones cargadas`}
+        subtitle={`${rooms.length} of 89 rooms loaded`}
         action={
           <div className="flex gap-2">
             <button onClick={() => setShowImport(true)} className="flex items-center gap-2 px-4 py-2.5 rounded-lg border border-slate-200 text-sm font-medium text-slate-600 hover:bg-slate-50">
-              <Upload size={15} /> Importar CSV
+              <Upload size={15} /> Import CSV
             </button>
-            <PrimaryButton icon={Plus} onClick={openNew}>Nueva habitación</PrimaryButton>
+            <PrimaryButton icon={Plus} onClick={openNew}>New Room</PrimaryButton>
           </div>
         }
       />
@@ -123,13 +123,13 @@ function RoomsView({ rooms, setRooms }: { rooms: Room[]; setRooms: (r: Room[]) =
         <table className="w-full text-sm">
           <thead>
             <tr className="bg-slate-50 text-slate-500 text-xs uppercase tracking-wide">
-              <th className="text-left px-5 py-3 font-medium">Habitación</th>
-              <th className="text-left px-5 py-3 font-medium">Camas</th>
-              <th className="text-left px-5 py-3 font-medium">Baño</th>
-              <th className="text-left px-5 py-3 font-medium">Vista</th>
-              <th className="text-left px-5 py-3 font-medium">Accesible</th>
-              <th className="text-left px-5 py-3 font-medium">Clase</th>
-              <th className="text-right px-5 py-3 font-medium">Acciones</th>
+              <th className="text-left px-5 py-3 font-medium">Room</th>
+              <th className="text-left px-5 py-3 font-medium">Beds</th>
+              <th className="text-left px-5 py-3 font-medium">Bathroom</th>
+              <th className="text-left px-5 py-3 font-medium">View</th>
+              <th className="text-left px-5 py-3 font-medium">Accessible</th>
+              <th className="text-left px-5 py-3 font-medium">Class</th>
+              <th className="text-right px-5 py-3 font-medium">Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -165,8 +165,8 @@ function RoomsView({ rooms, setRooms }: { rooms: Room[]; setRooms: (r: Room[]) =
       </div>
 
       {showImport && (
-        <Modal title="Importar habitaciones desde CSV" onClose={() => setShowImport(false)}>
-          <p className="text-sm text-slate-500 mb-3">El archivo debe tener estas columnas exactas:</p>
+        <Modal title="Import Rooms from CSV" onClose={() => setShowImport(false)}>
+          <p className="text-sm text-slate-500 mb-3">The file must contain exactly these columns:</p>
           <div className="bg-slate-50 rounded-lg p-3 text-[11px] text-slate-500 font-mono mb-4 overflow-x-auto whitespace-nowrap">
             {CSV_TEMPLATE_HEADER}
           </div>
@@ -175,24 +175,24 @@ function RoomsView({ rooms, setRooms }: { rooms: Room[]; setRooms: (r: Room[]) =
       )}
 
       {showModal && editing && (
-        <Modal title={editing.id ? "Editar habitación" : "Nueva habitación"} onClose={() => setShowModal(false)} wide>
+        <Modal title={editing.id ? "Edit Room" : "New Room"} onClose={() => setShowModal(false)} wide>
           <div className="grid grid-cols-3 gap-4">
-            <Field label="Número de habitación">
+            <Field label="Room Number">
               <input className={inputCls} value={editing.roomNumber} onChange={(e) => setEditing({ ...editing, roomNumber: e.target.value })} />
             </Field>
-            <Field label="Piso">
+            <Field label="Floor">
               <input type="number" className={inputCls} value={editing.floor} onChange={(e) => setEditing({ ...editing, floor: Number(e.target.value) })} />
             </Field>
-            <Field label="Código de tipo (opcional)">
+            <Field label="Type Code (optional)">
               <input className={inputCls} value={editing.roomTypeCode ?? ""} onChange={(e) => setEditing({ ...editing, roomTypeCode: e.target.value })} placeholder="PNK1" />
             </Field>
           </div>
 
           <div className="grid grid-cols-2 gap-4">
-            <Field label="Cantidad de camas">
+            <Field label="Bed Count">
               <input type="number" className={inputCls} value={editing.bedConfiguration.bedCount} onChange={(e) => setEditing({ ...editing, bedConfiguration: { ...editing.bedConfiguration, bedCount: Number(e.target.value) } })} />
             </Field>
-            <Field label="Tipo de cama">
+            <Field label="Bed Type">
               <select className={inputCls} value={editing.bedConfiguration.bedType} onChange={(e) => setEditing({ ...editing, bedConfiguration: { ...editing.bedConfiguration, bedType: e.target.value as "queen" | "king" } })}>
                 <option value="queen">Queen</option>
                 <option value="king">King</option>
@@ -201,17 +201,17 @@ function RoomsView({ rooms, setRooms }: { rooms: Room[]; setRooms: (r: Room[]) =
           </div>
 
           <div className="grid grid-cols-2 gap-4">
-            <Field label="Baño">
+            <Field label="Bathroom">
               <select className={inputCls} value={editing.showerType} onChange={(e) => setEditing({ ...editing, showerType: e.target.value as Room["showerType"] })}>
                 <option value="walk_in_shower">Ducha (walk-in)</option>
                 <option value="bathtub">Tina</option>
                 <option value="tub_shower_combo">Combo tina/ducha</option>
               </select>
             </Field>
-            <Field label="Espacio bajo la cama">
+            <Field label="Space Under Bed">
               <select className={inputCls} value={editing.bedClearance} onChange={(e) => setEditing({ ...editing, bedClearance: e.target.value as Room["bedClearance"] })}>
-                <option value="flush_to_floor">Al ras del piso</option>
-                <option value="gap_underneath">Con espacio debajo</option>
+                <option value="flush_to_floor">Flush to Floor</option>
+                <option value="gap_underneath">Gap Underneath</option>
               </select>
             </Field>
           </div>
@@ -219,19 +219,19 @@ function RoomsView({ rooms, setRooms }: { rooms: Room[]; setRooms: (r: Room[]) =
           <div className="grid grid-cols-2 gap-4">
             <Field label="Vista">
               <select className={inputCls} value={editing.view} onChange={(e) => setEditing({ ...editing, view: e.target.value as Room["view"] })}>
-                <option value="street_facing">Hacia la calle</option>
-                <option value="parking_lot_facing">Hacia el parqueadero</option>
+                <option value="street_facing">Towards the street</option>
+                <option value="parking_lot_facing">Towards the parking lot</option>
               </select>
             </Field>
             <Field label="Cortinas">
               <select className={inputCls} value={editing.curtainType} onChange={(e) => setEditing({ ...editing, curtainType: e.target.value as Room["curtainType"] })}>
-                <option value="manual">Manuales</option>
-                <option value="electric">Eléctricas</option>
+                <option value="manual">Manuals</option>
+                <option value="electric">Electric</option>
               </select>
             </Field>
           </div>
 
-          <Field label="Clase de habitación">
+          <Field label="Room Class">
             <select className={inputCls} value={editing.roomClass} onChange={(e) => setEditing({ ...editing, roomClass: e.target.value as Room["roomClass"] })}>
               <option value="regular">Regular</option>
               <option value="suite">Suite</option>
@@ -240,11 +240,11 @@ function RoomsView({ rooms, setRooms }: { rooms: Room[]; setRooms: (r: Room[]) =
 
           <div className="grid grid-cols-2 gap-x-4 gap-y-2 mb-2">
             {([
-              ["isAccessible", "Habitación accesible"],
-              ["hasKitchen", "Tiene cocina"],
-              ["hasPullOutSofaBed", "Sofá cama"],
-              ["hasSofa", "Sofá pequeño"],
-              ["hasCarpet", "Alfombra"],
+              ["isAccessible", "Accessible Room"],
+              ["hasKitchen", "Has Kitchen"],
+              ["hasPullOutSofaBed", "Pull-out Sofa Bed"],
+              ["hasSofa", "Small Sofa"],
+              ["hasCarpet", "Carpet"],
             ] as [keyof RoomDraft, string][]).map(([key, label]) => (
               <label key={key} className="flex items-center gap-2 text-sm text-slate-600 py-1.5">
                 <input
@@ -259,8 +259,8 @@ function RoomsView({ rooms, setRooms }: { rooms: Room[]; setRooms: (r: Room[]) =
           </div>
 
           <div className="flex justify-end gap-2 pt-3">
-            <button onClick={() => setShowModal(false)} className="px-4 py-2 text-sm text-slate-600 hover:bg-slate-50 rounded-lg">Cancelar</button>
-            <PrimaryButton onClick={save}>Guardar habitación</PrimaryButton>
+            <button onClick={() => setShowModal(false)} className="px-4 py-2 text-sm text-slate-600 hover:bg-slate-50 rounded-lg">Cancel</button>
+            <PrimaryButton onClick={save}>Save Room</PrimaryButton>
           </div>
         </Modal>
       )}

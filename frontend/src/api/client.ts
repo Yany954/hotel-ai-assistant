@@ -6,6 +6,8 @@ import { Room } from "../types/room";
 import {Contact} from "../types/contact";
 import { auth } from "../firebase";
 import { EscalationProcedure } from "../types/escalation";
+import { Conversation, ConversationMessage } from "../types/conversation";
+import { Profile } from "../types/profile";
 
 const BASE_URL = import.meta.env.VITE_API_URL ?? "http://localhost:3000";
 
@@ -15,7 +17,10 @@ async function request<T>(path: string, options?: RequestInit): Promise<T> {
     headers: { "Content-Type": "application/json", ...(token ? { Authorization: `Bearer ${token}` } : {}) },
     ...options,
   });
-  if (!res.ok) throw new Error(`${options?.method ?? "GET"} ${path} failed (${res.status})`);
+  if (!res.ok) {
+    const body = await res.json().catch(() => null);
+    throw new Error(body?.message ?? `${options?.method ?? "GET"} ${path} failed (${res.status})`);
+  }
   if (res.status === 204) return undefined as T;
   return res.json();
 }
@@ -44,7 +49,7 @@ export const updateContact = (id: string, patch: Partial<Omit<Contact, "id">>) =
   request<Contact>(`/admin/contacts/${id}`, { method: "PUT", body: JSON.stringify(patch) });
 export const deleteContact = (id: string) => request<void>(`/admin/contacts/${id}`, { method: "DELETE" });
 
-//Procedimientos
+//Procedures
 export const fetchProcedures = () => request<EscalationProcedure[]>("/admin/procedures");
 export const createProcedure = (procedure: Omit<EscalationProcedure, "id">) =>
   request<EscalationProcedure>("/admin/procedures", { method: "POST", body: JSON.stringify(procedure) });
@@ -53,3 +58,14 @@ export const updateProcedure = (id: string, patch: Partial<Omit<EscalationProced
 export const deleteProcedure = (id: string) => request<void>(`/admin/procedures/${id}`, { method: "DELETE" });
 export const askStaffQuery = (message: string) =>
   request<any>("/chat", { method: "POST", body: JSON.stringify({ message }) });
+
+// Conversations
+export const fetchConversations = () => request<Conversation[]>("/conversations");
+export const createConversation = (title?: string) =>
+  request<{ id: string }>("/conversations", { method: "POST", body: JSON.stringify({ title }) });
+export const updateConversation = (id: string, patch: { messages?: ConversationMessage[]; title?: string; keep?: boolean }) =>
+  request<void>(`/conversations/${id}`, { method: "PUT", body: JSON.stringify(patch) });
+
+// Profile
+export const fetchProfile = () => request<Profile>("/me");
+export const updateProfile = (name: string) => request<void>("/me", { method: "PATCH", body: JSON.stringify({ name }) });

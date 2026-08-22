@@ -42,8 +42,8 @@ function ContactsView({ contacts, setContacts }: { contacts: Contact[]; setConta
     }
     setShowModal(false);
   }catch (error) {
-    console.error("Error al guardar el contacto:", error);
-    alert("Hubo un error guardando el contacto en el servidor.");
+    console.error("Error saving the contact:", error);
+    alert("There was an error saving the contact on the server.");
   }
   }
   async function remove(id: string) { 
@@ -51,8 +51,8 @@ function ContactsView({ contacts, setContacts }: { contacts: Contact[]; setConta
       await deleteContact(id);
       setContacts(contacts.filter((c) => c.id !== id));
     } catch (error) {
-      console.error("Error al eliminar el contacto:", error);
-      alert("Hubo un error eliminando el contacto en el servidor.");
+      console.error("Error saving the contact:", error);
+      alert("There was an error saving the contact on the server.");
     }
   }
 
@@ -85,10 +85,10 @@ function ContactsView({ contacts, setContacts }: { contacts: Contact[]; setConta
         <table className="w-full text-sm">
           <thead>
             <tr className="bg-slate-50 text-slate-500 text-xs uppercase tracking-wide">
-              <th className="text-left px-5 py-3 font-medium">Organización</th>
-              <th className="text-left px-5 py-3 font-medium">Categoría</th>
-              <th className="text-left px-5 py-3 font-medium">Líneas telefónicas</th>
-              <th className="text-right px-5 py-3 font-medium">Acciones</th>
+              <th className="text-left px-5 py-3 font-medium">Organization</th>
+              <th className="text-left px-5 py-3 font-medium">Category</th>
+              <th className="text-left px-5 py-3 font-medium">Phone Lines</th>
+              <th className="text-right px-5 py-3 font-medium">Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -101,7 +101,7 @@ function ContactsView({ contacts, setContacts }: { contacts: Contact[]; setConta
                     </div>
                     <div>
                       <div className="font-medium text-slate-800">{c.organizationName}</div>
-                      {c.accountNumber && <div className="text-xs text-slate-400">Cuenta: {c.accountNumber}</div>}
+                      {c.accountNumber && <div className="text-xs text-slate-400">Account: {c.accountNumber}</div>}
                     </div>
                   </div>
                 </td>
@@ -118,7 +118,7 @@ function ContactsView({ contacts, setContacts }: { contacts: Contact[]; setConta
                       </div>
                     ))}
                     {c.phoneLines.length > 2 && (
-                      <div className="text-xs text-violet-600">+{c.phoneLines.length - 2} más</div>
+                      <div className="text-xs text-violet-600">+{c.phoneLines.length - 2} more</div>
                     )}
                   </div>
                 </td>
@@ -139,35 +139,35 @@ function ContactsView({ contacts, setContacts }: { contacts: Contact[]; setConta
       </div>
 
       {showModal && editing && (
-        <Modal title={editing.id ? "Editar contacto" : "Nuevo contacto"} onClose={() => setShowModal(false)} wide>
-          <Field label="Nombre de la organización">
-            <input className={inputCls} value={editing.organizationName} onChange={(e) => setEditing({ ...editing, organizationName: e.target.value })} placeholder="Ej. Tech Guru" />
+        <Modal title={editing.id ? "Edit Contact" : "New Contact"} onClose={() => setShowModal(false)} wide>
+          <Field label="Organization Name">
+            <input className={inputCls} value={editing.organizationName} onChange={(e) => setEditing({ ...editing, organizationName: e.target.value })} placeholder="e.g., Tech Guru" />
           </Field>
           <div className="grid grid-cols-2 gap-4">
-            <Field label="Categoría">
+            <Field label="Category">
               <select className={inputCls} value={editing.category} onChange={(e) => setEditing({ ...editing, category: e.target.value as ContactCategory })}>
                 {CONTACT_CATEGORIES.map((cat) => (
                   <option key={cat} value={cat}>{CATEGORY_LABELS[cat]}</option>
                 ))}
               </select>
             </Field>
-            <Field label="Número de cuenta (opcional)">
-              <input className={inputCls} value={editing.accountNumber ?? ""} onChange={(e) => setEditing({ ...editing, accountNumber: e.target.value })} placeholder="Ej. A/C 1489" />
+            <Field label="Account Number (optional)">
+              <input className={inputCls} value={editing.accountNumber ?? ""} onChange={(e) => setEditing({ ...editing, accountNumber: e.target.value })} placeholder="e.g., A/C 1489" />
             </Field>
           </div>
 
           <div className="mb-2 flex items-center justify-between mt-2">
-            <span className="block text-xs font-medium text-slate-500">Líneas telefónicas</span>
+            <span className="block text-xs font-medium text-slate-500">Phone Lines</span>
             <button onClick={addPhoneLine} className="text-xs text-violet-600 font-medium flex items-center gap-1">
-              <Plus size={13} /> Agregar línea
+              <Plus size={13} /> Add Line
             </button>
           </div>
           <div className="space-y-2 mb-4">
             {editing.phoneLines.map((p, idx) => (
               <div key={idx} className="grid grid-cols-[1fr_1fr_1fr_auto] gap-2 items-center">
-                <input className={inputCls} placeholder="Propósito (ej. after_hours)" value={p.purpose} onChange={(e) => updatePhoneLine(idx, "purpose", e.target.value)} />
-                <input className={inputCls} placeholder="Teléfono" value={p.phoneNumber} onChange={(e) => updatePhoneLine(idx, "phoneNumber", e.target.value)} />
-                <input className={inputCls} placeholder="Contacto (opcional)" value={p.contactPersonName ?? ""} onChange={(e) => updatePhoneLine(idx, "contactPersonName", e.target.value)} />
+                <input className={inputCls} placeholder="Purpose (e.g., after_hours)" value={p.purpose} onChange={(e) => updatePhoneLine(idx, "purpose", e.target.value)} />
+                <input className={inputCls} placeholder="Phone Number" value={p.phoneNumber} onChange={(e) => updatePhoneLine(idx, "phoneNumber", e.target.value)} />
+                <input className={inputCls} placeholder="Contact Person (optional)" value={p.contactPersonName ?? ""} onChange={(e) => updatePhoneLine(idx, "contactPersonName", e.target.value)} />
                 {editing.phoneLines.length > 1 && (
                   <button onClick={() => removePhoneLine(idx)} className="text-slate-300 hover:text-rose-500">
                     <X size={15} />

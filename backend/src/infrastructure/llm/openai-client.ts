@@ -1,5 +1,6 @@
 import OpenAI from "openai";
 import { LlmClient, LlmMessage } from "../../application/ports/llm-client";
+import { HOTEL_SYSTEM_CONTEXT } from "../../shared/hotel-context";
 
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
@@ -8,7 +9,7 @@ export class OpenAiLlmClient implements LlmClient {
     const response = await openai.chat.completions.create({
       model: "gpt-4o-mini",
       messages: [
-        { role: "system", content: "Extract ONLY room criteria explicitly stated. Never infer or guess a value the guest did not say." },
+        { role: "system", content: "Extract ONLY room criteria explicitly stated in the message — whether it's phrased as a guest's request (\"I need 2 queen beds\") or staff asking about inventory (\"how many queen beds do we have\"). Both describe the same filter: bedType queen. Never infer or guess a value that wasn't stated — if a field isn't mentioned, leave it out entirely rather than guessing a value for it." },
         { role: "user", content: guestDescription },
       ],
       tools: [{
@@ -40,14 +41,19 @@ export class OpenAiLlmClient implements LlmClient {
     });
 
     const call = response.choices[0].message.tool_calls?.[0];
-    if (!call || call.type !== "function") return {}; // <- la corrección: narrow por 'type' antes de leer '.function'
+    if (!call || call.type !== "function") return {};
     return JSON.parse(call.function.arguments);
   }
 
   async complete(messages: LlmMessage[]): Promise<string> {
     const response = await openai.chat.completions.create({
       model: "gpt-4o-mini",
-      messages: messages.map((m) => ({ role: m.role, content: m.content })),
+      max_tokens: 600,
+      temperature: 0.3,
+      messages: [
+        { role: "system", content: HOTEL_SYSTEM_CONTEXT },
+        ...messages.map((m) => ({ role: m.role, content: m.content })),
+      ],
     });
     return response.choices[0].message.content ?? "";
   }

@@ -54,7 +54,7 @@ export default function ProceduresView({ procedures, setProcedures, contacts }: 
     setShowModal(false);
   } catch (error) {
     console.error(error);
-    alert("Error guardando el procedimiento.");
+    alert("Error saving the procedure.");
   }
 }
 
@@ -64,7 +64,7 @@ export default function ProceduresView({ procedures, setProcedures, contacts }: 
       setProcedures(procedures.filter((p) => p.id !== id));
     } catch (error) {
       console.error(error);
-      alert("Error eliminando el procedimiento.");
+      alert("Error deleting the procedure.");
     }
   }
 
@@ -89,16 +89,16 @@ export default function ProceduresView({ procedures, setProcedures, contacts }: 
       <PageHeader title="Procedimientos" subtitle={`${procedures.length} artículos cargados`}
         action={<PrimaryButton icon={Plus} onClick={openNew}>Nuevo procedimiento</PrimaryButton>} />
       <div className="mb-4 max-w-sm">
-        <SearchBar value={query} onChange={setQuery} placeholder="Buscar por situación o categoría..." />
+        <SearchBar value={query} onChange={setQuery} placeholder="Search by situation or category..." />
       </div>
       <div className="bg-white rounded-xl border border-slate-200 overflow-hidden">
         <table className="w-full text-sm">
           <thead>
             <tr className="bg-slate-50 text-slate-500 text-xs uppercase tracking-wide">
-              <th className="text-left px-5 py-3 font-medium">Situación</th>
-              <th className="text-left px-5 py-3 font-medium">Categoría</th>
-              <th className="text-left px-5 py-3 font-medium">Contenido</th>
-              <th className="text-right px-5 py-3 font-medium">Acciones</th>
+              <th className="text-left px-5 py-3 font-medium">Situation</th>
+              <th className="text-left px-5 py-3 font-medium">Category</th>
+              <th className="text-left px-5 py-3 font-medium">Content</th>
+              <th className="text-right px-5 py-3 font-medium">Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -106,7 +106,7 @@ export default function ProceduresView({ procedures, setProcedures, contacts }: 
               <tr key={p.id} className="border-t border-slate-100 hover:bg-slate-50/60">
                 <td className="px-5 py-4 font-medium text-slate-800">
                   {p.triggerSituation}
-                  {p.steps?.some((s) => s.isEmergency) && <span className="ml-2 text-xs px-2 py-0.5 rounded-full bg-rose-50 text-rose-600">emergencia</span>}
+                  {p.steps?.some((s) => s.isEmergency) && <span className="ml-2 text-xs px-2 py-0.5 rounded-full bg-rose-50 text-rose-600">emergency</span>}
                 </td>
                 <td className="px-5 py-4"><span className="text-xs px-2 py-1 rounded-full bg-slate-100 text-slate-600">{p.category}</span></td>
                 <td className="px-5 py-4 text-slate-500 max-w-xs truncate">{p.content}</td>
@@ -123,12 +123,12 @@ export default function ProceduresView({ procedures, setProcedures, contacts }: 
       </div>
 
       {showModal && editing && (
-        <Modal title={editing.id ? "Editar procedimiento" : "Nuevo procedimiento"} onClose={() => setShowModal(false)} wide>
+        <Modal title={editing.id ? "Edit Procedure" : "New Procedure"} onClose={() => setShowModal(false)} wide>
           <div className="grid grid-cols-2 gap-4">
-            <Field label="Nombre de la situación (título corto)">
+            <Field label="Situation Name (short title)">
               <input className={inputCls} value={editing.triggerSituation} onChange={(e) => setEditing({ ...editing, triggerSituation: e.target.value })} placeholder="late_checkout_policy" />
             </Field>
-            <Field label="Categoría">
+            <Field label="Category">
               <input className={inputCls} value={editing.category} list="category-suggestions" onChange={(e) => setEditing({ ...editing, category: e.target.value })} />
               <datalist id="category-suggestions">
                 {CATEGORY_SUGGESTIONS.map((c) => <option key={c} value={c} />)}
@@ -136,42 +136,42 @@ export default function ProceduresView({ procedures, setProcedures, contacts }: 
             </Field>
           </div>
 
-          <Field label="Contenido del procedimiento (esto se embebe para la búsqueda semántica y es lo único que el chat usa para responder)">
-            <textarea className={inputCls} rows={8} value={editing.content} onChange={(e) => setEditing({ ...editing, content: e.target.value })} placeholder="Pega aquí el texto completo del procedimiento, tal como debe seguirse." />
+          <Field label="Procedure Content (this is embedded for semantic search and is the only thing the chat uses to respond)">
+            <textarea className={inputCls} rows={8} value={editing.content} onChange={(e) => setEditing({ ...editing, content: e.target.value })} placeholder="Paste the complete procedure text here, as it should be followed." />
           </Field>
 
           <label className="flex items-center gap-2 text-sm text-slate-600 mb-3">
             <input type="checkbox" checked={showSteps} onChange={(e) => setShowSteps(e.target.checked)} className="rounded border-slate-300 text-violet-600" />
-            Este procedimiento necesita pasos con contacto a llamar (ej. elevador, incendio)
+            This procedure needs steps with contact calls (e.g., elevator, fire)
           </label>
 
           {showSteps && (
             <div className="space-y-3 mb-4">
               <div className="flex items-center justify-between">
-                <span className="block text-xs font-medium text-slate-500">Pasos</span>
-                <button onClick={addStep} className="text-xs text-violet-600 font-medium flex items-center gap-1"><Plus size={13} /> Agregar paso</button>
+                <span className="block text-xs font-medium text-slate-500">Steps</span>
+                <button onClick={addStep} className="text-xs text-violet-600 font-medium flex items-center gap-1"><Plus size={13} /> Add Step</button>
               </div>
               {(editing.steps ?? []).map((s, idx) => (
                 <div key={idx} className="border border-slate-200 rounded-lg p-3 space-y-2">
-                  <input className={inputCls} placeholder="Condición (opcional)" value={s.condition ?? ""} onChange={(e) => updateStep(idx, "condition", e.target.value)} />
+                  <input className={inputCls} placeholder="Condition (optional)" value={s.condition ?? ""} onChange={(e) => updateStep(idx, "condition", e.target.value)} />
                   <select className={inputCls} value={s.contactId ?? ""} onChange={(e) => updateStep(idx, "contactId", e.target.value)}>
-                    <option value="">Sin contacto (solo instrucción)</option>
+                    <option value="">No Contact (just instructions)</option>
                     {contacts.map((c) => <option key={c.id} value={c.id}>{c.organizationName}</option>)}
                   </select>
-                  <input className={inputCls} placeholder="Instrucciones" value={s.instructions} onChange={(e) => updateStep(idx, "instructions", e.target.value)} />
+                  <input className={inputCls} placeholder="Instructions" value={s.instructions} onChange={(e) => updateStep(idx, "instructions", e.target.value)} />
                   <label className="flex items-center gap-2 text-sm text-slate-600">
                     <input type="checkbox" checked={s.isEmergency} onChange={(e) => updateStep(idx, "isEmergency", e.target.checked)} className="rounded border-slate-300 text-rose-600" />
-                    Es un paso de emergencia
+                    It's an emergency step
                   </label>
-                  <button onClick={() => removeStep(idx)} className="text-xs text-rose-500">Quitar paso</button>
+                  <button onClick={() => removeStep(idx)} className="text-xs text-rose-500">Remove Step</button>
                 </div>
               ))}
             </div>
           )}
 
           <div className="flex justify-end gap-2 pt-2">
-            <button onClick={() => setShowModal(false)} className="px-4 py-2 text-sm text-slate-600 hover:bg-slate-50 rounded-lg">Cancelar</button>
-            <PrimaryButton onClick={save}>Guardar procedimiento</PrimaryButton>
+            <button onClick={() => setShowModal(false)} className="px-4 py-2 text-sm text-slate-600 hover:bg-slate-50 rounded-lg">Cancel</button>
+            <PrimaryButton onClick={save}>Save procedure</PrimaryButton>
           </div>
         </Modal>
       )}
