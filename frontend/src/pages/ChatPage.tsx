@@ -195,7 +195,7 @@ export function ChatPage() {
           <div ref={bottomRef} />
         </div>
         <div className="p-4 border-t border-slate-200 bg-white flex gap-2">
-          <input
+          <textarea
             value={input}
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={(e) => e.key === "Enter" && send()}

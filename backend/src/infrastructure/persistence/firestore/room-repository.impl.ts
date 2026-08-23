@@ -65,7 +65,6 @@ export function matchesAllStatedCriteria(room: Room, criteria: RoomFilterCriteri
   if (criteria.hasSofa !== undefined && room.hasSofa !== criteria.hasSofa) return false;
   if (criteria.hasCarpet !== undefined && room.hasCarpet !== criteria.hasCarpet) return false;
   if (criteria.view !== undefined && room.view !== criteria.view) return false;
-  if (criteria.curtainType !== undefined && room.curtainType !== criteria.curtainType) return false;
   if (criteria.roomClass !== undefined && room.roomClass !== criteria.roomClass) return false;
   return true;
 }

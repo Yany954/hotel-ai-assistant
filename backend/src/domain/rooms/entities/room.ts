@@ -10,7 +10,6 @@ import { BedConfiguration } from "../value-objects/bed-configuration";
 import { ShowerType } from "../value-objects/shower-type";
 import { BedClearance } from "../value-objects/bed-clearance";
 import { RoomView } from "../value-objects/room-view";
-import { CurtainType } from "../value-objects/curtain-type";
 import { RoomClass } from "../value-objects/room-class";
 
 export interface Room {
@@ -30,6 +29,5 @@ export interface Room {
   hasCarpet: boolean;
 
   view: RoomView;
-  curtainType: CurtainType;
   roomClass: RoomClass;
 }

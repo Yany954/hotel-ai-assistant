@@ -1,4 +1,3 @@
-// backend/src/interfaces/admin-api/procedures.ts
 import { Router } from "express";
 import { db } from "../../infrastructure/persistence/firestore/init";
 import { FirestoreEscalationRepository } from "../../infrastructure/persistence/firestore/escalation-repository.impl";

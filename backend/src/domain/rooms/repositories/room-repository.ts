@@ -6,7 +6,6 @@ import { Room } from "../entities/room";
 import { ShowerType } from "../value-objects/shower-type";
 import { BedClearance } from "../value-objects/bed-clearance";
 import { RoomView } from "../value-objects/room-view";
-import { CurtainType } from "../value-objects/curtain-type";
 import { RoomClass } from "../value-objects/room-class";
 
 export interface RoomFilterCriteria {
@@ -20,7 +19,6 @@ export interface RoomFilterCriteria {
   hasSofa?: boolean;
   hasCarpet?: boolean;
   view?: RoomView;
-  curtainType?: CurtainType;
   roomClass?: RoomClass;
 }
 

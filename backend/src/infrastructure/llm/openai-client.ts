@@ -30,7 +30,6 @@ export class OpenAiLlmClient implements LlmClient {
               hasSofa: { type: "boolean" },
               hasCarpet: { type: "boolean" },
               view: { type: "string", enum: ["street_facing", "parking_lot_facing"] },
-              curtainType: { type: "string", enum: ["electric", "manual"] },
               roomClass: { type: "string", enum: ["suite", "regular"] },
             },
             additionalProperties: false,

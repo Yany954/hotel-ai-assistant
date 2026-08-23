@@ -20,7 +20,7 @@ function blankRoom(): RoomDraft {
     bedConfiguration: { bedCount: 2, bedType: "queen" }, showerType: "walk_in_shower",
     bedClearance: "flush_to_floor", isAccessible: false, hasKitchen: false,
     hasPullOutSofaBed: false, hasSofa: false, hasCarpet: false,
-    view: "street_facing", curtainType: "manual", roomClass: "regular",
+    view: "street_facing", roomClass: "regular",
   };
 }
 
@@ -86,7 +86,6 @@ function RoomsView({ rooms, setRooms }: { rooms: Room[]; setRooms: (r: Room[]) =
           hasSofa: toBool(row.hasSofa),
           hasCarpet: toBool(row.hasCarpet),
           view: (row.view as Room["view"]) || "street_facing",
-          curtainType: (row.curtainType as Room["curtainType"]) || "manual",
           roomClass: (row.roomClass as Room["roomClass"]) || "regular",
         }));
         try{
@@ -221,12 +220,6 @@ function RoomsView({ rooms, setRooms }: { rooms: Room[]; setRooms: (r: Room[]) =
               <select className={inputCls} value={editing.view} onChange={(e) => setEditing({ ...editing, view: e.target.value as Room["view"] })}>
                 <option value="street_facing">Towards the street</option>
                 <option value="parking_lot_facing">Towards the parking lot</option>
-              </select>
-            </Field>
-            <Field label="Cortinas">
-              <select className={inputCls} value={editing.curtainType} onChange={(e) => setEditing({ ...editing, curtainType: e.target.value as Room["curtainType"] })}>
-                <option value="manual">Manuals</option>
-                <option value="electric">Electric</option>
               </select>
             </Field>
           </div>
