@@ -7,6 +7,7 @@ import { ProfilePage } from "./pages/ProfilePage"
 import { RequireAuth } from './components/Login/RequireAuth'
 import { LoginPage } from './pages/LoginPage'
 import { Header } from './components/Layout/Header'
+import { SetPasswordPage } from "./pages/SetPassword";
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
@@ -19,6 +20,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
           <Route path="/admin" element={<RequireAuth role="admin"><AdminPage /></RequireAuth>} />
           <Route path="/chatpage" element={<RequireAuth><ChatPage /></RequireAuth>} />
           <Route path="/profile" element={<RequireAuth><ProfilePage /></RequireAuth>} />
+          <Route path="/set-password" element={<SetPasswordPage />} />
         </Routes>
       </div>
     </BrowserRouter>

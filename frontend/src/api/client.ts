@@ -30,6 +30,8 @@ export const markUserActive = () => request<void>("/me/activate", { method: "POS
 export const fetchUsers = () => request<any[]>("/admin/users");
 export const inviteUser = (email: string, role: "admin" | "front_desk") =>
   request<any>("/admin/users", { method: "POST", body: JSON.stringify({ email, role }) });
+export const resendInvite = (uid: string) => 
+  request<{ setupLink: string }>(`/admin/users/${uid}/resend-invite`, { method: "POST" });
 
 //Rooms
 export const fetchRooms = () => request<Room[]>("/admin/rooms");
