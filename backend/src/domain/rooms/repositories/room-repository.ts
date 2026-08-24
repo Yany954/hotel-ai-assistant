@@ -7,6 +7,7 @@ import { ShowerType } from "../value-objects/shower-type";
 import { BedClearance } from "../value-objects/bed-clearance";
 import { RoomView } from "../value-objects/room-view";
 import { RoomClass } from "../value-objects/room-class";
+import { ChairType } from "../value-objects/chair-type";
 
 export interface RoomFilterCriteria {
   bedCount?: number;
@@ -16,10 +17,12 @@ export interface RoomFilterCriteria {
   isAccessible?: boolean;
   hasKitchen?: boolean;
   hasPullOutSofaBed?: boolean;
-  hasSofa?: boolean;
+  chairType?: ChairType;
   hasCarpet?: boolean;
   view?: RoomView;
   roomClass?: RoomClass;
+  connectingRoomNumber?: string;
+  hasConnectingRoom?: boolean;
 }
 
 export interface RoomRepository {

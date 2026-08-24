@@ -50,7 +50,10 @@ export class HandleStaffQuery {
 
     if (intent === "room_matching") {
       const criteria = await this.llmClient.extractRoomCriteria(staffMessage);
-      const rooms = await this.roomRepository.findMatching(criteria);
+      let rooms = await this.roomRepository.findMatching(criteria);
+      rooms = rooms.sort((a, b) =>
+        a.roomNumber.localeCompare(b.roomNumber, undefined, { numeric: true })
+      );
 
       if (rooms.length === 0) {
         return {

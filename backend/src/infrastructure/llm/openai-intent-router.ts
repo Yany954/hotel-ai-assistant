@@ -20,7 +20,7 @@ export class OpenAiIntentRouter implements IntentRouter {
 
 greeting: "hi", "hello", "hey", "good morning" — a hello with no real question.
 off_topic: anything unrelated to the hotel or its brand (weather, sports, personal questions, general trivia, homework help).
-room_matching: guest room requirements (beds, shower, floor, accessibility, kitchen, view, suite).
+room_matching: guest room requirements (beds, shower, floor, accessibility, kitchen, view, suite, connectingRoom).
 contacts_directory: asking for a phone number or who to call, by name or vendor.
 procedure: how-to questions, hotel policies, guest situations, staff duties — anything needing an explanation of steps or rules specific to THIS hotel that our internal procedure documents would cover.
 general_info: questions about the Wyndham brand, loyalty programs, or general hospitality knowledge that isn't a step-by-step hotel procedure (e.g. "what is Wyndham Rewards", "what chain is this hotel part of").

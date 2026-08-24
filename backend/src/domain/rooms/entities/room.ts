@@ -11,23 +11,26 @@ import { ShowerType } from "../value-objects/shower-type";
 import { BedClearance } from "../value-objects/bed-clearance";
 import { RoomView } from "../value-objects/room-view";
 import { RoomClass } from "../value-objects/room-class";
+import { ChairType } from "../value-objects/chair-type";
 
 export interface Room {
   id: string;
   roomNumber: string;
   floor: number;
-  roomTypeCode?: string;              // e.g. "PNK1", "NDD29" — reference only, not used to match
+  roomTypeCode?: string;             
 
-  bedConfiguration: BedConfiguration; // e.g. { bedCount: 2, bedType: "queen" }
+  bedConfiguration: BedConfiguration; 
   showerType: ShowerType;
   bedClearance: BedClearance;
   isAccessible: boolean;
 
-  hasKitchen: boolean;                // kitchen sink + place to cook
+  hasKitchen: boolean;               
   hasPullOutSofaBed: boolean;
-  hasSofa: boolean;                   // small sofa/loveseat, distinct from a pull-out sofa bed
+  chairType: ChairType;                   
   hasCarpet: boolean;
 
   view: RoomView;
   roomClass: RoomClass;
+  connectingRoomNumber?: string;
+  hasConnectingRoom?: boolean;
 }

@@ -1,0 +1,1 @@
+export type ChairType = "none" | "chair" | "mini-sofa";

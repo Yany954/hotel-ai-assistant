@@ -1,4 +1,4 @@
-import { Contact, ContactCategory, ContactDraft, PhoneLine } from "../types/contact";
+import { Contact, ContactCategory } from "../types/contact";
 
 export const CONTACT_CATEGORIES : ContactCategory[] = [
   "tech_support", "third_party_platform", "property_management_company",

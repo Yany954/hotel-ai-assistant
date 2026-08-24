@@ -1,26 +1,34 @@
 import { useRef, useState } from "react";
 import Papa, { ParseResult } from "papaparse";
-import {Plus, Pencil, Trash2, Upload} from "lucide-react";
-import { Room, RoomDraft } from "../../types/room";
-import {CSV_TEMPLATE_HEADER, initialRooms} from "../../constants/rooms_const"
-import PageHeader from "../../components/Admin/PageHeader"
+import { Plus, Pencil, Trash2, Upload } from "lucide-react";
+import { Room, RoomDraft, ChairType } from "../../types/room";
+import { CSV_TEMPLATE_HEADER } from "../../constants/rooms_const";
+import PageHeader from "../../components/Admin/PageHeader";
 import PrimaryButton from "../../components/Admin/PrimaryButton";
 import SearchBar from "../../components/Admin/SearchBar";
 import Modal from "../../components/Admin/Modal";
-import  {Field, inputCls} from "../../components/Admin/Field";
+import { Field, inputCls } from "../../components/Admin/Field";
 import { classNames } from "../../components/Admin/Field";
 import { importRoomsCsv, createRoom, updateRoom, deleteRoom } from "../../api/client";
 
+const parseConnectingRoom = (val: any): string | undefined => {
+  if (!val) return undefined;
+  const str = String(val).trim().toUpperCase();
+  if (["NONE", "NO", "FALSE", "-", "N/A"].includes(str)) return undefined;
+  return str;
+};
 
-function boolLabel(v: boolean) { return v ? "Sí" : "No"; }
+
+function boolLabel(v: boolean) { return v ? "Yes" : "No"; }
 
 function blankRoom(): RoomDraft {
   return {
     id: null, roomNumber: "", floor: 1, roomTypeCode: "",
     bedConfiguration: { bedCount: 2, bedType: "queen" }, showerType: "walk_in_shower",
     bedClearance: "flush_to_floor", isAccessible: false, hasKitchen: false,
-    hasPullOutSofaBed: false, hasSofa: false, hasCarpet: false,
+    hasPullOutSofaBed: false, chairType: "none", hasCarpet: false,
     view: "street_facing", roomClass: "regular",
+    connectingRoomNumber: undefined, hasConnectingRoom: undefined,
   };
 }
 
@@ -31,39 +39,50 @@ function RoomsView({ rooms, setRooms }: { rooms: Room[]; setRooms: (r: Room[]) =
   const [showImport, setShowImport] = useState(false);
   const fileRef = useRef<HTMLInputElement>(null);
 
-  const filtered = rooms.filter((r) => r.roomNumber.includes(query) || (r.roomTypeCode || "").toLowerCase().includes(query.toLowerCase()));
+  // Filters search results AND sorts them numerically (101, 102, 103...)
+  const sortedAndFilteredRooms = rooms
+    .filter((r) => {
+      const q = query.toLowerCase();
+      return (
+        r.roomNumber.toLowerCase().includes(q) ||
+        (r.roomTypeCode || "").toLowerCase().includes(q)
+      );
+    })
+    .sort((a, b) =>
+      a.roomNumber.localeCompare(b.roomNumber, undefined, { numeric: true })
+    );
 
   function openNew() { setEditing(blankRoom()); setShowModal(true); }
   function openEdit(r: Room) { setEditing(JSON.parse(JSON.stringify(r))); setShowModal(true); }
+
   async function save() {
     if (!editing) return;
-    try{
-      if (editing.id){
+    try {
+      if (editing.id) {
         const { id, ...patch } = editing;
-        const updated = await updateRoom(id, patch);
+        await updateRoom(id, patch);
         setRooms(rooms.map((r) => (r.id === editing.id ? (editing as Room) : r)));
-      }else{
+      } else {
         const { id, ...newRoom } = editing;
         const created = await createRoom(newRoom);
         setRooms([...rooms, created]);
-    }
-    setShowModal(false);
-      
-    }
-    catch (error) {
+      }
+      setShowModal(false);
+    } catch (error) {
       console.error("Error saving the room:", error);
       alert("There was an error saving the room to the server.");
     }
   }
-  async function remove(id: string) { 
-      try {
+
+  async function remove(id: string) {
+    try {
       await deleteRoom(id);
       setRooms(rooms.filter((r) => r.id !== id));
     } catch (error) {
       console.error("Error deleting the room:", error);
       alert("There was an error deleting the room from the server.");
     }
-   }
+  }
 
   function handleCsvFile(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
@@ -72,7 +91,11 @@ function RoomsView({ rooms, setRooms }: { rooms: Room[]; setRooms: (r: Room[]) =
       header: true,
       skipEmptyLines: true,
       complete: async (results: ParseResult<Record<string, string>>) => {
-        const toBool = (v: string) => String(v).trim().toLowerCase() === "true" || v === "1";
+        const toBool = (v: string) => {
+          const str = String(v).trim().toLowerCase();
+          return str === "true" || str === "yes" || str === "1";
+        };
+
         const parsed: Omit<Room, "id">[] = results.data.map((row) => ({
           roomNumber: row.roomNumber || "",
           floor: Number(row.floor) || 1,
@@ -83,12 +106,15 @@ function RoomsView({ rooms, setRooms }: { rooms: Room[]; setRooms: (r: Room[]) =
           isAccessible: toBool(row.isAccessible),
           hasKitchen: toBool(row.hasKitchen),
           hasPullOutSofaBed: toBool(row.hasPullOutSofaBed),
-          hasSofa: toBool(row.hasSofa),
+          chairType: (row.chairType as Room["chairType"]) || "none",
           hasCarpet: toBool(row.hasCarpet),
           view: (row.view as Room["view"]) || "street_facing",
           roomClass: (row.roomClass as Room["roomClass"]) || "regular",
+          connectingRoomNumber: row.connectingRoomNumber || undefined,
+          hasConnectingRoom: toBool(row.hasConnectingRoom),
         }));
-        try{
+
+        try {
           const created = await importRoomsCsv(parsed);
           setRooms([...rooms, ...created]);
           setShowImport(false);
@@ -96,7 +122,6 @@ function RoomsView({ rooms, setRooms }: { rooms: Room[]; setRooms: (r: Room[]) =
           console.error("Error importing rooms:", error);
           alert("There was an error saving the rooms to the server.");
         }
-        
       },
     });
   }
@@ -104,7 +129,7 @@ function RoomsView({ rooms, setRooms }: { rooms: Room[]; setRooms: (r: Room[]) =
   return (
     <>
       <PageHeader
-        title="Habitaciones"
+        title="Rooms"
         subtitle={`${rooms.length} of 89 rooms loaded`}
         action={
           <div className="flex gap-2">
@@ -116,7 +141,7 @@ function RoomsView({ rooms, setRooms }: { rooms: Room[]; setRooms: (r: Room[]) =
         }
       />
       <div className="mb-4 max-w-sm">
-        <SearchBar value={query} onChange={setQuery} placeholder="Buscar por número o código de tipo..." />
+        <SearchBar value={query} onChange={setQuery} placeholder="Search by number or type code..." />
       </div>
       <div className="bg-white rounded-xl border border-slate-200 overflow-hidden overflow-x-auto">
         <table className="w-full text-sm">
@@ -132,15 +157,18 @@ function RoomsView({ rooms, setRooms }: { rooms: Room[]; setRooms: (r: Room[]) =
             </tr>
           </thead>
           <tbody>
-            {filtered.map((r) => (
+            {sortedAndFilteredRooms.map((r) => (
               <tr key={r.id} className="border-t border-slate-100 hover:bg-slate-50/60">
                 <td className="px-5 py-4">
                   <div className="font-medium text-slate-800">#{r.roomNumber}</div>
-                  <div className="text-xs text-slate-400">{r.roomTypeCode || "sin código"} · piso {r.floor}</div>
+                  <div className="text-xs text-slate-400">
+                    {r.roomTypeCode || "no code"} · floor {r.floor}
+                    {r.connectingRoomNumber && ` · connects to #${r.connectingRoomNumber}`}
+                  </div>
                 </td>
                 <td className="px-5 py-4 text-slate-600">{r.bedConfiguration.bedCount} {r.bedConfiguration.bedType === "queen" ? "queen" : "king"}</td>
-                <td className="px-5 py-4 text-slate-600">{r.showerType === "walk_in_shower" ? "Ducha" : r.showerType === "bathtub" ? "Tina" : "Combo"}</td>
-                <td className="px-5 py-4 text-slate-600">{r.view === "street_facing" ? "Calle" : "Parqueadero"}</td>
+                <td className="px-5 py-4 text-slate-600">{r.showerType === "walk_in_shower" ? "Shower" : r.showerType === "bathtub" ? "Tub" : "Combo"}</td>
+                <td className="px-5 py-4 text-slate-600">{r.view === "street_facing" ? "Street Facing" : "Parking Lot"}</td>
                 <td className="px-5 py-4">
                   <span className={classNames("text-xs px-2 py-1 rounded-full", r.isAccessible ? "bg-emerald-50 text-emerald-700" : "bg-slate-100 text-slate-500")}>
                     {boolLabel(r.isAccessible)}
@@ -202,9 +230,9 @@ function RoomsView({ rooms, setRooms }: { rooms: Room[]; setRooms: (r: Room[]) =
           <div className="grid grid-cols-2 gap-4">
             <Field label="Bathroom">
               <select className={inputCls} value={editing.showerType} onChange={(e) => setEditing({ ...editing, showerType: e.target.value as Room["showerType"] })}>
-                <option value="walk_in_shower">Ducha (walk-in)</option>
-                <option value="bathtub">Tina</option>
-                <option value="tub_shower_combo">Combo tina/ducha</option>
+                <option value="walk_in_shower">Shower (walk-in)</option>
+                <option value="bathtub">Tub</option>
+                <option value="tub_shower_combo">Combo tub/shower</option>
               </select>
             </Field>
             <Field label="Space Under Bed">
@@ -216,27 +244,49 @@ function RoomsView({ rooms, setRooms }: { rooms: Room[]; setRooms: (r: Room[]) =
           </div>
 
           <div className="grid grid-cols-2 gap-4">
-            <Field label="Vista">
+            <Field label="View">
               <select className={inputCls} value={editing.view} onChange={(e) => setEditing({ ...editing, view: e.target.value as Room["view"] })}>
                 <option value="street_facing">Towards the street</option>
                 <option value="parking_lot_facing">Towards the parking lot</option>
               </select>
             </Field>
+            <Field label="Seating / Chair Type">
+              <select
+                className={inputCls}
+                value={editing.chairType}
+                onChange={(e) => setEditing({ ...editing, chairType: e.target.value as ChairType })}
+              >
+                <option value="none">None</option>
+                <option value="chair">Armchair</option>
+                <option value="sofa">Mini Sofa</option>
+              </select>
+            </Field>
           </div>
 
-          <Field label="Room Class">
-            <select className={inputCls} value={editing.roomClass} onChange={(e) => setEditing({ ...editing, roomClass: e.target.value as Room["roomClass"] })}>
-              <option value="regular">Regular</option>
-              <option value="suite">Suite</option>
-            </select>
-          </Field>
+          <div className="grid grid-cols-2 gap-4">
+            <Field label="Room Class">
+              <select className={inputCls} value={editing.roomClass} onChange={(e) => setEditing({ ...editing, roomClass: e.target.value as Room["roomClass"] })}>
+                <option value="regular">Regular</option>
+                <option value="suite">Suite</option>
+              </select>
+            </Field>
+            <Field label="Connecting Room (optional)">
+              <input
+                className={inputCls}
+                value={editing.connectingRoomNumber ?? ""}
+                onChange={(e) =>
+                  setEditing({ ...editing, connectingRoomNumber: e.target.value || undefined })
+                }
+                placeholder="e.g. 228 (leave empty if none)"
+              />
+            </Field>
+          </div>
 
           <div className="grid grid-cols-2 gap-x-4 gap-y-2 mb-2">
             {([
               ["isAccessible", "Accessible Room"],
               ["hasKitchen", "Has Kitchen"],
               ["hasPullOutSofaBed", "Pull-out Sofa Bed"],
-              ["hasSofa", "Small Sofa"],
               ["hasCarpet", "Carpet"],
             ] as [keyof RoomDraft, string][]).map(([key, label]) => (
               <label key={key} className="flex items-center gap-2 text-sm text-slate-600 py-1.5">
@@ -260,4 +310,5 @@ function RoomsView({ rooms, setRooms }: { rooms: Room[]; setRooms: (r: Room[]) =
     </>
   );
 }
+
 export default RoomsView;

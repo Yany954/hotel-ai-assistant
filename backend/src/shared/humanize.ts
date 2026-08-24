@@ -23,6 +23,9 @@ interface RoomLike {
   isAccessible: boolean;
   view: string;
   roomClass: string;
+  connectingRoomNumber?: string;
+  hasConnectingRoom?: boolean;
+  
 }
 
 export function describeRoom(r: RoomLike): string {
@@ -34,7 +37,7 @@ export function describeRoom(r: RoomLike): string {
   if (r.isAccessible) parts.push("ADA-accessible");
   if (r.roomClass === "suite") parts.push("suite");
   parts.push(r.view === "street_facing" ? "street-facing" : "facing the parking lot");
-  return `Room ${r.roomNumber} (floor ${r.floor}): ${parts.join(", ")}.`;
+  return `Room ${r.roomNumber}: ${parts.join(", ")}.`;
 }
 
 interface ContactLike {

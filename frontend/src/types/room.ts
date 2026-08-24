@@ -10,6 +10,7 @@ export type ShowerType = "walk_in_shower" | "bathtub" | "tub_shower_combo";
 export type BedClearance = "flush_to_floor" | "gap_underneath";
 export type RoomView = "street_facing" | "parking_lot_facing";
 export type RoomClass = "suite" | "regular";
+export type ChairType = "none" | "chair" | "mini-sofa";
 
 export interface Room {
   id: string;
@@ -22,10 +23,12 @@ export interface Room {
   isAccessible: boolean;
   hasKitchen: boolean;
   hasPullOutSofaBed: boolean;
-  hasSofa: boolean;
+  chairType: ChairType;
   hasCarpet: boolean;
   view: RoomView;
   roomClass: RoomClass;
+  connectingRoomNumber?: string;
+  hasConnectingRoom?: boolean;
 }
 
 export type RoomDraft = Omit<Room, "id"> & { id: string | null };

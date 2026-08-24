@@ -74,12 +74,12 @@ function ContactsView({ contacts, setContacts }: { contacts: Contact[]; setConta
   return (
     <>
       <PageHeader
-        title="Directorio de contactos"
-        subtitle={`${contacts.length} contactos registrados`}
-        action={<PrimaryButton icon={Plus} onClick={openNew}>Nuevo contacto</PrimaryButton>}
+        title="Contacts Directory"
+        subtitle={`${contacts.length} contacts registered`}
+        action={<PrimaryButton icon={Plus} onClick={openNew}>New Contact</PrimaryButton>}
       />
       <div className="mb-4 max-w-sm">
-        <SearchBar value={query} onChange={setQuery} placeholder="Buscar por nombre o categoría..." />
+        <SearchBar value={query} onChange={setQuery} placeholder="Search by name or category..." />
       </div>
       <div className="bg-white rounded-xl border border-slate-200 overflow-hidden">
         <table className="w-full text-sm">
@@ -177,13 +177,13 @@ function ContactsView({ contacts, setContacts }: { contacts: Contact[]; setConta
             ))}
           </div>
 
-          <Field label="Notas (opcional)">
-            <textarea className={inputCls} rows={2} value={editing.notes ?? ""} onChange={(e) => setEditing({ ...editing, notes: e.target.value })} placeholder="Ej. reglas especiales de cuándo usar este contacto" />
+          <Field label="Notes (optional)">
+            <textarea className={inputCls} rows={2} value={editing.notes ?? ""} onChange={(e) => setEditing({ ...editing, notes: e.target.value })} placeholder="e.g., special rules for when to use this contact" />
           </Field>
 
           <div className="flex justify-end gap-2 pt-2">
-            <button onClick={() => setShowModal(false)} className="px-4 py-2 text-sm text-slate-600 hover:bg-slate-50 rounded-lg">Cancelar</button>
-            <PrimaryButton onClick={save}>Guardar contacto</PrimaryButton>
+            <button onClick={() => setShowModal(false)} className="px-4 py-2 text-sm text-slate-600 hover:bg-slate-50 rounded-lg">Cancel</button>
+            <PrimaryButton onClick={save}>Save Contact</PrimaryButton>
           </div>
         </Modal>
       )}

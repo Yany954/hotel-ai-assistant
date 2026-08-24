@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none">
+  <defs>
+    <linearGradient id="hotelAiGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#7C3AED" />
+      <stop offset="100%" stop-color="#4F46E5" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background Badge -->
+  <rect width="100" height="100" rx="24" fill="url(#hotelAiGrad)" />
+
+  <!-- Hotel Building Silhouette -->
+  <!-- Main Building Outline -->
+  <path d="M26 80V32C26 29.7909 27.7909 28 30 28H70C72.2091 28 74 29.7909 74 32V80" stroke="white" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" />
+  
+  <!-- Hotel Entrance/Door -->
+  <path d="M44 80V66C44 63.7909 45.7909 62 48 62H52C54.2091 62 56 63.7909 56 66V80" fill="white" />
+  
+  <!-- Hotel Windows -->
+  <rect x="34" y="38" width="8" height="8" rx="2" fill="white" />
+  <rect x="58" y="38" width="8" height="8" rx="2" fill="white" />
+  <rect x="34" y="50" width="8" height="8" rx="2" fill="white" />
+  <rect x="58" y="50" width="8" height="8" rx="2" fill="white" />
+
+  <!-- Gold AI Sparkle Overlay -->
+  <path d="M72 16C72 21 75 23 80 23C75 23 72 25 72 30C72 25 69 23 64 23C69 23 72 21 72 16Z" fill="#FDE047" />
+</svg>

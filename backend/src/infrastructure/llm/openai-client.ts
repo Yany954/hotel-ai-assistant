@@ -9,7 +9,7 @@ export class OpenAiLlmClient implements LlmClient {
     const response = await openai.chat.completions.create({
       model: "gpt-4o-mini",
       messages: [
-        { role: "system", content: "Extract ONLY room criteria explicitly stated in the message — whether it's phrased as a guest's request (\"I need 2 queen beds\") or staff asking about inventory (\"how many queen beds do we have\"). Both describe the same filter: bedType queen. Never infer or guess a value that wasn't stated — if a field isn't mentioned, leave it out entirely rather than guessing a value for it." },
+        { role: "system", content: "Extract ONLY room criteria explicitly stated in the message — whether it's phrased as a guest's request (\"I need 2 queen beds\") or staff asking about inventory (\"how many queen beds do we have\"). Both describe the same filter: bedType queen. Never infer or guess a value that wasn't stated — if a field isn't mentioned, leave it out entirely rather than guessing a value for it.- hasConnectingRoom: boolean (Set to true ONLY if the user asks for connecting/adjoining rooms in general, e.g., 'do we have connected rooms?' or 'rooms with connecting doors') - connectingRoomNumber: string (Set ONLY if the user asks for a room connected to a specific room number, e.g., 'which room connects to 227?'')" },
         { role: "user", content: guestDescription },
       ],
       tools: [{
@@ -27,8 +27,10 @@ export class OpenAiLlmClient implements LlmClient {
               isAccessible: { type: "boolean" },
               hasKitchen: { type: "boolean" },
               hasPullOutSofaBed: { type: "boolean" },
-              hasSofa: { type: "boolean" },
+              chairType: { type: "string", enum: ["none", "chair", "mini-sofa"] },
               hasCarpet: { type: "boolean" },
+              connectingRoomNumber: { type: "string" },
+              hasConnectingRoom: { type: "boolean" },
               view: { type: "string", enum: ["street_facing", "parking_lot_facing"] },
               roomClass: { type: "string", enum: ["suite", "regular"] },
             },
