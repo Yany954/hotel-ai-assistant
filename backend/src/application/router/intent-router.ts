@@ -5,6 +5,11 @@ export interface RoutedRequest {
   rawMessage: string;
 }
 
+export interface ConversationTurn {
+  role: "staff" | "assistant";
+  text: string;
+}
+
 export interface IntentRouter {
-  classify(message: string): Promise<Intent>;
+  classify(message: string, history?: ConversationTurn[]): Promise<Intent>;
 }

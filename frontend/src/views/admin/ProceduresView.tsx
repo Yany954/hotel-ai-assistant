@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Plus, Pencil, Trash2 } from "lucide-react";
+import Swal from "sweetalert2";
 import { Contact } from "../../types/contact";
 import { EscalationProcedure, EscalationProcedureDraft, EscalationStep } from "../../types/escalation";
 import PageHeader from "../../components/Admin/PageHeader";
@@ -39,32 +40,66 @@ export default function ProceduresView({ procedures, setProcedures, contacts }: 
     setShowModal(true);
   }
 
- async function save() {
-  if (!editing) return;
-  const { id, ...patch } = { ...editing, steps: showSteps ? editing.steps : [] };
+  async function save() {
+    if (!editing) return;
+    const { id, ...patch } = { ...editing, steps: showSteps ? editing.steps : [] };
 
-  try {
-    if (id) {
-      const updated = await updateProcedure(id, patch);
-      setProcedures(procedures.map((p) => (p.id === updated.id ? updated : p)));
-    } else {
-      const created = await createProcedure(patch);
-      setProcedures([...procedures, created]);
-    }
-    setShowModal(false);
-  } catch (error) {
-    console.error(error);
-    alert("Error saving the procedure.");
-  }
-}
-
-  async function remove(id: string) {
     try {
-      await deleteProcedure(id);
-      setProcedures(procedures.filter((p) => p.id !== id));
+      if (id) {
+        const updated = await updateProcedure(id, patch);
+        setProcedures(procedures.map((p) => (p.id === updated.id ? updated : p)));
+      } else {
+        const created = await createProcedure(patch);
+        setProcedures([...procedures, created]);
+      }
+      setShowModal(false);
+      Swal.fire({
+        icon: "success",
+        title: "Saved!",
+        text: "The procedure was saved successfully.",
+        confirmButtonColor: "#7c3aed",
+      });
     } catch (error) {
       console.error(error);
-      alert("Error deleting the procedure.");
+      Swal.fire({
+        icon: "error",
+        title: "Save Failed",
+        text: "There was an error saving the procedure.",
+        confirmButtonColor: "#7c3aed",
+      });
+    }
+  }
+
+  async function remove(p: EscalationProcedure) {
+    const result = await Swal.fire({
+      title: "Delete Procedure?",
+      text: `Are you sure you want to delete "${p.triggerSituation}"?`,
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#e11d48",
+      cancelButtonColor: "#64748b",
+      confirmButtonText: "Yes, delete it",
+    });
+
+    if (!result.isConfirmed) return;
+
+    try {
+      await deleteProcedure(p.id);
+      setProcedures(procedures.filter((item) => item.id !== p.id));
+      Swal.fire({
+        icon: "success",
+        title: "Deleted!",
+        text: "The procedure has been removed.",
+        confirmButtonColor: "#7c3aed",
+      });
+    } catch (error) {
+      console.error(error);
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "There was an error deleting the procedure.",
+        confirmButtonColor: "#7c3aed",
+      });
     }
   }
 
@@ -86,12 +121,50 @@ export default function ProceduresView({ procedures, setProcedures, contacts }: 
 
   return (
     <>
-      <PageHeader title="Procedimientos" subtitle={`${procedures.length} artículos cargados`}
-        action={<PrimaryButton icon={Plus} onClick={openNew}>Nuevo procedimiento</PrimaryButton>} />
+      <PageHeader 
+        title="Procedures" 
+        subtitle={`${procedures.length} procedures loaded`}
+        action={<PrimaryButton icon={Plus} onClick={openNew}>New Procedure</PrimaryButton>} 
+      />
+      
       <div className="mb-4 max-w-sm">
-        <SearchBar value={query} onChange={setQuery} placeholder="Search by situation or category..." />
+        <SearchBar value={query} onChange={setQuery} placeholder="Search situation or category..." />
       </div>
-      <div className="bg-white rounded-xl border border-slate-200 overflow-hidden">
+
+      {/* MOBILE LIST VIEW (Shown on small screens) */}
+      <div className="block md:hidden space-y-3">
+        {filtered.map((p) => (
+          <div key={p.id} className="bg-white p-4 rounded-xl border border-slate-200 shadow-sm space-y-2">
+            <div className="flex items-start justify-between gap-2">
+              <div className="font-semibold text-slate-800 break-all text-sm">
+                {p.triggerSituation}
+                {p.steps?.some((s) => s.isEmergency) && (
+                  <span className="ml-2 text-[10px] px-2 py-0.5 rounded-full bg-rose-50 text-rose-600 font-normal">
+                    emergency
+                  </span>
+                )}
+              </div>
+              <div className="flex items-center gap-1 shrink-0">
+                <button onClick={() => openEdit(p)} className="p-2 text-slate-500 hover:text-violet-600 hover:bg-violet-50 rounded-lg">
+                  <Pencil size={16} />
+                </button>
+                <button onClick={() => remove(p)} className="p-2 text-slate-500 hover:text-rose-600 hover:bg-rose-50 rounded-lg">
+                  <Trash2 size={16} />
+                </button>
+              </div>
+            </div>
+
+            <div className="text-xs">
+              <span className="px-2 py-0.5 rounded-full bg-slate-100 text-slate-600">{p.category}</span>
+            </div>
+
+            <p className="text-xs text-slate-500 line-clamp-2 pt-1">{p.content}</p>
+          </div>
+        ))}
+      </div>
+
+      {/* DESKTOP TABLE VIEW (Shown on md screens and larger) */}
+      <div className="hidden md:block bg-white rounded-xl border border-slate-200 overflow-x-auto">
         <table className="w-full text-sm">
           <thead>
             <tr className="bg-slate-50 text-slate-500 text-xs uppercase tracking-wide">
@@ -104,16 +177,26 @@ export default function ProceduresView({ procedures, setProcedures, contacts }: 
           <tbody>
             {filtered.map((p) => (
               <tr key={p.id} className="border-t border-slate-100 hover:bg-slate-50/60">
-                <td className="px-5 py-4 font-medium text-slate-800">
+                <td className="px-5 py-4 font-medium text-slate-800 max-w-[200px] break-all">
                   {p.triggerSituation}
-                  {p.steps?.some((s) => s.isEmergency) && <span className="ml-2 text-xs px-2 py-0.5 rounded-full bg-rose-50 text-rose-600">emergency</span>}
+                  {p.steps?.some((s) => s.isEmergency) && (
+                    <span className="ml-2 text-xs px-2 py-0.5 rounded-full bg-rose-50 text-rose-600 font-normal">
+                      emergency
+                    </span>
+                  )}
                 </td>
-                <td className="px-5 py-4"><span className="text-xs px-2 py-1 rounded-full bg-slate-100 text-slate-600">{p.category}</span></td>
+                <td className="px-5 py-4 whitespace-nowrap">
+                  <span className="text-xs px-2 py-1 rounded-full bg-slate-100 text-slate-600">{p.category}</span>
+                </td>
                 <td className="px-5 py-4 text-slate-500 max-w-xs truncate">{p.content}</td>
-                <td className="px-5 py-4">
+                <td className="px-5 py-4 text-right whitespace-nowrap">
                   <div className="flex justify-end gap-1">
-                    <button onClick={() => openEdit(p)} className="p-2 text-slate-400 hover:text-violet-600 hover:bg-violet-50 rounded-lg"><Pencil size={15} /></button>
-                    <button onClick={() => remove(p.id)} className="p-2 text-slate-400 hover:text-rose-600 hover:bg-rose-50 rounded-lg"><Trash2 size={15} /></button>
+                    <button onClick={() => openEdit(p)} className="p-2 text-slate-400 hover:text-violet-600 hover:bg-violet-50 rounded-lg">
+                      <Pencil size={15} />
+                    </button>
+                    <button onClick={() => remove(p)} className="p-2 text-slate-400 hover:text-rose-600 hover:bg-rose-50 rounded-lg">
+                      <Trash2 size={15} />
+                    </button>
                   </div>
                 </td>
               </tr>
@@ -122,9 +205,10 @@ export default function ProceduresView({ procedures, setProcedures, contacts }: 
         </table>
       </div>
 
+      {/* MODAL */}
       {showModal && editing && (
         <Modal title={editing.id ? "Edit Procedure" : "New Procedure"} onClose={() => setShowModal(false)} wide>
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <Field label="Situation Name (short title)">
               <input className={inputCls} value={editing.triggerSituation} onChange={(e) => setEditing({ ...editing, triggerSituation: e.target.value })} placeholder="late_checkout_policy" />
             </Field>
@@ -137,7 +221,7 @@ export default function ProceduresView({ procedures, setProcedures, contacts }: 
           </div>
 
           <Field label="Procedure Content (this is embedded for semantic search and is the only thing the chat uses to respond)">
-            <textarea className={inputCls} rows={8} value={editing.content} onChange={(e) => setEditing({ ...editing, content: e.target.value })} placeholder="Paste the complete procedure text here, as it should be followed." />
+            <textarea className={inputCls} rows={6} value={editing.content} onChange={(e) => setEditing({ ...editing, content: e.target.value })} placeholder="Paste the complete procedure text here." />
           </Field>
 
           <label className="flex items-center gap-2 text-sm text-slate-600 mb-3">
@@ -163,7 +247,7 @@ export default function ProceduresView({ procedures, setProcedures, contacts }: 
                     <input type="checkbox" checked={s.isEmergency} onChange={(e) => updateStep(idx, "isEmergency", e.target.checked)} className="rounded border-slate-300 text-rose-600" />
                     It's an emergency step
                   </label>
-                  <button onClick={() => removeStep(idx)} className="text-xs text-rose-500">Remove Step</button>
+                  <button onClick={() => removeStep(idx)} className="text-xs text-rose-500 font-medium">Remove Step</button>
                 </div>
               ))}
             </div>

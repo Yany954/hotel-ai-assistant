@@ -53,8 +53,16 @@ app.use("/conversations", requireAuth, conversationsRouter);
 app.post("/chat", requireAuth, enforceDailyChatLimit, async (req, res) => {
   const message = String(req.body.message ?? "").trim().slice(0, 1000);
   if (!message) return res.status(400).json({ error: "message is required" });
+
+  const history = Array.isArray(req.body.history)
+    ? req.body.history
+        .filter((t: any) => (t?.role === "staff" || t?.role === "assistant") && typeof t?.text === "string")
+        .map((t: any) => ({ role: t.role, text: String(t.text).slice(0, 1000) }))
+        .slice(-10)
+    : [];
+
   try {
-    res.json(await handleStaffQuery.execute(message));
+    res.json(await handleStaffQuery.execute(message, history));
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "failed to process query" });

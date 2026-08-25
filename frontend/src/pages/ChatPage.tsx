@@ -107,7 +107,7 @@ export function ChatPage() {
     setLoading(true);
 
     try {
-      const result = await askStaffQuery(input);
+      const result = await askStaffQuery(input, baseMessages);
       const assistantMessage: ConversationMessage = { role: "assistant", text: formatResponse(result), timestamp: new Date().toISOString() };
       const withBoth = [...withStaff, assistantMessage];
       patchActive(conversationId, withBoth);
@@ -120,10 +120,10 @@ export function ChatPage() {
           setConversations((prev) => prev.map((c) => (c.id === conversationId ? { ...c, title: match.title } : c)));
         }
       }
-      } catch (error: any) {
-        console.error(error);
-        const errorMessage: ConversationMessage = { role: "assistant", text: error?.message ?? "There was an error reaching the backend.", timestamp: new Date().toISOString() };
-        patchActive(conversationId, [...withStaff, errorMessage]);
+    } catch (error: any) {
+      console.error(error);
+      const errorMessage: ConversationMessage = { role: "assistant", text: error?.message ?? "There was an error reaching the backend.", timestamp: new Date().toISOString() };
+      patchActive(conversationId, [...withStaff, errorMessage]);
     } finally {
       setLoading(false);
     }
@@ -144,9 +144,8 @@ export function ChatPage() {
           {conversations.map((c) => (
             <div
               key={c.id}
-              className={`group flex items-center gap-2 px-3 py-2.5 rounded-lg text-sm transition-colors ${
-                c.id === activeId ? "bg-violet-50 text-violet-700 font-medium" : "text-slate-600 hover:bg-slate-50"
-              }`}
+              className={`group flex items-center gap-2 px-3 py-2.5 rounded-lg text-sm transition-colors ${c.id === activeId ? "bg-violet-50 text-violet-700 font-medium" : "text-slate-600 hover:bg-slate-50"
+                }`}
             >
               <MessageSquare size={14} className="shrink-0" />
               {renamingId === c.id ? (

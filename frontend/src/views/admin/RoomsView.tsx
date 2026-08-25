@@ -1,14 +1,14 @@
 import { useRef, useState } from "react";
 import Papa, { ParseResult } from "papaparse";
 import { Plus, Pencil, Trash2, Upload } from "lucide-react";
+import Swal from "sweetalert2";
 import { Room, RoomDraft, ChairType } from "../../types/room";
 import { CSV_TEMPLATE_HEADER } from "../../constants/rooms_const";
 import PageHeader from "../../components/Admin/PageHeader";
 import PrimaryButton from "../../components/Admin/PrimaryButton";
 import SearchBar from "../../components/Admin/SearchBar";
 import Modal from "../../components/Admin/Modal";
-import { Field, inputCls } from "../../components/Admin/Field";
-import { classNames } from "../../components/Admin/Field";
+import { Field, inputCls, classNames } from "../../components/Admin/Field";
 import { importRoomsCsv, createRoom, updateRoom, deleteRoom } from "../../api/client";
 
 const parseConnectingRoom = (val: any): string | undefined => {
@@ -17,7 +17,6 @@ const parseConnectingRoom = (val: any): string | undefined => {
   if (["NONE", "NO", "FALSE", "-", "N/A"].includes(str)) return undefined;
   return str;
 };
-
 
 function boolLabel(v: boolean) { return v ? "Yes" : "No"; }
 
@@ -39,7 +38,6 @@ function RoomsView({ rooms, setRooms }: { rooms: Room[]; setRooms: (r: Room[]) =
   const [showImport, setShowImport] = useState(false);
   const fileRef = useRef<HTMLInputElement>(null);
 
-  // Filters search results AND sorts them numerically (101, 102, 103...)
   const sortedAndFilteredRooms = rooms
     .filter((r) => {
       const q = query.toLowerCase();
@@ -68,19 +66,53 @@ function RoomsView({ rooms, setRooms }: { rooms: Room[]; setRooms: (r: Room[]) =
         setRooms([...rooms, created]);
       }
       setShowModal(false);
+      Swal.fire({
+        icon: "success",
+        title: "Saved!",
+        text: `Room #${editing.roomNumber} has been saved successfully.`,
+        confirmButtonColor: "#7c3aed",
+      });
     } catch (error) {
       console.error("Error saving the room:", error);
-      alert("There was an error saving the room to the server.");
+      Swal.fire({
+        icon: "error",
+        title: "Save Failed",
+        text: "There was an error saving the room to the server.",
+        confirmButtonColor: "#7c3aed",
+      });
     }
   }
 
-  async function remove(id: string) {
+  async function remove(r: Room) {
+    const result = await Swal.fire({
+      title: `Delete Room #${r.roomNumber}?`,
+      text: "Are you sure you want to delete this room? This action cannot be undone.",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#e11d48",
+      cancelButtonColor: "#64748b",
+      confirmButtonText: "Yes, delete it",
+    });
+
+    if (!result.isConfirmed) return;
+
     try {
-      await deleteRoom(id);
-      setRooms(rooms.filter((r) => r.id !== id));
+      await deleteRoom(r.id);
+      setRooms(rooms.filter((item) => item.id !== r.id));
+      Swal.fire({
+        icon: "success",
+        title: "Deleted!",
+        text: `Room #${r.roomNumber} has been removed.`,
+        confirmButtonColor: "#7c3aed",
+      });
     } catch (error) {
       console.error("Error deleting the room:", error);
-      alert("There was an error deleting the room from the server.");
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "There was an error deleting the room from the server.",
+        confirmButtonColor: "#7c3aed",
+      });
     }
   }
 
@@ -110,7 +142,7 @@ function RoomsView({ rooms, setRooms }: { rooms: Room[]; setRooms: (r: Room[]) =
           hasCarpet: toBool(row.hasCarpet),
           view: (row.view as Room["view"]) || "street_facing",
           roomClass: (row.roomClass as Room["roomClass"]) || "regular",
-          connectingRoomNumber: row.connectingRoomNumber || undefined,
+          connectingRoomNumber: parseConnectingRoom(row.connectingRoomNumber),
           hasConnectingRoom: toBool(row.hasConnectingRoom),
         }));
 
@@ -118,9 +150,20 @@ function RoomsView({ rooms, setRooms }: { rooms: Room[]; setRooms: (r: Room[]) =
           const created = await importRoomsCsv(parsed);
           setRooms([...rooms, ...created]);
           setShowImport(false);
+          Swal.fire({
+            icon: "success",
+            title: "Import Successful!",
+            text: `${created.length} rooms imported successfully.`,
+            confirmButtonColor: "#7c3aed",
+          });
         } catch (error) {
           console.error("Error importing rooms:", error);
-          alert("There was an error saving the rooms to the server.");
+          Swal.fire({
+            icon: "error",
+            title: "Import Failed",
+            text: "There was an error saving the rooms to the server.",
+            confirmButtonColor: "#7c3aed",
+          });
         }
       },
     });
@@ -157,36 +200,39 @@ function RoomsView({ rooms, setRooms }: { rooms: Room[]; setRooms: (r: Room[]) =
             </tr>
           </thead>
           <tbody>
-            {sortedAndFilteredRooms.map((r) => (
-              <tr key={r.id} className="border-t border-slate-100 hover:bg-slate-50/60">
-                <td className="px-5 py-4">
-                  <div className="font-medium text-slate-800">#{r.roomNumber}</div>
-                  <div className="text-xs text-slate-400">
-                    {r.roomTypeCode || "no code"} · floor {r.floor}
-                    {r.connectingRoomNumber && ` · connects to #${r.connectingRoomNumber}`}
-                  </div>
-                </td>
-                <td className="px-5 py-4 text-slate-600">{r.bedConfiguration.bedCount} {r.bedConfiguration.bedType === "queen" ? "queen" : "king"}</td>
-                <td className="px-5 py-4 text-slate-600">{r.showerType === "walk_in_shower" ? "Shower" : r.showerType === "bathtub" ? "Tub" : "Combo"}</td>
-                <td className="px-5 py-4 text-slate-600">{r.view === "street_facing" ? "Street Facing" : "Parking Lot"}</td>
-                <td className="px-5 py-4">
-                  <span className={classNames("text-xs px-2 py-1 rounded-full", r.isAccessible ? "bg-emerald-50 text-emerald-700" : "bg-slate-100 text-slate-500")}>
-                    {boolLabel(r.isAccessible)}
-                  </span>
-                </td>
-                <td className="px-5 py-4 text-slate-600 capitalize">{r.roomClass === "suite" ? "Suite" : "Regular"}</td>
-                <td className="px-5 py-4">
-                  <div className="flex justify-end gap-1">
-                    <button onClick={() => openEdit(r)} className="p-2 text-slate-400 hover:text-violet-600 hover:bg-violet-50 rounded-lg">
-                      <Pencil size={15} />
-                    </button>
-                    <button onClick={() => remove(r.id)} className="p-2 text-slate-400 hover:text-rose-600 hover:bg-rose-50 rounded-lg">
-                      <Trash2 size={15} />
-                    </button>
-                  </div>
-                </td>
-              </tr>
-            ))}
+            {sortedAndFilteredRooms.map((r) => {
+              const conn = parseConnectingRoom(r.connectingRoomNumber);
+              return (
+                <tr key={r.id} className="border-t border-slate-100 hover:bg-slate-50/60">
+                  <td className="px-5 py-4">
+                    <div className="font-medium text-slate-800">#{r.roomNumber}</div>
+                    <div className="text-xs text-slate-400">
+                      {r.roomTypeCode || "no code"} · floor {r.floor}
+                      {conn && ` · connects to #${conn}`}
+                    </div>
+                  </td>
+                  <td className="px-5 py-4 text-slate-600">{r.bedConfiguration.bedCount} {r.bedConfiguration.bedType === "queen" ? "queen" : "king"}</td>
+                  <td className="px-5 py-4 text-slate-600">{r.showerType === "walk_in_shower" ? "Shower" : r.showerType === "bathtub" ? "Tub" : "Combo"}</td>
+                  <td className="px-5 py-4 text-slate-600">{r.view === "street_facing" ? "Street Facing" : "Parking Lot"}</td>
+                  <td className="px-5 py-4">
+                    <span className={classNames("text-xs px-2 py-1 rounded-full", r.isAccessible ? "bg-emerald-50 text-emerald-700" : "bg-slate-100 text-slate-500")}>
+                      {boolLabel(r.isAccessible)}
+                    </span>
+                  </td>
+                  <td className="px-5 py-4 text-slate-600 capitalize">{r.roomClass === "suite" ? "Suite" : "Regular"}</td>
+                  <td className="px-5 py-4">
+                    <div className="flex justify-end gap-1">
+                      <button onClick={() => openEdit(r)} className="p-2 text-slate-400 hover:text-violet-600 hover:bg-violet-50 rounded-lg">
+                        <Pencil size={15} />
+                      </button>
+                      <button onClick={() => remove(r)} className="p-2 text-slate-400 hover:text-rose-600 hover:bg-rose-50 rounded-lg">
+                        <Trash2 size={15} />
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              );
+            })}
           </tbody>
         </table>
       </div>

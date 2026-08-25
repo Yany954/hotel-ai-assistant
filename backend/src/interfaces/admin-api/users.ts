@@ -61,3 +61,33 @@ usersAdminRouter.post("/:uid/resend-invite", async (req, res) => {
     res.status(400).json({ error: error.code ?? "unknown", message: error.message ?? "Couldn't generate a new invite link." });
   }
 });
+
+usersAdminRouter.patch("/:uid/status", async (req, res) => {
+  const { uid } = req.params;
+  const { status } = req.body as { status: "active" | "inactive" };
+
+  if (!status || !["active", "inactive"].includes(status)) {
+    return res.status(400).json({ error: "invalid_status", message: "Status must be 'active' or 'inactive'." });
+  }
+  try {
+    await getAuth().updateUser(uid, { disabled: status === "inactive" });
+    await db.collection("users").doc(uid).update({ status });
+    res.json({ success: true, uid, status });
+  } catch (error: any) {
+    console.error("Failed to update user status:", error);
+    res.status(400).json({ error: error.code ?? "unknown", message: error.message ?? "Couldn't update status." });
+  }
+});
+
+
+usersAdminRouter.delete("/:uid", async (req, res) => {
+  const { uid } = req.params;
+  try {
+    await getAuth().deleteUser(uid);
+    await db.collection("users").doc(uid).delete();
+    res.json({ success: true, uid });
+  } catch (error: any) {
+    console.error("Failed to delete user:", error);
+    res.status(400).json({ error: error.code ?? "unknown", message: error.message ?? "Couldn't delete user." });
+  }
+});

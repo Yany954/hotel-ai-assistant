@@ -1,10 +1,10 @@
-// frontend/src/views/admin/UsersView.tsx
 import { useEffect, useState } from "react";
-import { Plus, UserCircle, Link2, Check } from "lucide-react";
+import { Plus, UserCircle, Link2, Check, UserX, UserCheck, Trash2 } from "lucide-react";
+import Swal from "sweetalert2";
 import PageHeader from "../../components/Admin/PageHeader";
 import { Field, inputCls } from "../../components/Admin/Field";
 import Modal from "../../components/Admin/Modal";
-import { fetchUsers, inviteUser, resendInvite } from "../../api/client";
+import { fetchUsers, inviteUser, resendInvite, updateUserStatus, deleteUser } from "../../api/client";
 
 interface AppUser { id: string; email: string; role: "admin" | "front_desk"; status: "pending" | "active" | "inactive"; invitedAt: string; }
 
@@ -37,9 +37,20 @@ export default function UsersView() {
       setShowInvite(false);
       setEmail("");
       await copyToClipboard(created.setupLink, created.uid);
+      Swal.fire({
+        icon: "success",
+        title: "Invitation Sent!",
+        text: "The invite link has been copied to your clipboard.",
+        confirmButtonColor: "#7c3aed",
+      });
     } catch (error: any) {
       console.error(error);
-      alert(error?.message ?? "Error sending the invitation.");
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: error?.message ?? "Error sending the invitation.",
+        confirmButtonColor: "#7c3aed",
+      });
     }
   }
 
@@ -49,7 +60,81 @@ export default function UsersView() {
       await copyToClipboard(setupLink, u.id);
     } catch (error: any) {
       console.error(error);
-      alert(error?.message ?? "Couldn't generate a new invite link.");
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: error?.message ?? "Couldn't generate a new invite link.",
+        confirmButtonColor: "#7c3aed",
+      });
+    }
+  }
+
+  async function handleToggleStatus(u: AppUser) {
+    const newStatus = u.status === "inactive" ? "active" : "inactive";
+    const actionText = newStatus === "inactive" ? "deactivate" : "reactivate";
+
+    const result = await Swal.fire({
+      title: `${newStatus === "inactive" ? "Deactivate" : "Reactivate"} User?`,
+      text: `Are you sure you want to ${actionText} ${u.email}?`,
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: newStatus === "inactive" ? "#0685d9" : "#059669",
+      cancelButtonColor: "#64748b",
+      confirmButtonText: `Yes, ${actionText}`,
+    });
+
+    if (!result.isConfirmed) return;
+
+    try {
+      await updateUserStatus(u.id, newStatus);
+      setUsers(users.map((item) => (item.id === u.id ? { ...item, status: newStatus } : item)));
+      Swal.fire({
+        icon: "success",
+        title: "Status Updated",
+        text: `User is now ${newStatus}.`,
+        confirmButtonColor: "#7c3aed",
+      });
+    } catch (error: any) {
+      console.error(error);
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: error?.message ?? "Couldn't change user status.",
+        confirmButtonColor: "#7c3aed",
+      });
+    }
+  }
+
+  async function handleDeleteUser(u: AppUser) {
+    const result = await Swal.fire({
+      title: "Delete User?",
+      text: `Are you sure you want to permanently delete ${u.email}? This action cannot be undone.`,
+      icon: "error",
+      showCancelButton: true,
+      confirmButtonColor: "#e11d48",
+      cancelButtonColor: "#64748b",
+      confirmButtonText: "Yes, delete",
+    });
+
+    if (!result.isConfirmed) return;
+
+    try {
+      await deleteUser(u.id);
+      setUsers(users.filter((item) => item.id !== u.id));
+      Swal.fire({
+        icon: "success",
+        title: "Deleted!",
+        text: "The user has been permanently deleted.",
+        confirmButtonColor: "#7c3aed",
+      });
+    } catch (error: any) {
+      console.error(error);
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: error?.message ?? "Couldn't delete user.",
+        confirmButtonColor: "#7c3aed",
+      });
     }
   }
 
@@ -65,7 +150,7 @@ export default function UsersView() {
               <th className="text-left px-5 py-3 font-medium">User</th>
               <th className="text-left px-5 py-3 font-medium">Role</th>
               <th className="text-left px-5 py-3 font-medium">Status</th>
-              <th className="text-right px-5 py-3 font-medium">Invite link</th>
+              <th className="text-right px-5 py-3 font-medium">Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -78,14 +163,35 @@ export default function UsersView() {
                 <td className="px-5 py-4 text-slate-600">{u.role === "admin" ? "Admin" : "Front Desk (chat only)"}</td>
                 <td className="px-5 py-4"><span className={`text-xs px-2 py-1 rounded-full ${STATUS_STYLES[u.status]}`}>{STATUS_LABEL[u.status]}</span></td>
                 <td className="px-5 py-4 text-right">
-                  {u.status === "pending" && (
+                  <div className="flex items-center justify-end gap-3">
+                    {u.status === "pending" && (
+                      <button
+                        onClick={() => copyInviteLink(u)}
+                        className="inline-flex items-center gap-1.5 text-xs text-violet-600 hover:text-violet-800 font-medium"
+                      >
+                        {copiedId === u.id ? <><Check size={13} /> Copied</> : <><Link2 size={13} /> Copy link</>}
+                      </button>
+                    )}
+
+                    {u.status !== "pending" && (
+                      <button
+                        onClick={() => handleToggleStatus(u)}
+                        className={`inline-flex items-center gap-1 text-xs font-medium ${
+                          u.status === "inactive" ? "text-blue-600 hover:text-blue-800" : "text-slate-500 hover:text-slate-700"
+                        }`}
+                      >
+                        {u.status === "inactive" ? <><UserCheck size={14} /> Reactivate</> : <><UserX size={14} /> Deactivate</>}
+                      </button>
+                    )}
+
                     <button
-                      onClick={() => copyInviteLink(u)}
-                      className="inline-flex items-center gap-1.5 text-xs text-violet-600 hover:text-violet-800"
+                      onClick={() => handleDeleteUser(u)}
+                      className="inline-flex items-center gap-1 text-xs text-rose-600 hover:text-rose-800 font-medium"
+                      title="Delete User"
                     >
-                      {copiedId === u.id ? <><Check size={13} /> Copied</> : <><Link2 size={13} /> Copy invite link</>}
+                      <Trash2 size={14} /> Delete
                     </button>
-                  )}
+                  </div>
                 </td>
               </tr>
             ))}

@@ -9,21 +9,32 @@ import { Firestore } from "firebase-admin/firestore";
 import { ContactRepository } from "../../../domain/contacts/repositories/contact-repository";
 import { Contact, ContactCategory } from "../../../domain/contacts/entities/contact";
 
+const STOP_WORDS = new Set([
+  "number", "phone", "call", "the", "for", "need", "a", "an", "i", "to", "whats", "what's",
+  "is", "of", "contact", "get", "me", "please", "can", "you", "give",
+]);
+
 export class FirestoreContactRepository implements ContactRepository {
   constructor(private readonly db: Firestore) {}
 
   async search(query: string): Promise<Contact[]> {
-    const normalizedQuery = query.trim().toLowerCase();
-    const snapshot = await this.db.collection("contacts").get();
-    const allContacts = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() } as Contact));
+  const normalizedQuery = query.trim().toLowerCase();
+  const snapshot = await this.db.collection("contacts").get();
+  const allContacts = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() } as Contact));
 
-    return allContacts.filter((c) => {
-      const name = (c.organizationName ?? "").toLowerCase();
-      if (!name) return false;
-      const category = (c.category ?? "").replace(/_/g, " ").toLowerCase();
-      return normalizedQuery.includes(name) || name.includes(normalizedQuery) || normalizedQuery.includes(category);
-    });
-  }
+  const queryWords = normalizedQuery.split(/[^a-z0-9]+/).filter((w) => w.length > 2 && !STOP_WORDS.has(w));
+
+  return allContacts.filter((c) => {
+    const name = (c.organizationName ?? "").toLowerCase();
+    if (!name) return false;
+    const category = (c.category ?? "").replace(/_/g, " ").toLowerCase();
+    if (normalizedQuery.includes(name) || name.includes(normalizedQuery) || normalizedQuery.includes(category)) {
+      return true;
+    }
+    const nameWords = name.split(/[^a-z0-9]+/);
+    return queryWords.some((qw) => nameWords.some((nw) => nw === qw || nw.startsWith(qw) || qw.startsWith(nw)));
+  });
+}
   async findByCategory(category: ContactCategory): Promise<Contact[]>{
     const byCategory = await this.db.collection("contacts").where("category", "==", category).get();
     const results = new Map<string, Contact>();

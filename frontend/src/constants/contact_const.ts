@@ -8,18 +8,18 @@ export const CONTACT_CATEGORIES : ContactCategory[] = [
 ];
 
 export const CATEGORY_LABELS :Record<ContactCategory, string> = {
-  tech_support: "Soporte técnico",
-  third_party_platform: "Plataforma externa",
-  property_management_company: "Empresa administradora",
-  reservation_platform: "Plataforma de reservas",
-  internal_staff: "Personal interno",
-  sister_hotel: "Hotel aliado",
-  vendor_supply: "Proveedor",
-  phone_system_vendor: "Proveedor de telefonía",
-  elevator_service: "Servicio de ascensor",
-  maintenance_emergency: "Mantenimiento urgente",
-  safety_security: "Seguridad",
-  emergency_services: "Emergencias",
+  tech_support: "Technical Support",
+  third_party_platform: "Third-Party Platform",
+  property_management_company: "Property Management Company",
+  reservation_platform: "Reservation Platform",
+  internal_staff: "Internal Staff",
+  sister_hotel: "Sister Hotel",
+  vendor_supply: "Vendor",
+  phone_system_vendor: "Phone System Vendor",
+  elevator_service: "Elevator Service",
+  maintenance_emergency: "Maintenance Emergency",
+  safety_security: "Safety & Security",
+  emergency_services: "Emergency Services",
 };
 
 export const initialContacts : Contact[] = [

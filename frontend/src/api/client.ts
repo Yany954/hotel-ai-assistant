@@ -58,8 +58,8 @@ export const createProcedure = (procedure: Omit<EscalationProcedure, "id">) =>
 export const updateProcedure = (id: string, patch: Partial<Omit<EscalationProcedure, "id">>) =>
   request<EscalationProcedure>(`/admin/procedures/${id}`, { method: "PUT", body: JSON.stringify(patch) });
 export const deleteProcedure = (id: string) => request<void>(`/admin/procedures/${id}`, { method: "DELETE" });
-export const askStaffQuery = (message: string) =>
-  request<any>("/chat", { method: "POST", body: JSON.stringify({ message }) });
+export const askStaffQuery = (message: string, history: ConversationMessage[] = []) =>
+  request<any>("/chat", { method: "POST", body: JSON.stringify({ message, history }) });
 
 // Conversations
 export const fetchConversations = () => request<Conversation[]>("/conversations");
@@ -70,4 +70,15 @@ export const updateConversation = (id: string, patch: { messages?: ConversationM
 
 // Profile
 export const fetchProfile = () => request<Profile>("/me");
-export const updateProfile = (name: string) => request<void>("/me", { method: "PATCH", body: JSON.stringify({ name }) });
+export const updateProfile = (data: { name?: string; phoneNumber?: string; photoURL?: string }) =>
+  request<void>("/me", { method: "PATCH", body: JSON.stringify(data) });
+
+//Users
+export const updateUserStatus = (uid: string, status: "active" | "inactive") =>
+  request<{ success: boolean }>(`/admin/users/${uid}/status`, {
+    method: "PATCH",
+    body: JSON.stringify({ status }),
+  });
+
+export const deleteUser = (uid: string) =>
+  request<{ success: boolean }>(`/admin/users/${uid}`, { method: "DELETE" });
