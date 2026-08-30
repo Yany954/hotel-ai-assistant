@@ -62,16 +62,16 @@ export function LoginPage() {
 
   if (forgotMode) {
     return (
-      <div className="flex items-center justify-center h-screen bg-slate-50">
-        <div className="bg-white p-8 rounded-2xl border border-slate-200 shadow-sm text-center max-w-sm w-full">
+      <div className="flex items-center justify-center min-h-[calc(100vh-4rem)] px-4 bg-slate-50 dark:bg-slate-950">
+        <div className="bg-white dark:bg-slate-900 p-6 sm:p-8 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm text-center max-w-sm w-full">
           <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-violet-600 to-indigo-600 flex items-center justify-center mx-auto mb-4">
             <Sparkles className="text-white" size={22} />
           </div>
-          <h1 className="text-lg font-semibold text-slate-900 mb-1">Reset your password</h1>
+          <h1 className="text-lg font-semibold text-slate-900 dark:text-slate-100 mb-1">Reset your password</h1>
 
           {resetSent ? (
             <>
-              <p className="text-sm text-slate-500 mt-4 mb-6">
+              <p className="text-sm text-slate-500 dark:text-slate-400 mt-4 mb-6">
                 If an account exists for <strong>{email}</strong>, a reset link is on its way — check your inbox.
               </p>
               <button
@@ -83,15 +83,15 @@ export function LoginPage() {
             </>
           ) : (
             <form onSubmit={handleForgotPassword} className="text-left mt-4">
-              <p className="text-sm text-slate-500 mb-4 text-center">Enter your email and we'll send you a reset link.</p>
+              <p className="text-sm text-slate-500 dark:text-slate-400 mb-4 text-center">Enter your email and we'll send you a reset link.</p>
               <input
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="you@example.com"
-                className="w-full px-3 py-2 rounded-lg border border-slate-200 text-sm mb-3 focus:outline-none focus:ring-2 focus:ring-violet-200"
+                className="w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 text-sm mb-3 focus:outline-none focus:ring-2 focus:ring-violet-200 dark:focus:ring-violet-800"
               />
-              {error && <p className="text-xs text-rose-600 mb-3">{error}</p>}
+              {error && <p className="text-xs text-rose-600 dark:text-rose-400 mb-3">{error}</p>}
               <button
                 type="submit"
                 disabled={submitting}
@@ -102,7 +102,7 @@ export function LoginPage() {
               <button
                 type="button"
                 onClick={() => { setForgotMode(false); setError(null); }}
-                className="w-full text-sm text-slate-500 hover:text-slate-700"
+                className="w-full text-sm text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200"
               >
                 Back to sign in
               </button>
@@ -114,13 +114,13 @@ export function LoginPage() {
   }
 
   return (
-    <div className="flex items-center justify-center h-screen bg-slate-50">
-      <div className="bg-white p-8 rounded-2xl border border-slate-200 shadow-sm text-center max-w-sm w-full">
+    <div className="flex items-center justify-center min-h-[calc(100vh-4rem)] px-4 bg-slate-50 dark:bg-slate-950">
+      <div className="bg-white dark:bg-slate-900 p-6 sm:p-8 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm text-center max-w-sm w-full">
         <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-violet-600 to-indigo-600 flex items-center justify-center mx-auto mb-4">
           <Sparkles className="text-white" size={22} />
         </div>
-        <h1 className="text-lg font-semibold text-slate-900 mb-1">Front Desk AI</h1>
-        <p className="text-sm text-slate-500 mb-6">Sign in with your invited account.</p>
+        <h1 className="text-lg font-semibold text-slate-900 dark:text-slate-100 mb-1">Front Desk AI</h1>
+        <p className="text-sm text-slate-500 dark:text-slate-400 mb-6">Sign in with your invited account.</p>
 
         <form onSubmit={handleLogin} className="text-left">
           <input
@@ -128,7 +128,7 @@ export function LoginPage() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="you@example.com"
-            className="w-full px-3 py-2 rounded-lg border border-slate-200 text-sm mb-2 focus:outline-none focus:ring-2 focus:ring-violet-200"
+            className="w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 text-sm mb-2 focus:outline-none focus:ring-2 focus:ring-violet-200 dark:focus:ring-violet-800"
           />
           <div className="relative mb-3">
             <input
@@ -136,18 +136,18 @@ export function LoginPage() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="Password"
-              className="w-full px-3 py-2 pr-10 rounded-lg border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-violet-200"
+              className="w-full px-3 py-2 pr-10 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 text-sm focus:outline-none focus:ring-2 focus:ring-violet-200 dark:focus:ring-violet-800"
             />
             <button
               type="button"
               onClick={() => setShowPassword((v) => !v)}
-              className="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600"
+              className="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 dark:text-slate-500 dark:hover:text-slate-300"
               tabIndex={-1}
             >
               {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
             </button>
           </div>
-          {error && <p className="text-xs text-rose-600 mb-3">{error}</p>}
+          {error && <p className="text-xs text-rose-600 dark:text-rose-400 mb-3">{error}</p>}
           <button
             type="submit"
             disabled={submitting}
@@ -158,7 +158,7 @@ export function LoginPage() {
           <button
             type="button"
             onClick={() => { setForgotMode(true); setError(null); }}
-            className="w-full text-center text-xs text-slate-500 hover:text-violet-600 mt-3"
+            className="w-full text-center text-xs text-slate-500 hover:text-violet-600 dark:text-slate-400 dark:hover:text-violet-400 mt-3"
           >
             Forgot your password?
           </button>

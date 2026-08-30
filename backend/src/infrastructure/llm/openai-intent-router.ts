@@ -74,16 +74,40 @@ Examples:
 "AC is not working" -> procedure
 "how to fix the AC unit" -> procedure
 "PTAC reset steps" -> procedure
+"can a guest pay with cash" -> procedure
 
 A message that's just a name with no verb or question — a person, vendor, or organization on its
 own (e.g. after you already asked which one they meant) — is contacts_directory, not off_topic:
 staff type just a name when they're trying to look it up.
 "Safe Passages" -> contacts_directory
 "Tech Guru" -> contacts_directory
+"credit card machine not working" -> procedure
+"card reader is frozen" -> procedure
+"rates and categories for VIP guests" -> procedure
+"synxis issue dashboard numbers wrong" -> procedure
+"trouble with synxis vacant dirty status" -> procedure
+"synxis system error or PMS mismatch" -> procedure
+"already reset the elevator and still not working" -> procedure
+"elevator reset didnt work" -> procedure
+"guest trapped in elevator" -> procedure
+"firefighters arrived at front desk" -> procedure
+"fire alarm evacuation steps" -> procedure
+"what should i do if the fireman arrive here" -> procedure
+"the fireman is here what should i do" -> procedure
+"firefighters arrived at front desk" -> procedure
+"which reports should i generate during the night audit shift" -> procedure
+"night audit reports list" -> procedure
+"what reports to print for night audit" -> procedure
+"first shift duties" -> procedure
+"second shift responsibilities" -> procedure
+"third shift tasks" -> procedure
+"how to set up housekeeping boards in kipsu" -> procedure
+"bar rules second shift" -> procedure
 
 A short follow-up that's ambiguous alone (e.g. "when I try to login it says error", "it's not
 working") almost always continues whatever the conversation was already about — use the recent
 conversation below to classify it the same way, not as off_topic or a fresh guess.
+If the user is asking what action to take or what to do when emergency responders/firefighters arrive, classify as procedure (DO NOT classify as emergency_contact or contact_lookup).
 
 Respond with ONLY the category word.`,
         },

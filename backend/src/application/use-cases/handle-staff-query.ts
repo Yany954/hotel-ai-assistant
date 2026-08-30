@@ -97,20 +97,31 @@ export class HandleStaffQuery {
           debugInfo: "Domain tool 'Procedures' used with vector search — no matches found.",
         };
       }
+      const contactIds = Array.from(new Set(
+        matches.flatMap((m) => (m.steps ?? []).map((s) => s.contactId).filter((id): id is string => Boolean(id)))
+      ));
+      const relatedContacts = (await Promise.all(contactIds.map((id) => this.contactRepository.findById(id))))
+        .filter((c): c is NonNullable<typeof c> => c !== null);
+
+      const contactsBlock = relatedContacts.length
+        ? `\n\nRelated contacts — use these exact phone numbers if a procedure step says to call someone, never invent or omit a number:\n${relatedContacts
+          .map((c) => `- ${c.organizationName}: ${c.phoneLines.map((p) => `${p.purpose ? `${p.purpose} ` : ""}${p.phoneNumber}`).join(", ")}`)
+          .join("\n")}`
+        : "";
 
       const context = matches.map((m, i) => `[Procedure ${i + 1}: ${m.triggerSituation}]\n${m.content}`).join("\n\n");
       const answer = await this.llmClient.complete([
         ...historyMessages,
         {
           role: "user",
-          content: `You are a front desk assistant. Answer using ONLY the procedures below — never invent a rule, number, or step that isn't there. Don't just paste the raw procedure text back: read what the staff member is actually asking (using the conversation so far for context if this message is a follow-up) and give a direct, dynamic answer to THEIR specific question, in your own words, grounded in the procedures. Use Markdown (bold for key rules/numbers, short bullet lists for steps) so it's easy to scan. If the retrieved procedures cover more than one distinct task and the question doesn't specify which one, ask a short clarifying question instead of guessing. If the procedures genuinely don't cover the question, say so plainly instead of inventing an answer.\n\n${context}\n\nStaff question: ${staffMessage}`,
+          content: `You are a front desk assistant. Answer using ONLY the procedures (and related contacts, if given) below — never invent a rule, number, or step that isn't there. Don't just paste the raw procedure text back: read what the staff member is actually asking (using the conversation so far for context if this message is a follow-up) and give a direct, dynamic answer to THEIR specific question, in your own words, grounded in the procedures. If a related contact is listed below and the procedure tells staff to call them, include that contact's actual phone number directly in your answer — don't just say "call them" or "contact support" without the number. Use Markdown (bold for key rules/numbers, short bullet lists for steps) so it's easy to scan. If the retrieved procedures cover more than one distinct task and the question doesn't specify which one, ask a short clarifying question instead of guessing. If the procedures genuinely don't cover the question, say so plainly instead of inventing an answer.\n\n${context}${contactsBlock}\n\nStaff question: ${staffMessage}`,
         },
       ]);
 
       return {
         type: "procedure" as const,
         answer, sources: matches.map((m) => m.triggerSituation),
-        debugInfo: `Domain tool 'Procedures' used with vector search (RAG) over ${matches.length} matched document(s), embedded with recent conversation context.`,
+        debugInfo: `Domain tool 'Procedures' used with vector search (RAG) over ${matches.length} matched document(s), embedded with recent conversation context${relatedContacts.length ? `, cross-referenced with ${relatedContacts.length} related contact(s)` : ""}.`,
       };
     }
 

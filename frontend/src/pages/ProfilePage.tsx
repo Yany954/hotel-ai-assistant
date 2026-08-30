@@ -87,10 +87,10 @@ export function ProfilePage() {
   const avatarInitial = (profile.name ?? profile.email ?? "?").charAt(0).toUpperCase();
 
   return (
-    <div className="max-w-lg mx-auto bg-white rounded-xl border border-slate-200 p-6">
+    <div className="max-w-lg mx-auto bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 p-4 sm:p-6">
       {/* Header Avatar & Name */}
       <div className="flex items-center gap-4 mb-6">
-        <div className="relative w-16 h-16 rounded-full overflow-hidden bg-gradient-to-br from-violet-600 to-indigo-600 text-white flex items-center justify-center text-xl font-semibold border border-slate-200">
+        <div className="relative w-16 h-16 rounded-full overflow-hidden bg-gradient-to-br from-violet-600 to-indigo-600 text-white flex items-center justify-center text-xl font-semibold border border-slate-200 dark:border-slate-700 shrink-0">
           {currentAvatar ? (
             <img src={currentAvatar} alt="Profile" className="w-full h-full object-cover" />
           ) : (
@@ -100,53 +100,53 @@ export function ProfilePage() {
 
         <div className="flex-1">
           <div className="flex items-center justify-between">
-            <h2 className="text-lg font-semibold text-slate-900">
+            <h2 className="text-lg font-semibold text-slate-900 dark:text-slate-100">
               {profile.name ?? "Add your name"}
             </h2>
             {!editing && (
               <button
                 onClick={() => setEditing(true)}
-                className="flex items-center gap-1 text-xs font-medium text-violet-600 hover:text-violet-700"
+                className="flex items-center gap-1 text-xs font-medium text-violet-600 hover:text-violet-700 dark:text-violet-400 dark:hover:text-violet-300"
               >
                 <Pencil size={13} /> Edit Profile
               </button>
             )}
           </div>
-          <div className="text-xs text-slate-400 mt-0.5">{ROLE_LABEL[profile.role]}</div>
+          <div className="text-xs text-slate-400 dark:text-slate-500 mt-0.5">{ROLE_LABEL[profile.role]}</div>
         </div>
       </div>
 
       {/* Form Section */}
       {editing ? (
-        <div className="space-y-4 mb-6 border-t border-b border-slate-100 py-4">
+        <div className="space-y-4 mb-6 border-t border-b border-slate-100 dark:border-slate-800 py-4">
           <div>
-            <label className="block text-xs font-medium text-slate-600 mb-1">Upload Profile Photo (PNG / JPEG)</label>
-            <label className="flex items-center gap-2 px-3 py-2 border border-slate-200 rounded-lg cursor-pointer hover:bg-slate-50 text-xs font-medium text-slate-700 w-max">
-              <Upload size={14} className="text-slate-500" />
+            <label className="block text-xs font-medium text-slate-600 dark:text-slate-300 mb-1">Upload Profile Photo (PNG / JPEG)</label>
+            <label className="flex items-center gap-2 px-3 py-2 border border-slate-200 dark:border-slate-700 rounded-lg cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-800 text-xs font-medium text-slate-700 dark:text-slate-200 w-max">
+              <Upload size={14} className="text-slate-500 dark:text-slate-400" />
               <span>{selectedFile ? selectedFile.name : "Choose File..."}</span>
               <input type="file" accept="image/png, image/jpeg" onChange={handleFileChange} className="hidden" />
             </label>
           </div>
 
           <div>
-            <label className="block text-xs font-medium text-slate-600 mb-1">Full Name</label>
+            <label className="block text-xs font-medium text-slate-600 dark:text-slate-300 mb-1">Full Name</label>
             <input
               type="text"
               value={nameInput}
               onChange={(e) => setNameInput(e.target.value)}
               placeholder="John Doe"
-              className="w-full px-3 py-1.5 rounded-lg border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-violet-200"
+              className="w-full px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 text-sm focus:outline-none focus:ring-2 focus:ring-violet-200 dark:focus:ring-violet-800"
             />
           </div>
 
           <div>
-            <label className="block text-xs font-medium text-slate-600 mb-1">Phone Number</label>
+            <label className="block text-xs font-medium text-slate-600 dark:text-slate-300 mb-1">Phone Number</label>
             <input
               type="tel"
               value={phoneInput}
               onChange={(e) => setPhoneInput(e.target.value)}
               placeholder="+1 (803) 555-0199"
-              className="w-full px-3 py-1.5 rounded-lg border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-violet-200"
+              className="w-full px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 text-sm focus:outline-none focus:ring-2 focus:ring-violet-200 dark:focus:ring-violet-800"
             />
           </div>
 
@@ -160,7 +160,7 @@ export function ProfilePage() {
             </button>
             <button
               onClick={() => { setEditing(false); setPreviewURL(null); setSelectedFile(null); }}
-              className="px-3 py-2 border border-slate-200 text-slate-600 rounded-lg text-sm font-medium hover:bg-slate-50"
+              className="px-3 py-2 border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 rounded-lg text-sm font-medium hover:bg-slate-50 dark:hover:bg-slate-800"
             >
               Cancel
             </button>
@@ -168,21 +168,21 @@ export function ProfilePage() {
         </div>
       ) : (
         <div className="space-y-3 mb-6">
-          <div className="flex items-center gap-2.5 text-sm text-slate-600">
-            <Mail size={15} className="text-slate-400" /> {profile.email}
+          <div className="flex items-center gap-2.5 text-sm text-slate-600 dark:text-slate-300">
+            <Mail size={15} className="text-slate-400 dark:text-slate-500" /> {profile.email}
           </div>
-          <div className="flex items-center gap-2.5 text-sm text-slate-600">
-            <Phone size={15} className="text-slate-400" /> {profile.phoneNumber || "No phone number set"}
+          <div className="flex items-center gap-2.5 text-sm text-slate-600 dark:text-slate-300">
+            <Phone size={15} className="text-slate-400 dark:text-slate-500" /> {profile.phoneNumber || "No phone number set"}
           </div>
-          <div className="flex items-center gap-2.5 text-sm text-slate-600">
-            <ShieldCheck size={15} className="text-slate-400" /> {ROLE_LABEL[profile.role]}
+          <div className="flex items-center gap-2.5 text-sm text-slate-600 dark:text-slate-300">
+            <ShieldCheck size={15} className="text-slate-400 dark:text-slate-500" /> {ROLE_LABEL[profile.role]}
           </div>
         </div>
       )}
 
       <button
         onClick={() => signOut(auth)}
-        className="w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg border border-slate-200 text-sm font-medium text-rose-600 hover:bg-rose-50 transition-colors"
+        className="w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg border border-slate-200 dark:border-slate-700 text-sm font-medium text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-500/10 transition-colors"
       >
         <LogOut size={15} /> Sign out
       </button>

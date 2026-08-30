@@ -9,9 +9,9 @@ import { fetchUsers, inviteUser, resendInvite, updateUserStatus, deleteUser } fr
 interface AppUser { id: string; email: string; role: "admin" | "front_desk"; status: "pending" | "active" | "inactive"; invitedAt: string; }
 
 const STATUS_STYLES: Record<string, string> = {
-  active: "bg-emerald-50 text-emerald-700",
-  pending: "bg-amber-50 text-amber-700",
-  inactive: "bg-slate-100 text-slate-500",
+  active: "bg-emerald-50 text-emerald-700 dark:bg-emerald-500/15 dark:text-emerald-400",
+  pending: "bg-amber-50 text-amber-700 dark:bg-amber-500/15 dark:text-amber-400",
+  inactive: "bg-slate-100 text-slate-500 dark:bg-slate-800 dark:text-slate-400",
 };
 const STATUS_LABEL: Record<string, string> = { active: "Active", pending: "Invitation pending", inactive: "Inactive" };
 
@@ -138,15 +138,54 @@ export default function UsersView() {
     }
   }
 
+  function rowActions(u: AppUser) {
+    return (
+      <div className="flex items-center gap-3 flex-wrap">
+        {u.status === "pending" && (
+          <button
+            onClick={() => copyInviteLink(u)}
+            className="inline-flex items-center gap-1.5 text-xs text-violet-600 hover:text-violet-800 dark:text-violet-400 dark:hover:text-violet-300 font-medium"
+          >
+            {copiedId === u.id ? <><Check size={13} /> Copied</> : <><Link2 size={13} /> Copy link</>}
+          </button>
+        )}
+        {u.status !== "pending" && (
+          <button
+            onClick={() => handleToggleStatus(u)}
+            className={`inline-flex items-center gap-1 text-xs font-medium ${
+              u.status === "inactive"
+                ? "text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300"
+                : "text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200"
+            }`}
+          >
+            {u.status === "inactive" ? <><UserCheck size={14} /> Reactivate</> : <><UserX size={14} /> Deactivate</>}
+          </button>
+        )}
+        <button
+          onClick={() => handleDeleteUser(u)}
+          className="inline-flex items-center gap-1 text-xs text-rose-600 hover:text-rose-800 dark:text-rose-400 dark:hover:text-rose-300 font-medium"
+          title="Delete User"
+        >
+          <Trash2 size={14} /> Delete
+        </button>
+      </div>
+    );
+  }
+
   return (
     <>
       <PageHeader title="Users & permissions" subtitle={`${users.length} users`}
-        action={<button onClick={() => setShowInvite(true)} className="flex items-center gap-2 px-4 py-2.5 rounded-lg bg-gradient-to-r from-violet-600 to-indigo-600 text-white text-sm font-medium"><Plus size={16} /> Invite user</button>} />
+        action={
+          <button onClick={() => setShowInvite(true)} className="flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-gradient-to-r from-violet-600 to-indigo-600 text-white text-sm font-medium w-full sm:w-auto">
+            <Plus size={16} /> Invite user
+          </button>
+        } />
 
-      <div className="bg-white rounded-xl border border-slate-200 overflow-hidden">
+      {/* Table — sm and up */}
+      <div className="hidden sm:block bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 overflow-hidden">
         <table className="w-full text-sm">
           <thead>
-            <tr className="bg-slate-50 text-slate-500 text-xs uppercase tracking-wide">
+            <tr className="bg-slate-50 dark:bg-slate-800/60 text-slate-500 dark:text-slate-400 text-xs uppercase tracking-wide">
               <th className="text-left px-5 py-3 font-medium">User</th>
               <th className="text-left px-5 py-3 font-medium">Role</th>
               <th className="text-left px-5 py-3 font-medium">Status</th>
@@ -155,48 +194,37 @@ export default function UsersView() {
           </thead>
           <tbody>
             {users.map((u) => (
-              <tr key={u.id} className="border-t border-slate-100">
+              <tr key={u.id} className="border-t border-slate-100 dark:border-slate-800">
                 <td className="px-5 py-4 flex items-center gap-2.5">
-                  <UserCircle size={18} className="text-slate-300" />
-                  <span className="text-slate-700">{u.email}</span>
+                  <UserCircle size={18} className="text-slate-300 dark:text-slate-600" />
+                  <span className="text-slate-700 dark:text-slate-200">{u.email}</span>
                 </td>
-                <td className="px-5 py-4 text-slate-600">{u.role === "admin" ? "Admin" : "Front Desk (chat only)"}</td>
+                <td className="px-5 py-4 text-slate-600 dark:text-slate-300">{u.role === "admin" ? "Admin" : "Front Desk (chat only)"}</td>
                 <td className="px-5 py-4"><span className={`text-xs px-2 py-1 rounded-full ${STATUS_STYLES[u.status]}`}>{STATUS_LABEL[u.status]}</span></td>
                 <td className="px-5 py-4 text-right">
-                  <div className="flex items-center justify-end gap-3">
-                    {u.status === "pending" && (
-                      <button
-                        onClick={() => copyInviteLink(u)}
-                        className="inline-flex items-center gap-1.5 text-xs text-violet-600 hover:text-violet-800 font-medium"
-                      >
-                        {copiedId === u.id ? <><Check size={13} /> Copied</> : <><Link2 size={13} /> Copy link</>}
-                      </button>
-                    )}
-
-                    {u.status !== "pending" && (
-                      <button
-                        onClick={() => handleToggleStatus(u)}
-                        className={`inline-flex items-center gap-1 text-xs font-medium ${
-                          u.status === "inactive" ? "text-blue-600 hover:text-blue-800" : "text-slate-500 hover:text-slate-700"
-                        }`}
-                      >
-                        {u.status === "inactive" ? <><UserCheck size={14} /> Reactivate</> : <><UserX size={14} /> Deactivate</>}
-                      </button>
-                    )}
-
-                    <button
-                      onClick={() => handleDeleteUser(u)}
-                      className="inline-flex items-center gap-1 text-xs text-rose-600 hover:text-rose-800 font-medium"
-                      title="Delete User"
-                    >
-                      <Trash2 size={14} /> Delete
-                    </button>
-                  </div>
+                  <div className="flex items-center justify-end">{rowActions(u)}</div>
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
+      </div>
+
+      {/* Cards — below sm, a 4-column table doesn't fit a phone screen */}
+      <div className="sm:hidden space-y-3">
+        {users.map((u) => (
+          <div key={u.id} className="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 p-4">
+            <div className="flex items-center gap-2.5 mb-2">
+              <UserCircle size={18} className="text-slate-300 dark:text-slate-600 shrink-0" />
+              <span className="text-slate-700 dark:text-slate-200 text-sm truncate">{u.email}</span>
+            </div>
+            <div className="flex items-center gap-2 mb-3">
+              <span className="text-xs text-slate-500 dark:text-slate-400">{u.role === "admin" ? "Admin" : "Front Desk"}</span>
+              <span className={`text-xs px-2 py-0.5 rounded-full ${STATUS_STYLES[u.status]}`}>{STATUS_LABEL[u.status]}</span>
+            </div>
+            {rowActions(u)}
+          </div>
+        ))}
       </div>
 
       {showInvite && (

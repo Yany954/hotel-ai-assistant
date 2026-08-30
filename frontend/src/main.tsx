@@ -12,16 +12,18 @@ import { SetPasswordPage } from "./pages/SetPassword";
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <BrowserRouter>
-      <Header />
-      <div className="p-4">
-        <Routes>
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/" element={<Navigate to="/chatpage" replace />} />
-          <Route path="/admin" element={<RequireAuth role="admin"><AdminPage /></RequireAuth>} />
-          <Route path="/chatpage" element={<RequireAuth><ChatPage /></RequireAuth>} />
-          <Route path="/profile" element={<RequireAuth><ProfilePage /></RequireAuth>} />
-          <Route path="/set-password" element={<SetPasswordPage />} />
-        </Routes>
+      <div className="min-h-screen bg-slate-50 dark:bg-slate-950 transition-colors">
+        <Header />
+        <div className="p-3 sm:p-4">
+          <Routes>
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/" element={<Navigate to="/chatpage" replace />} />
+            <Route path="/admin" element={<RequireAuth role="admin"><AdminPage /></RequireAuth>} />
+            <Route path="/chatpage" element={<RequireAuth><ChatPage /></RequireAuth>} />
+            <Route path="/profile" element={<RequireAuth><ProfilePage /></RequireAuth>} />
+            <Route path="/set-password" element={<SetPasswordPage />} />
+          </Routes>
+        </div>
       </div>
     </BrowserRouter>
   </React.StrictMode>

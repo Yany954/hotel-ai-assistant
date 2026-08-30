@@ -169,14 +169,27 @@ function RoomsView({ rooms, setRooms }: { rooms: Room[]; setRooms: (r: Room[]) =
     });
   }
 
+  function rowActions(r: Room) {
+    return (
+      <div className="flex justify-end gap-1">
+        <button onClick={() => openEdit(r)} className="p-2 text-slate-400 hover:text-violet-600 hover:bg-violet-50 dark:text-slate-500 dark:hover:text-violet-400 dark:hover:bg-violet-500/10 rounded-lg">
+          <Pencil size={15} />
+        </button>
+        <button onClick={() => remove(r)} className="p-2 text-slate-400 hover:text-rose-600 hover:bg-rose-50 dark:text-slate-500 dark:hover:text-rose-400 dark:hover:bg-rose-500/10 rounded-lg">
+          <Trash2 size={15} />
+        </button>
+      </div>
+    );
+  }
+
   return (
     <>
       <PageHeader
         title="Rooms"
         subtitle={`${rooms.length} of 89 rooms loaded`}
         action={
-          <div className="flex gap-2">
-            <button onClick={() => setShowImport(true)} className="flex items-center gap-2 px-4 py-2.5 rounded-lg border border-slate-200 text-sm font-medium text-slate-600 hover:bg-slate-50">
+          <div className="flex flex-col sm:flex-row gap-2 w-full sm:w-auto">
+            <button onClick={() => setShowImport(true)} className="flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg border border-slate-200 dark:border-slate-700 text-sm font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800">
               <Upload size={15} /> Import CSV
             </button>
             <PrimaryButton icon={Plus} onClick={openNew}>New Room</PrimaryButton>
@@ -186,10 +199,12 @@ function RoomsView({ rooms, setRooms }: { rooms: Room[]; setRooms: (r: Room[]) =
       <div className="mb-4 max-w-sm">
         <SearchBar value={query} onChange={setQuery} placeholder="Search by number or type code..." />
       </div>
-      <div className="bg-white rounded-xl border border-slate-200 overflow-hidden overflow-x-auto">
+
+      {/* Table — md and up */}
+      <div className="hidden md:block bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 overflow-hidden overflow-x-auto">
         <table className="w-full text-sm">
           <thead>
-            <tr className="bg-slate-50 text-slate-500 text-xs uppercase tracking-wide">
+            <tr className="bg-slate-50 dark:bg-slate-800/60 text-slate-500 dark:text-slate-400 text-xs uppercase tracking-wide">
               <th className="text-left px-5 py-3 font-medium">Room</th>
               <th className="text-left px-5 py-3 font-medium">Beds</th>
               <th className="text-left px-5 py-3 font-medium">Bathroom</th>
@@ -203,33 +218,24 @@ function RoomsView({ rooms, setRooms }: { rooms: Room[]; setRooms: (r: Room[]) =
             {sortedAndFilteredRooms.map((r) => {
               const conn = parseConnectingRoom(r.connectingRoomNumber);
               return (
-                <tr key={r.id} className="border-t border-slate-100 hover:bg-slate-50/60">
+                <tr key={r.id} className="border-t border-slate-100 dark:border-slate-800 hover:bg-slate-50/60 dark:hover:bg-slate-800/40">
                   <td className="px-5 py-4">
-                    <div className="font-medium text-slate-800">#{r.roomNumber}</div>
-                    <div className="text-xs text-slate-400">
+                    <div className="font-medium text-slate-800 dark:text-slate-100">#{r.roomNumber}</div>
+                    <div className="text-xs text-slate-400 dark:text-slate-500">
                       {r.roomTypeCode || "no code"} · floor {r.floor}
                       {conn && ` · connects to #${conn}`}
                     </div>
                   </td>
-                  <td className="px-5 py-4 text-slate-600">{r.bedConfiguration.bedCount} {r.bedConfiguration.bedType === "queen" ? "queen" : "king"}</td>
-                  <td className="px-5 py-4 text-slate-600">{r.showerType === "walk_in_shower" ? "Shower" : r.showerType === "bathtub" ? "Tub" : "Combo"}</td>
-                  <td className="px-5 py-4 text-slate-600">{r.view === "street_facing" ? "Street Facing" : "Parking Lot"}</td>
+                  <td className="px-5 py-4 text-slate-600 dark:text-slate-300">{r.bedConfiguration.bedCount} {r.bedConfiguration.bedType === "queen" ? "queen" : "king"}</td>
+                  <td className="px-5 py-4 text-slate-600 dark:text-slate-300">{r.showerType === "walk_in_shower" ? "Shower" : r.showerType === "bathtub" ? "Tub" : "Combo"}</td>
+                  <td className="px-5 py-4 text-slate-600 dark:text-slate-300">{r.view === "street_facing" ? "Street Facing" : "Parking Lot"}</td>
                   <td className="px-5 py-4">
-                    <span className={classNames("text-xs px-2 py-1 rounded-full", r.isAccessible ? "bg-emerald-50 text-emerald-700" : "bg-slate-100 text-slate-500")}>
+                    <span className={classNames("text-xs px-2 py-1 rounded-full", r.isAccessible ? "bg-emerald-50 text-emerald-700 dark:bg-emerald-500/15 dark:text-emerald-400" : "bg-slate-100 text-slate-500 dark:bg-slate-800 dark:text-slate-400")}>
                       {boolLabel(r.isAccessible)}
                     </span>
                   </td>
-                  <td className="px-5 py-4 text-slate-600 capitalize">{r.roomClass === "suite" ? "Suite" : "Regular"}</td>
-                  <td className="px-5 py-4">
-                    <div className="flex justify-end gap-1">
-                      <button onClick={() => openEdit(r)} className="p-2 text-slate-400 hover:text-violet-600 hover:bg-violet-50 rounded-lg">
-                        <Pencil size={15} />
-                      </button>
-                      <button onClick={() => remove(r)} className="p-2 text-slate-400 hover:text-rose-600 hover:bg-rose-50 rounded-lg">
-                        <Trash2 size={15} />
-                      </button>
-                    </div>
-                  </td>
+                  <td className="px-5 py-4 text-slate-600 dark:text-slate-300 capitalize">{r.roomClass === "suite" ? "Suite" : "Regular"}</td>
+                  <td className="px-5 py-4">{rowActions(r)}</td>
                 </tr>
               );
             })}
@@ -237,19 +243,49 @@ function RoomsView({ rooms, setRooms }: { rooms: Room[]; setRooms: (r: Room[]) =
         </table>
       </div>
 
+      {/* Cards — below md */}
+      <div className="md:hidden space-y-3">
+        {sortedAndFilteredRooms.map((r) => {
+          const conn = parseConnectingRoom(r.connectingRoomNumber);
+          return (
+            <div key={r.id} className="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 p-4">
+              <div className="flex items-start justify-between mb-2">
+                <div>
+                  <div className="font-medium text-slate-800 dark:text-slate-100">#{r.roomNumber}</div>
+                  <div className="text-xs text-slate-400 dark:text-slate-500">
+                    {r.roomTypeCode || "no code"} · floor {r.floor}
+                    {conn && ` · connects to #${conn}`}
+                  </div>
+                </div>
+                {rowActions(r)}
+              </div>
+              <div className="flex flex-wrap gap-1.5 text-xs text-slate-600 dark:text-slate-300">
+                <span className="px-2 py-1 rounded-full bg-slate-100 dark:bg-slate-800">{r.bedConfiguration.bedCount} {r.bedConfiguration.bedType}</span>
+                <span className="px-2 py-1 rounded-full bg-slate-100 dark:bg-slate-800">{r.showerType === "walk_in_shower" ? "Shower" : r.showerType === "bathtub" ? "Tub" : "Combo"}</span>
+                <span className="px-2 py-1 rounded-full bg-slate-100 dark:bg-slate-800">{r.view === "street_facing" ? "Street" : "Parking lot"}</span>
+                <span className={classNames("px-2 py-1 rounded-full", r.isAccessible ? "bg-emerald-50 text-emerald-700 dark:bg-emerald-500/15 dark:text-emerald-400" : "bg-slate-100 dark:bg-slate-800")}>
+                  {boolLabel(r.isAccessible)} accessible
+                </span>
+                <span className="px-2 py-1 rounded-full bg-slate-100 dark:bg-slate-800 capitalize">{r.roomClass}</span>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+
       {showImport && (
         <Modal title="Import Rooms from CSV" onClose={() => setShowImport(false)}>
-          <p className="text-sm text-slate-500 mb-3">The file must contain exactly these columns:</p>
-          <div className="bg-slate-50 rounded-lg p-3 text-[11px] text-slate-500 font-mono mb-4 overflow-x-auto whitespace-nowrap">
+          <p className="text-sm text-slate-500 dark:text-slate-400 mb-3">The file must contain exactly these columns:</p>
+          <div className="bg-slate-50 dark:bg-slate-800 rounded-lg p-3 text-[11px] text-slate-500 dark:text-slate-400 font-mono mb-4 overflow-x-auto whitespace-nowrap">
             {CSV_TEMPLATE_HEADER}
           </div>
-          <input ref={fileRef} type="file" accept=".csv" onChange={handleCsvFile} className="text-sm text-slate-600" />
+          <input ref={fileRef} type="file" accept=".csv" onChange={handleCsvFile} className="text-sm text-slate-600 dark:text-slate-300" />
         </Modal>
       )}
 
       {showModal && editing && (
         <Modal title={editing.id ? "Edit Room" : "New Room"} onClose={() => setShowModal(false)} wide>
-          <div className="grid grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <Field label="Room Number">
               <input className={inputCls} value={editing.roomNumber} onChange={(e) => setEditing({ ...editing, roomNumber: e.target.value })} />
             </Field>
@@ -261,7 +297,7 @@ function RoomsView({ rooms, setRooms }: { rooms: Room[]; setRooms: (r: Room[]) =
             </Field>
           </div>
 
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <Field label="Bed Count">
               <input type="number" className={inputCls} value={editing.bedConfiguration.bedCount} onChange={(e) => setEditing({ ...editing, bedConfiguration: { ...editing.bedConfiguration, bedCount: Number(e.target.value) } })} />
             </Field>
@@ -273,7 +309,7 @@ function RoomsView({ rooms, setRooms }: { rooms: Room[]; setRooms: (r: Room[]) =
             </Field>
           </div>
 
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <Field label="Bathroom">
               <select className={inputCls} value={editing.showerType} onChange={(e) => setEditing({ ...editing, showerType: e.target.value as Room["showerType"] })}>
                 <option value="walk_in_shower">Shower (walk-in)</option>
@@ -289,7 +325,7 @@ function RoomsView({ rooms, setRooms }: { rooms: Room[]; setRooms: (r: Room[]) =
             </Field>
           </div>
 
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <Field label="View">
               <select className={inputCls} value={editing.view} onChange={(e) => setEditing({ ...editing, view: e.target.value as Room["view"] })}>
                 <option value="street_facing">Towards the street</option>
@@ -309,7 +345,7 @@ function RoomsView({ rooms, setRooms }: { rooms: Room[]; setRooms: (r: Room[]) =
             </Field>
           </div>
 
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <Field label="Room Class">
               <select className={inputCls} value={editing.roomClass} onChange={(e) => setEditing({ ...editing, roomClass: e.target.value as Room["roomClass"] })}>
                 <option value="regular">Regular</option>
@@ -328,27 +364,27 @@ function RoomsView({ rooms, setRooms }: { rooms: Room[]; setRooms: (r: Room[]) =
             </Field>
           </div>
 
-          <div className="grid grid-cols-2 gap-x-4 gap-y-2 mb-2">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-2 mb-2">
             {([
               ["isAccessible", "Accessible Room"],
               ["hasKitchen", "Has Kitchen"],
               ["hasPullOutSofaBed", "Pull-out Sofa Bed"],
               ["hasCarpet", "Carpet"],
             ] as [keyof RoomDraft, string][]).map(([key, label]) => (
-              <label key={key} className="flex items-center gap-2 text-sm text-slate-600 py-1.5">
+              <label key={key} className="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-300 py-1.5">
                 <input
                   type="checkbox"
                   checked={Boolean(editing[key])}
                   onChange={(e) => setEditing({ ...editing, [key]: e.target.checked })}
-                  className="rounded border-slate-300 text-violet-600 focus:ring-violet-400"
+                  className="rounded border-slate-300 dark:border-slate-600 text-violet-600 focus:ring-violet-400"
                 />
                 {label}
               </label>
             ))}
           </div>
 
-          <div className="flex justify-end gap-2 pt-3">
-            <button onClick={() => setShowModal(false)} className="px-4 py-2 text-sm text-slate-600 hover:bg-slate-50 rounded-lg">Cancel</button>
+          <div className="flex flex-col sm:flex-row justify-end gap-2 pt-3">
+            <button onClick={() => setShowModal(false)} className="px-4 py-2 text-sm text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg">Cancel</button>
             <PrimaryButton onClick={save}>Save Room</PrimaryButton>
           </div>
         </Modal>

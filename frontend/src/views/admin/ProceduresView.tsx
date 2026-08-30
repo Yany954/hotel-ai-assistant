@@ -134,40 +134,40 @@ export default function ProceduresView({ procedures, setProcedures, contacts }: 
       {/* MOBILE LIST VIEW (Shown on small screens) */}
       <div className="block md:hidden space-y-3">
         {filtered.map((p) => (
-          <div key={p.id} className="bg-white p-4 rounded-xl border border-slate-200 shadow-sm space-y-2">
+          <div key={p.id} className="bg-white dark:bg-slate-900 p-4 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm space-y-2">
             <div className="flex items-start justify-between gap-2">
-              <div className="font-semibold text-slate-800 break-all text-sm">
+              <div className="font-semibold text-slate-800 dark:text-slate-100 break-all text-sm">
                 {p.triggerSituation}
                 {p.steps?.some((s) => s.isEmergency) && (
-                  <span className="ml-2 text-[10px] px-2 py-0.5 rounded-full bg-rose-50 text-rose-600 font-normal">
+                  <span className="ml-2 text-[10px] px-2 py-0.5 rounded-full bg-rose-50 text-rose-600 dark:bg-rose-500/15 dark:text-rose-400 font-normal">
                     emergency
                   </span>
                 )}
               </div>
               <div className="flex items-center gap-1 shrink-0">
-                <button onClick={() => openEdit(p)} className="p-2 text-slate-500 hover:text-violet-600 hover:bg-violet-50 rounded-lg">
+                <button onClick={() => openEdit(p)} className="p-2 text-slate-500 hover:text-violet-600 hover:bg-violet-50 dark:text-slate-400 dark:hover:text-violet-400 dark:hover:bg-violet-500/10 rounded-lg">
                   <Pencil size={16} />
                 </button>
-                <button onClick={() => remove(p)} className="p-2 text-slate-500 hover:text-rose-600 hover:bg-rose-50 rounded-lg">
+                <button onClick={() => remove(p)} className="p-2 text-slate-500 hover:text-rose-600 hover:bg-rose-50 dark:text-slate-400 dark:hover:text-rose-400 dark:hover:bg-rose-500/10 rounded-lg">
                   <Trash2 size={16} />
                 </button>
               </div>
             </div>
 
             <div className="text-xs">
-              <span className="px-2 py-0.5 rounded-full bg-slate-100 text-slate-600">{p.category}</span>
+              <span className="px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-300">{p.category}</span>
             </div>
 
-            <p className="text-xs text-slate-500 line-clamp-2 pt-1">{p.content}</p>
+            <p className="text-xs text-slate-500 dark:text-slate-400 line-clamp-2 pt-1">{p.content}</p>
           </div>
         ))}
       </div>
 
       {/* DESKTOP TABLE VIEW (Shown on md screens and larger) */}
-      <div className="hidden md:block bg-white rounded-xl border border-slate-200 overflow-x-auto">
+      <div className="hidden md:block bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 overflow-x-auto">
         <table className="w-full text-sm">
           <thead>
-            <tr className="bg-slate-50 text-slate-500 text-xs uppercase tracking-wide">
+            <tr className="bg-slate-50 dark:bg-slate-800/60 text-slate-500 dark:text-slate-400 text-xs uppercase tracking-wide">
               <th className="text-left px-5 py-3 font-medium">Situation</th>
               <th className="text-left px-5 py-3 font-medium">Category</th>
               <th className="text-left px-5 py-3 font-medium">Content</th>
@@ -176,25 +176,25 @@ export default function ProceduresView({ procedures, setProcedures, contacts }: 
           </thead>
           <tbody>
             {filtered.map((p) => (
-              <tr key={p.id} className="border-t border-slate-100 hover:bg-slate-50/60">
-                <td className="px-5 py-4 font-medium text-slate-800 max-w-[200px] break-all">
+              <tr key={p.id} className="border-t border-slate-100 dark:border-slate-800 hover:bg-slate-50/60 dark:hover:bg-slate-800/40">
+                <td className="px-5 py-4 font-medium text-slate-800 dark:text-slate-100 max-w-[200px] break-all">
                   {p.triggerSituation}
                   {p.steps?.some((s) => s.isEmergency) && (
-                    <span className="ml-2 text-xs px-2 py-0.5 rounded-full bg-rose-50 text-rose-600 font-normal">
+                    <span className="ml-2 text-xs px-2 py-0.5 rounded-full bg-rose-50 text-rose-600 dark:bg-rose-500/15 dark:text-rose-400 font-normal">
                       emergency
                     </span>
                   )}
                 </td>
                 <td className="px-5 py-4 whitespace-nowrap">
-                  <span className="text-xs px-2 py-1 rounded-full bg-slate-100 text-slate-600">{p.category}</span>
+                  <span className="text-xs px-2 py-1 rounded-full bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-300">{p.category}</span>
                 </td>
-                <td className="px-5 py-4 text-slate-500 max-w-xs truncate">{p.content}</td>
+                <td className="px-5 py-4 text-slate-500 dark:text-slate-400 max-w-xs truncate">{p.content}</td>
                 <td className="px-5 py-4 text-right whitespace-nowrap">
                   <div className="flex justify-end gap-1">
-                    <button onClick={() => openEdit(p)} className="p-2 text-slate-400 hover:text-violet-600 hover:bg-violet-50 rounded-lg">
+                    <button onClick={() => openEdit(p)} className="p-2 text-slate-400 hover:text-violet-600 hover:bg-violet-50 dark:text-slate-500 dark:hover:text-violet-400 dark:hover:bg-violet-500/10 rounded-lg">
                       <Pencil size={15} />
                     </button>
-                    <button onClick={() => remove(p)} className="p-2 text-slate-400 hover:text-rose-600 hover:bg-rose-50 rounded-lg">
+                    <button onClick={() => remove(p)} className="p-2 text-slate-400 hover:text-rose-600 hover:bg-rose-50 dark:text-slate-500 dark:hover:text-rose-400 dark:hover:bg-rose-500/10 rounded-lg">
                       <Trash2 size={15} />
                     </button>
                   </div>
@@ -224,7 +224,7 @@ export default function ProceduresView({ procedures, setProcedures, contacts }: 
             <textarea className={inputCls} rows={6} value={editing.content} onChange={(e) => setEditing({ ...editing, content: e.target.value })} placeholder="Paste the complete procedure text here." />
           </Field>
 
-          <label className="flex items-center gap-2 text-sm text-slate-600 mb-3">
+          <label className="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-300 mb-3">
             <input type="checkbox" checked={showSteps} onChange={(e) => setShowSteps(e.target.checked)} className="rounded border-slate-300 text-violet-600" />
             This procedure needs steps with contact calls (e.g., elevator, fire)
           </label>
@@ -232,29 +232,29 @@ export default function ProceduresView({ procedures, setProcedures, contacts }: 
           {showSteps && (
             <div className="space-y-3 mb-4">
               <div className="flex items-center justify-between">
-                <span className="block text-xs font-medium text-slate-500">Steps</span>
-                <button onClick={addStep} className="text-xs text-violet-600 font-medium flex items-center gap-1"><Plus size={13} /> Add Step</button>
+                <span className="block text-xs font-medium text-slate-500 dark:text-slate-400">Steps</span>
+                <button onClick={addStep} className="text-xs text-violet-600 dark:text-violet-400 font-medium flex items-center gap-1"><Plus size={13} /> Add Step</button>
               </div>
               {(editing.steps ?? []).map((s, idx) => (
-                <div key={idx} className="border border-slate-200 rounded-lg p-3 space-y-2">
+                <div key={idx} className="border border-slate-200 dark:border-slate-700 rounded-lg p-3 space-y-2">
                   <input className={inputCls} placeholder="Condition (optional)" value={s.condition ?? ""} onChange={(e) => updateStep(idx, "condition", e.target.value)} />
                   <select className={inputCls} value={s.contactId ?? ""} onChange={(e) => updateStep(idx, "contactId", e.target.value)}>
                     <option value="">No Contact (just instructions)</option>
                     {contacts.map((c) => <option key={c.id} value={c.id}>{c.organizationName}</option>)}
                   </select>
                   <input className={inputCls} placeholder="Instructions" value={s.instructions} onChange={(e) => updateStep(idx, "instructions", e.target.value)} />
-                  <label className="flex items-center gap-2 text-sm text-slate-600">
+                  <label className="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-300">
                     <input type="checkbox" checked={s.isEmergency} onChange={(e) => updateStep(idx, "isEmergency", e.target.checked)} className="rounded border-slate-300 text-rose-600" />
                     It's an emergency step
                   </label>
-                  <button onClick={() => removeStep(idx)} className="text-xs text-rose-500 font-medium">Remove Step</button>
+                  <button onClick={() => removeStep(idx)} className="text-xs text-rose-500 dark:text-rose-400 font-medium">Remove Step</button>
                 </div>
               ))}
             </div>
           )}
 
           <div className="flex justify-end gap-2 pt-2">
-            <button onClick={() => setShowModal(false)} className="px-4 py-2 text-sm text-slate-600 hover:bg-slate-50 rounded-lg">Cancel</button>
+            <button onClick={() => setShowModal(false)} className="px-4 py-2 text-sm text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg">Cancel</button>
             <PrimaryButton onClick={save}>Save procedure</PrimaryButton>
           </div>
         </Modal>
