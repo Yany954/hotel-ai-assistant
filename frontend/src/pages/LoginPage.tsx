@@ -71,25 +71,25 @@ export function LoginPage() {
 
           {resetSent ? (
             <>
-              <p className="text-sm text-slate-500 dark:text-slate-400 mt-4 mb-6">
+              <p className="text-[16px] text-slate-500 dark:text-slate-400 mt-4 mb-6">
                 If an account exists for <strong>{email}</strong>, a reset link is on its way — check your inbox.
               </p>
               <button
                 onClick={() => { setForgotMode(false); setResetSent(false); setError(null); }}
-                className="text-sm text-violet-600 hover:text-violet-800 font-medium"
+                className="text-[16px] text-violet-600 hover:text-violet-800 font-medium"
               >
                 Back to sign in
               </button>
             </>
           ) : (
             <form onSubmit={handleForgotPassword} className="text-left mt-4">
-              <p className="text-sm text-slate-500 dark:text-slate-400 mb-4 text-center">Enter your email and we'll send you a reset link.</p>
+              <p className="text-[16px] text-slate-500 dark:text-slate-400 mb-4 text-center">Enter your email and we'll send you a reset link.</p>
               <input
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="you@example.com"
-                className="w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 text-sm mb-3 focus:outline-none focus:ring-2 focus:ring-violet-200 dark:focus:ring-violet-800"
+                className="w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 text-[16px] mb-3 focus:outline-none focus:ring-2 focus:ring-violet-200 dark:focus:ring-violet-800"
               />
               {error && <p className="text-xs text-rose-600 dark:text-rose-400 mb-3">{error}</p>}
               <button
@@ -128,7 +128,7 @@ export function LoginPage() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="you@example.com"
-            className="w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 text-sm mb-2 focus:outline-none focus:ring-2 focus:ring-violet-200 dark:focus:ring-violet-800"
+            className="w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 text-[16px] mb-2 focus:outline-none focus:ring-2 focus:ring-violet-200 dark:focus:ring-violet-800"
           />
           <div className="relative mb-3">
             <input
@@ -136,7 +136,7 @@ export function LoginPage() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="Password"
-              className="w-full px-3 py-2 pr-10 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 text-sm focus:outline-none focus:ring-2 focus:ring-violet-200 dark:focus:ring-violet-800"
+              className="w-full px-3 py-2 pr-10 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 text-[16px] focus:outline-none focus:ring-2 focus:ring-violet-200 dark:focus:ring-violet-800"
             />
             <button
               type="button"

@@ -69,7 +69,7 @@ export function SetPasswordPage() {
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 text-sm mb-3 focus:outline-none focus:ring-2 focus:ring-violet-200 dark:focus:ring-violet-800"
+              className="w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 text-[16px] mb-3 focus:outline-none focus:ring-2 focus:ring-violet-200 dark:focus:ring-violet-800"
               placeholder="At least 8 characters"
             />
             <label className="block text-xs font-medium text-slate-500 dark:text-slate-400 mb-1">Confirm password</label>
@@ -77,7 +77,7 @@ export function SetPasswordPage() {
               type="password"
               value={confirm}
               onChange={(e) => setConfirm(e.target.value)}
-              className="w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 text-sm mb-3 focus:outline-none focus:ring-2 focus:ring-violet-200 dark:focus:ring-violet-800"
+              className="w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 text-[16px] mb-3 focus:outline-none focus:ring-2 focus:ring-violet-200 dark:focus:ring-violet-800"
             />
             {error && <p className="text-xs text-rose-600 dark:text-rose-400 mb-3">{error}</p>}
             <button

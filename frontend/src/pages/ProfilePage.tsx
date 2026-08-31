@@ -135,7 +135,7 @@ export function ProfilePage() {
               value={nameInput}
               onChange={(e) => setNameInput(e.target.value)}
               placeholder="John Doe"
-              className="w-full px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 text-sm focus:outline-none focus:ring-2 focus:ring-violet-200 dark:focus:ring-violet-800"
+              className="w-full px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 text-[16px] focus:outline-none focus:ring-2 focus:ring-violet-200 dark:focus:ring-violet-800"
             />
           </div>
 
@@ -146,7 +146,7 @@ export function ProfilePage() {
               value={phoneInput}
               onChange={(e) => setPhoneInput(e.target.value)}
               placeholder="+1 (803) 555-0199"
-              className="w-full px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 text-sm focus:outline-none focus:ring-2 focus:ring-violet-200 dark:focus:ring-violet-800"
+              className="w-full px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 text-[16px] focus:outline-none focus:ring-2 focus:ring-violet-200 dark:focus:ring-violet-800"
             />
           </div>
 
