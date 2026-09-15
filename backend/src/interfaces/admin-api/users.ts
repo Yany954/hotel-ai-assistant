@@ -8,7 +8,7 @@ export const usersAdminRouter = Router();
 const FRONTEND_URL = process.env.ALLOWED_ORIGIN || "http://localhost:5173";
 
 function passwordSetupSettings() {
-  return { url: `${FRONTEND_URL}/set-password`, handleCodeInApp: true };
+  return { url: `${FRONTEND_URL}/auth/action`, handleCodeInApp: true };
 }
 
 usersAdminRouter.get("/", async (_req, res) => {
