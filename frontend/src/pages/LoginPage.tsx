@@ -114,7 +114,7 @@ export function LoginPage() {
   }
 
   return (
-    <div className="flex items-center justify-center min-h-[calc(100vh-4rem)] px-4 bg-slate-50 dark:bg-slate-950">
+    <div className="flex items-center justify-center h-full px-4 bg-slate-50 dark:bg-slate-950">
       <div className="bg-white dark:bg-slate-900 p-6 sm:p-8 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm text-center max-w-sm w-full">
         <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-violet-600 to-indigo-600 flex items-center justify-center mx-auto mb-4">
           <Sparkles className="text-white" size={22} />

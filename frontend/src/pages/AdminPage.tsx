@@ -25,7 +25,7 @@ export function AdminPage() {
   }, []);
 
   return (
-    <div className="flex flex-col sm:flex-row h-[calc(100dvh-6rem)] bg-slate-50 dark:bg-slate-950 font-sans rounded-xl overflow-hidden border border-slate-200 dark:border-slate-800">
+    <div className="flex flex-col sm:flex-row h-full bg-slate-50 dark:bg-slate-950 font-sans rounded-xl overflow-hidden border border-slate-200 dark:border-slate-800">
       <SideBar active={active} onNavigate={setActive} />
       <main className="flex-1 overflow-y-auto p-4 sm:p-8">
         {active === "contacts" && <ContactsView contacts={contacts} setContacts={setContacts} />}

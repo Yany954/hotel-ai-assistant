@@ -8,13 +8,16 @@ import { RequireAuth } from './components/Login/RequireAuth'
 import { LoginPage } from './pages/LoginPage'
 import { Header } from './components/Layout/Header'
 import { SetPasswordPage } from "./pages/SetPassword";
+import { useViewportHeight } from "./hooks/useViewportHeight";
+import { AuthActionPage } from "./pages/AuthActionPage";
 
-ReactDOM.createRoot(document.getElementById('root')!).render(
-  <React.StrictMode>
+function App() {
+  useViewportHeight();
+  return (
     <BrowserRouter>
-      <div className="min-h-screen bg-slate-50 dark:bg-slate-950 transition-colors">
+      <div className="h-[var(--app-height,100dvh)] flex flex-col bg-slate-50 dark:bg-slate-950 transition-colors">
         <Header />
-        <div className="p-3 sm:p-4">
+        <div className="flex-1 min-h-0 overflow-y-auto p-3 sm:p-4">
           <Routes>
             <Route path="/login" element={<LoginPage />} />
             <Route path="/" element={<Navigate to="/chatpage" replace />} />
@@ -22,9 +25,16 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
             <Route path="/chatpage" element={<RequireAuth><ChatPage /></RequireAuth>} />
             <Route path="/profile" element={<RequireAuth><ProfilePage /></RequireAuth>} />
             <Route path="/set-password" element={<SetPasswordPage />} />
+            <Route path="/auth-action" element={<AuthActionPage />} />
           </Routes>
         </div>
       </div>
     </BrowserRouter>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')!).render(
+  <React.StrictMode>
+    <App />
   </React.StrictMode>
 )

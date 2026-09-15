@@ -197,7 +197,7 @@ export function ChatPage() {
   );
 
   return (
-    <div className="flex h-[calc(100dvh-6rem)] bg-slate-50 dark:bg-slate-950 rounded-xl border border-slate-200 dark:border-slate-800 overflow-hidden relative">
+    <div className="flex h-full bg-slate-50 dark:bg-slate-950 rounded-xl border border-slate-200 dark:border-slate-800 overflow-hidden relative">
       {/* Desktop sidebar */}
       <aside className="hidden sm:flex w-64 shrink-0 bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 flex-col">
         {conversationList}
