@@ -3,7 +3,7 @@ import dotenv from "dotenv";
 import path from "path";
 import fs from "fs";
 
-dotenv.config({ path: path.resolve(__dirname, "../.env") });
+dotenv.config({ path: path.resolve(__dirname, "../.env.dev") });
 
 // Sanity check rápido — bórralo una vez que confirmes que carga bien
 console.log("FIREBASE_PROJECT_ID:", process.env.FIREBASE_PROJECT_ID);

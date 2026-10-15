@@ -1,7 +1,5 @@
-import OpenAI from "openai";
+import { openai } from "./openai-instance";
 import { IntentRouter, Intent, ConversationTurn } from "../../application/router/intent-router";
-
-const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
 const VALID_INTENTS: Intent[] = ["greeting", "off_topic", "room_matching", "contacts_directory", "procedure", "general_info"];
 
@@ -14,7 +12,7 @@ export class OpenAiIntentRouter implements IntentRouter {
           .join("\n")}\n\n`
       : "";
 
-    const response = await openai.chat.completions.create({
+    const response = await openai().chat.completions.create({
       model: "gpt-4o-mini",
       messages: [
         {

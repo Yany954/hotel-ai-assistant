@@ -1,12 +1,11 @@
-import OpenAI from "openai";
+import { openai } from "./openai-instance";
 import { LlmClient, LlmMessage } from "../../application/ports/llm-client";
 import { HOTEL_SYSTEM_CONTEXT } from "../../shared/hotel-context";
 
-const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
 export class OpenAiLlmClient implements LlmClient {
   async extractRoomCriteria(guestDescription: string): Promise<Record<string, unknown>> {
-    const response = await openai.chat.completions.create({
+    const response = await openai().chat.completions.create({
       model: "gpt-4o-mini",
       messages: [
         { role: "system", content: "Extract ONLY room criteria explicitly stated in the message — whether it's phrased as a guest's request (\"I need 2 queen beds\") or staff asking about inventory (\"how many queen beds do we have\"). Both describe the same filter: bedType queen. Never infer or guess a value that wasn't stated — if a field isn't mentioned, leave it out entirely rather than guessing a value for it.- hasConnectingRoom: boolean (Set to true ONLY if the user asks for connecting/adjoining rooms in general, e.g., 'do we have connected rooms?' or 'rooms with connecting doors') - connectingRoomNumber: string (Set ONLY if the user asks for a room connected to a specific room number, e.g., 'which room connects to 227?'')" },
@@ -47,7 +46,7 @@ export class OpenAiLlmClient implements LlmClient {
   }
 
   async complete(messages: LlmMessage[]): Promise<string> {
-    const response = await openai.chat.completions.create({
+    const response = await openai().chat.completions.create({
       model: "gpt-4o-mini",
       max_tokens: 600,
       temperature: 0.3,

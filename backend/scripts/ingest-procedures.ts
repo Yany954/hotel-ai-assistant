@@ -1,7 +1,7 @@
 import dotenv from "dotenv";
 import path from "path";
 import fs from "fs";
-dotenv.config({ path: path.resolve(__dirname, "../.env") });
+dotenv.config({ path: path.resolve(__dirname, "../.env.dev") });
 
 interface ParsedArticle {
   triggerSituation: string;

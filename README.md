@@ -29,7 +29,15 @@ cd backend
 npm install
 npm run dev
 
-Starts the server in watch mode (auto-reload on save). The chat endpoint lives in src/interfaces/chat-api/server.ts.
+Starts the server in watch mode (auto-reload on save), reading env vars from backend/.env.dev. The Express app (all routes) lives in src/interfaces/chat-api/app.ts.
+
+Production — the same Express app is deployed as a single Firebase Function named `api` (src/index.ts):
+
+cd backend
+firebase functions:secrets:set OPENAI_API_KEY   # first time only
+npm run deploy
+
+Non-secret production env vars (ALLOWED_ORIGIN) live in backend/.env.hotel-ai-assistant-6d3c5. Don't keep a backend/.env file: the Firebase CLI would upload it, and it rejects FIREBASE_* variable names.
 
 Frontend (React) — the interface used by front desk staff and admins:
 

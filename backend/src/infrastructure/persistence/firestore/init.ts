@@ -6,16 +6,18 @@ const projectId = process.env.FIREBASE_PROJECT_ID;
 const clientEmail = process.env.FIREBASE_CLIENT_EMAIL;
 const privateKey = process.env.FIREBASE_PRIVATE_KEY?.replace(/\\n/g, "\n");
 
-if (!projectId || !clientEmail || !privateKey) {
-  throw new Error("Faltan variables de entorno de Firebase en el archivo .env");
+// Local dev / scripts: explicit service-account credentials from .env.dev.
+// Firebase Functions: no credentials needed — the function's runtime service account is used.
+if (projectId && clientEmail && privateKey) {
+  initializeApp({
+    credential: cert({
+      projectId,
+      clientEmail,
+      privateKey,
+    }),
+  });
+} else {
+  initializeApp();
 }
-
-initializeApp({
-  credential: cert({
-    projectId,
-    clientEmail,
-    privateKey,
-  }),
-});
 
 export const db = getFirestore();

@@ -5,7 +5,7 @@ import { db } from "../../infrastructure/persistence/firestore/init";
 
 export const usersAdminRouter = Router();
 
-const FRONTEND_URL = process.env.ALLOWED_ORIGIN || "http://localhost:5173";
+const FRONTEND_URL = (process.env.ALLOWED_ORIGIN || "http://localhost:5173").split(",")[0].trim();
 
 function passwordSetupSettings() {
   return { url: `${FRONTEND_URL}/auth/action`, handleCodeInApp: true };

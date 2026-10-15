@@ -1,6 +1,6 @@
 // The ONLY file allowed to know the backend's URL. Every LLM call goes through our own backend
-// (src/interfaces/chat-api/), never straight from the browser to Anthropic — the API key must
-// never reach client-side code.
+// (the "api" Firebase Function, backend/src/index.ts), never straight from the browser to the LLM
+// provider — the API key must never reach client-side code.
 
 import { Room } from "../types/room";
 import {Contact} from "../types/contact";
@@ -9,7 +9,11 @@ import { EscalationProcedure } from "../types/escalation";
 import { Conversation, ConversationMessage } from "../types/conversation";
 import { Profile } from "../types/profile";
 
-const BASE_URL = import.meta.env.VITE_API_URL ?? "http://localhost:3000";
+// Production: the "api" Firebase Function. Local dev: the Express server from `npm run dev` in
+// backend/. VITE_API_URL overrides both (e.g. the Functions emulator:
+// http://127.0.0.1:5001/hotel-ai-assistant-6d3c5/us-central1/api).
+const FUNCTIONS_URL = `https://us-central1-${import.meta.env.VITE_FIREBASE_PROJECT_ID}.cloudfunctions.net/api`;
+const BASE_URL = import.meta.env.VITE_API_URL || (import.meta.env.DEV ? "http://localhost:3000" : FUNCTIONS_URL);
 
 async function request<T>(path: string, options?: RequestInit): Promise<T> {
   const token = await auth.currentUser?.getIdToken();

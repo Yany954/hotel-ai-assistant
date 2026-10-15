@@ -1,7 +1,11 @@
 frontend/node_modules
-backend/modules
+backend/node_modules
 backend/.env
 .env.local
 .env
 dist
 *.log
+.env.dev
+backend/.firebase
+firebase-debug.log
+.secret.local
